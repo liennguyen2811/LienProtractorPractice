@@ -7,3 +7,4 @@ var Browser;
     Browser["IE"] = "internet explorer";
     Browser["EDGE"] = "MicrosoftEdge";
 })(Browser = exports.Browser || (exports.Browser = {}));
+//# sourceMappingURL=platform.js.map

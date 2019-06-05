@@ -24,10 +24,8 @@ describe('Protractor Demo Maximize', function () {
             console.log("Switch IFrame2 element");
             protractor_1.browser.switchTo().frame(frame3);
             let checkbox = protractor_1.element(protractor_1.by.xpath("//input[@type='checkbox']"));
-            // if check box is not selected then click the checkbox
             yield checkbox.isSelected().then(function (checked) {
                 return __awaiter(this, void 0, void 0, function* () {
-                    // if check box is not selected then click the checkbox
                     if (!checked) {
                         console.log("Get checkbox");
                         checkbox.click();
@@ -38,3 +36,4 @@ describe('Protractor Demo Maximize', function () {
         });
     });
 });
+//# sourceMappingURL=example5.js.map

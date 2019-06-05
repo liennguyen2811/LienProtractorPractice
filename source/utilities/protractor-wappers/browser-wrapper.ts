@@ -2,7 +2,7 @@ import { protractor, ProtractorBrowser, By, WebElement, ActionSequence, Button, 
 import { FunctionType, Logger } from "../general/logger";
 import { errorwrapper } from "./error-wapper";
 import { async } from "q";
-import { Alert, ISize } from "selenium-webdriver";
+import { Alert, ISize, Condition, WebDriver, promise } from "selenium-webdriver";
 
 
 
@@ -358,4 +358,27 @@ export default class BrowserWrapper {
             throw new errorwrapper.CustomError(this.waitForAngularEnabled,err.message);
         }
     }
+    /**
+     * Schedules a command to wait for a condition to hold. The condition may be
+     * specified by a {@link Condition}, as a custom function, or
+     * as a {@link promise.Promise}.
+     * @static 
+     * @param {WebElementCondition} condition The condition to 
+     * wait on, defined as a promise, condition object, or  a function to
+     * evaluate as a condition.
+     * @param {number} [opt_timeout] How long to wait for the condition to be true.
+     * @param {string} [opt_message] An optional message to use if the wait times out.
+     * @returns {WebElementPromise} A promise that will be fulfilled
+     * with the first truthy value returned by the condition function, or
+     * rejected if the condition times out.
+     * @memberof BrowserWrapper
+     */
+    public static wait<T>(condition: PromiseLike<T> | Condition<T> | ((driver: WebDriver) => T | PromiseLike<T>) | Function, opt_timeout?: number, opt_message?: string): promise.Promise<T> {
+        try {
+            return BrowserWrapper.getDriverInstance().wait(condition, opt_timeout, opt_message);
+        } catch (err) {
+            throw new errorwrapper.CustomError(this.wait, err.message);
+        }
+    }
+
 }
