@@ -1,0 +1,1 @@
+{"version":3,"file":"register-page.js","sourceRoot":"","sources":["../../page-objects/register-page.ts"],"names":[],"mappings":";;;;;;;;;;;;;AAAA,kEAAyC;AAEzC,MAAqB,YAAa,SAAQ,sBAAW;IAK1C,MAAM,CAAO,uBAAuB;;YACvC,IAAI,CAAC,aAAa,GAAG,IAAI,YAAY,EAAE,CAAC;YACxC,OAAO,IAAI,CAAC,aAAa,CAAC;QAC9B,CAAC;KAAA;CAEJ;AAVD,+BAUC"}

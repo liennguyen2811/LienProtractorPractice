@@ -1,6 +1,14 @@
 import ElementWrapper from "../utilities/protractor-wappers/element-wrapper";
 import { by } from "protractor";
 import { errorwrapper } from "../utilities/protractor-wappers/error-wapper";
+import LoginPage from "./login-page";
+import { Logger, FunctionType } from "../utilities/general/logger";
+import RegisterPage from "./register-page";
+import ChangePassWordPage from "./change-password-page";
+import TimeTablePage from "./time-table-page";
+import BookTicketPage from "./book-ticket-page";
+import TicketPricePage from "./ticket-price-page";
+import MyTicketPage from "./myticket-page";
 
 export default class GeneralPage {
 
@@ -25,6 +33,25 @@ export default class GeneralPage {
 	protected lblBookTicketMessage = new ElementWrapper(by.xpath("//div[@id='content']//h1[text()='Ticket booked successfully!']"));
 	protected lbTicketPriceHeaderMessage = new ElementWrapper(by.xpath("//table[@class='MyTable MedTable']//tr[@class='TableSmallHeader']/th"));
 
+    // Dynamic control
+    protected cellTable(tablename: string,rowindex: number,columnname: string ): ElementWrapper {
+		return new ElementWrapper(by.xpath(`"//table[@class='${tablename}']//tr['${rowindex}']/td[count(//th[.= '${columnname}']//preceding-sibling::th) + 1]`));
+    }
+    protected cellTableCheckPrice(tablename: string,rowindex: number,columnname: string ): ElementWrapper {
+		return new ElementWrapper(by.xpath(`"//table[@class='${tablename}']//tr[{1}]/td[count(//th[.='${rowindex}']//preceding-sibling::th) + '${columnname}']`));
+    }
+    protected rowNumber(table: string): ElementWrapper {
+		return new ElementWrapper(by.xpath(`//table[@class='${table}']//tr`));
+    }
+    protected collunmNumber(table: string): ElementWrapper {
+		return new ElementWrapper(by.xpath(`//table[@class='${table}']//td`));
+    }
+    protected checkPrice(train: string): ElementWrapper {
+		return new ElementWrapper(by.xpath(`//table[@class='NoBorder']//td[.='${train}']/following-sibling::td[.='Check Price']`));
+    }
+    protected bookTicket(seattype: string): ElementWrapper {
+		return new ElementWrapper(by.xpath(`//table[@class='NoBorder']//td[.='${seattype}']/following-sibling::td[.='Book ticket']`));
+	}
     public static async getInstance(): Promise<GeneralPage>{
         this._generalPage = new GeneralPage();
         //await this._generalPage.waitForLoading try to find spiner to handle the line
@@ -126,9 +153,145 @@ export default class GeneralPage {
         throw new errorwrapper.CustomError(this.getLbTicketPriceHeaderMessage,err.message)
     }
     }
-    // public async LoginPage gotoLoginPage(): Promise<>
-	// {
-	// 	this.getTabLogin().click();
-	// 	return new LoginPage();
-	// }
+    /**
+     * Go to LoginPage
+     * @returns {Promise<LoginPage>}
+     * @memberof GeneralPage
+     */
+    public async gotoLoginPage(): Promise<LoginPage>
+	{ try{
+        await Logger.write(FunctionType.UI, `Going to Login Page`)
+        this.tabLogin.click();
+        return await LoginPage.getLoginPageInstance();
+    } catch(err){
+        throw new errorwrapper.CustomError(this.gotoLoginPage, err.message)
+    }     
+    }
+    /**
+     * Go to Register Page
+     * @returns {Promise<RegisterPage>}
+     * @memberof GeneralPage
+     */
+    public async gotoRegisterPage(): Promise<RegisterPage>
+	{ try{
+        await Logger.write(FunctionType.UI, `Going to Register Page`)
+        this.tabLogin.click();
+        return await RegisterPage.getRegisterPageInstance();
+    } catch(err){
+        throw new errorwrapper.CustomError(this.gotoRegisterPage, err.message)
+    }     
+    }
+     /**
+     * Go to Change password Page
+     * @returns {Promise<ChangePassWordPage>}
+     * @memberof GeneralPage
+     */
+    public async gotoChangePassword(): Promise<ChangePassWordPage>
+	{ try{
+        await Logger.write(FunctionType.UI, `Going to Change Password Page`)
+        this.tabLogin.click();
+        return await ChangePassWordPage.getChangePassWordInstance();
+    } catch(err){
+        throw new errorwrapper.CustomError(this.gotoChangePassword, err.message)
+    }     
+    }
+    /**
+     * Go to Time table Page
+     * @returns {Promise<TimeTablePage>}
+     * @memberof GeneralPage
+     */
+    public async gotoTabTimeTable(): Promise<TimeTablePage>
+	{ try{
+        await Logger.write(FunctionType.UI, `Going to Time table page`)
+        this.tabLogin.click();
+        return await TimeTablePage.getTimeTablePageInstance();
+    } catch(err){
+        throw new errorwrapper.CustomError(this.gotoTabTimeTable, err.message)
+    }     
+    }
+    /**
+     * Go to book ticket Page
+     * @returns {Promise<BookTicketPage>}
+     * @memberof GeneralPage
+     */
+    public async gotoBookTicket(): Promise<BookTicketPage>
+	{ try{
+        await Logger.write(FunctionType.UI, `Going to book ticket page`)
+        this.tabLogin.click();
+        return await BookTicketPage.getBookTickeInstance();
+    } catch(err){
+        throw new errorwrapper.CustomError(this.gotoBookTicket, err.message)
+    }     
+    }
+    /**
+     * Go to ticket price Page
+     * @returns {Promise<TicketPricePage>}
+     * @memberof GeneralPage
+     */
+    public async gotoTicketPricePage(): Promise<TicketPricePage>
+	{ try{
+        await Logger.write(FunctionType.UI, `Going to ticket price page`)
+        this.tabLogin.click();
+        return await TicketPricePage.getTicketPricePageInstance();
+    } catch(err){
+        throw new errorwrapper.CustomError(this.gotoTicketPricePage, err.message)
+    }     
+    }
+     /**
+     * Go to my ticket Page
+     * @returns {Promise<MyTicketPage>}
+     * @memberof GeneralPage
+     */
+    public async gotoMyTicketPage(): Promise<MyTicketPage>
+	{ try{
+        await Logger.write(FunctionType.UI, `Going to ticket page`)
+        this.tabLogin.click();
+        return await MyTicketPage.getMyTicketPageInstance();
+    } catch(err){
+        throw new errorwrapper.CustomError(this.gotoMyTicketPage, err.message)
+    }     
+    }
+    public async getTableCellValue(tablename: string, rowindex : number, columnname: string)
+    {
+      try{
+        return this.cellTable(tablename, rowindex, columnname).getText();
+      } catch (err){
+          throw new errorwrapper.CustomError(this.getTableCellValue,message)
+      }                
+    }
+    public async getTableCellValueCheckPrice(tablename: string, rowindex : number, columnname: string)
+    {
+      try{
+        return this.cellTableCheckPrice(tablename, rowindex, columnname).getText();
+      } catch (err){
+          throw new errorwrapper.CustomError(this.getTableCellValueCheckPrice,message)
+      }                
+    }
+    public async getRowNumber(table: string)
+    {
+      try{
+        return this.rowNumber(table).getSize()
+      } catch (err){
+          throw new errorwrapper.CustomError(this.getRowNumber,message)
+      }                
+    }
+    public async getcollunmNumber(table: string)
+    {
+      try{
+        return this.rowNumber(table).getSize()
+      } catch (err){
+          throw new errorwrapper.CustomError(this.getcollunmNumber,message)
+      }                
+    }
+    public async bookTicketFromTicketPrice(departstation: string,arrivestation: string,seattype: string): Promise<BookTicketPage>
+     {
+         try{
+         let train : string = departstation + " to " + arrivestation;
+         await this.checkPrice(train).click();
+         await this.bookTicket(seattype).click();
+         return await BookTicketPage.getBookTickeInstance()
+         } catch(err){
+             throw new errorwrapper.CustomError(this.bookTicketFromTicketPrice, err.message)
+         }
+     }
 }

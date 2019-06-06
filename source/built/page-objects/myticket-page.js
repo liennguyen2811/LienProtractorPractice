@@ -12,22 +12,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const general_page_1 = __importDefault(require("./general-page"));
-const browser_wrapper_1 = __importDefault(require("../utilities/protractor-wappers/browser-wrapper"));
-const test_run_info_1 = __importDefault(require("../data-objects/data-objects/general/test-run-info"));
-class HomePage extends general_page_1.default {
-    static getHomePageInstance() {
+class MyTicketPage extends general_page_1.default {
+    static getMyTicketPageInstance() {
         return __awaiter(this, void 0, void 0, function* () {
-            this._homePage = new HomePage();
-            return this._homePage;
-        });
-    }
-    static navigateToWebPage(url) {
-        return __awaiter(this, void 0, void 0, function* () {
-            yield browser_wrapper_1.default.restart();
-            yield browser_wrapper_1.default.maximize();
-            yield browser_wrapper_1.default.get(test_run_info_1.default.RAILWAY_URL);
+            this._myTicketPage = new MyTicketPage();
+            return this._myTicketPage;
         });
     }
 }
-exports.default = HomePage;
-//# sourceMappingURL=home-page.js.map
+exports.default = MyTicketPage;
+//# sourceMappingURL=myticket-page.js.map

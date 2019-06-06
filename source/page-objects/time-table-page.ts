@@ -5,7 +5,7 @@ export default class TimeTablePage extends GeneralPage{
 
     // element
 
-    public static async getHomePageInstance(): Promise<TimeTablePage>{
+    public static async getTimeTablePageInstance(): Promise<TimeTablePage>{
         this._timeTablePage = new TimeTablePage();
         return this._timeTablePage;
     }
