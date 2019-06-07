@@ -272,7 +272,9 @@ export default class GeneralPage {
     public async getRowNumber(table: string)
     {
       try{
-        let xpath: string = String.prototype.for("//table[@class='{0}']//tr", table);
+        const StringFormat = (str: string, ...args: string[]) =>
+        str.replace(/{(\d+)}/g, (match, index) => args[index] || '')
+        let xpath: string = StringFormat("//table[@class='{0}']//tr", table);
         return BrowserWrapper.getDriverInstance().FindElements(By.xpath(xpath)).count();
 
       } catch (err){

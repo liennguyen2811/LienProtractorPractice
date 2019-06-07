@@ -255,7 +255,8 @@ class GeneralPage {
     getRowNumber(table) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                let xpath = String.prototype.for("//table[@class='{0}']//tr", table);
+                const StringFormat = (str, ...args) => str.replace(/{(\d+)}/g, (match, index) => args[index] || '');
+                let xpath = StringFormat("//table[@class='{0}']//tr", table);
                 return browser_wrapper_1.default.getDriverInstance().FindElements(selenium_webdriver_1.By.xpath(xpath)).count();
             }
             catch (err) {
