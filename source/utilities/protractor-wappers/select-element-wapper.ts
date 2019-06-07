@@ -1,4 +1,4 @@
-import TestRunInfo from "../../data-objects/data-objects/general/test-run-info";
+import TestRunInfo from "../../data-objects/general/test-run-info";
 import { Locator, by } from "protractor";
 import ElementWrapper from "./element-wrapper";
 import StopWatch from "../general/stop-watch";

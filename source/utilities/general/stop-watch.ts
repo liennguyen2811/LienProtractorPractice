@@ -2,7 +2,7 @@ import { errorwrapper } from "../protractor-wappers/error-wapper";
 
 export default class StopWatch {
 
-    private _startTime: number = 0;
+    private _startTime: number | undefined;
 
     /**
      * Start clock to count

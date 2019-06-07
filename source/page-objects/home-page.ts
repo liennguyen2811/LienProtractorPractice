@@ -1,6 +1,6 @@
 import GeneralPage from "./general-page";
 import BrowserWrapper from "../utilities/protractor-wappers/browser-wrapper";
-import TestRunInfo from "../data-objects/data-objects/general/test-run-info";
+import TestRunInfo from "../data-objects/general/test-run-info";
 
 export default class HomePage extends GeneralPage{
     private static _homePage: HomePage;

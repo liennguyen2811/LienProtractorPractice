@@ -4,9 +4,9 @@ import { ILocation, ISize } from "selenium-webdriver";
 import StopWatch from "../general/stop-watch";
 import BrowserWrapper from "./browser-wrapper";
 import { errorwrapper } from "./error-wapper";
-import { CoordinateType } from "../../data-objects/data-objects/general/general";
-import TestRunInfo from "../../data-objects/data-objects/general/test-run-info";
-import { Browser } from "../../data-objects/data-objects/general/platform";
+import { CoordinateType } from "../../data-objects/general/general";
+import TestRunInfo from "../../data-objects/general/test-run-info";
+import { Browser } from "../../data-objects/general/platform";
 
 export default class ElementWrapper {
     private _elementTimeout: number = 60;
@@ -319,7 +319,7 @@ export default class ElementWrapper {
             await this.wait(stopWatch.getTimeLeftInSecond(timeoutInSecond));
 
             if (tagName.toLowerCase() == "div") {
-                let childElement= await this._element.element(by.xpath('(//input[not(@disabled)])[1]'));
+                let childElement = await this._element.element(by.xpath('(//input[not(@disabled)])[1]'));
                 isChecked = await childElement.isSelected();
             } else if (tagName.toLowerCase() == "input") {
                 isChecked = await this._element.isSelected();
