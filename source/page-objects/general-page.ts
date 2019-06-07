@@ -9,6 +9,8 @@ import TimeTablePage from "./time-table-page";
 import BookTicketPage from "./book-ticket-page";
 import TicketPricePage from "./ticket-price-page";
 import MyTicketPage from "./myticket-page";
+import BrowserWrapper from "../utilities/protractor-wappers/browser-wrapper";
+import { By } from "selenium-webdriver";
 
 export default class GeneralPage {
 
@@ -270,7 +272,9 @@ export default class GeneralPage {
     public async getRowNumber(table: string)
     {
       try{
-        return this.rowNumber(table).getSize()
+        let xpath: string = String.prototype.for("//table[@class='{0}']//tr", table);
+        return BrowserWrapper.getDriverInstance().FindElements(By.xpath(xpath)).count();
+
       } catch (err){
           throw new errorwrapper.CustomError(this.getRowNumber,message)
       }                

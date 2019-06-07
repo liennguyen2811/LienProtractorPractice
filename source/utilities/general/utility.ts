@@ -13,7 +13,7 @@ export class Utility{
 	 * @returns new string
 	 * @memberof Gmail
 	 */
-	public insert(str: string, index: number, value: any): string {
+	public static insert(str: string, index: number, value: any): string {
 		try {
 			return str.substr(0, index) + value + str.substr(index);
 		} catch (err) {
@@ -234,5 +234,5 @@ export class Utility{
 			return result;
 	}
 }
-}
+
 

@@ -1,0 +1,172 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const error_wapper_1 = require("../protractor-wappers/error-wapper");
+const v4_1 = __importDefault(require("uuid/v4"));
+const test_run_info_1 = require("../../data-objects/general/test-run-info");
+class Utility {
+    static insert(str, index, value) {
+        try {
+            return str.substr(0, index) + value + str.substr(index);
+        }
+        catch (err) {
+            throw new error_wapper_1.errorwrapper.CustomError(this.insert, err.message);
+        }
+    }
+    static getRandomNumber(length, min = -1, max = -1) {
+        try {
+            let randomNumber;
+            if (min == -1 && max == -1) {
+                let firstNumber = Math.floor((Math.random() * 9) + 1);
+                let result = "";
+                for (let i = 1; i < length; i++) {
+                    result += Math.floor(Math.random() * 10).toString();
+                }
+                randomNumber = parseInt(firstNumber + result);
+            }
+            else {
+                randomNumber = Math.floor(Math.random() * (max - min + 1) + min);
+            }
+            return randomNumber;
+        }
+        catch (err) {
+            throw new error_wapper_1.errorwrapper.CustomError(this.getRandomNumber, err.message);
+        }
+    }
+    static getRandomGmailByIndex() {
+        try {
+            let today = (new Date().getTime());
+            let index = Math.floor(Math.abs(today - 1525340325732));
+            let email = "testautomationrailway";
+            let hexIndex = index.toString(2);
+            let hexIndexArray = hexIndex.split("");
+            for (let i = 0; i < hexIndexArray.length; i++) {
+                if (hexIndexArray[i] == "1") {
+                    email = this.insert(email, email.length - hexIndexArray.length + i, ".");
+                }
+            }
+            if (email.startsWith(".") == true) {
+                return email.substring(1, email.length) + "@gmail.com";
+            }
+            return email + "@gmail.com";
+        }
+        catch (err) {
+            throw new error_wapper_1.errorwrapper.CustomError(this.getRandomGmailByIndex, err.message);
+        }
+    }
+    static createRandomString(length, prefix = "") {
+        try {
+            if (length < 1 || isNaN(length)) {
+                throw 'Invalid input. Should be a number greater than 0';
+            }
+            let uuid = v4_1.default().replace(/-/g, '');
+            let uuidLength = uuid.length;
+            let prefixLength = prefix.length;
+            if (length > uuidLength) {
+                let repetition = Math.ceil(length / uuidLength);
+                uuid = uuid.repeat(repetition);
+            }
+            let randomString = prefix + uuid.substring(0, length - prefixLength);
+            return randomString;
+        }
+        catch (err) {
+            throw new error_wapper_1.errorwrapper.CustomError(this.createRandomString, err.message);
+        }
+    }
+    static addDateToCurrentDate(day = 0, month = 0, year = 0, dayFormat = "", monthFormat = "", yearFormat = "") {
+        try {
+            let tmpdate = new Date(Date.now());
+            var date = new Date(Date.now());
+            if (day != null) {
+                date = new Date(tmpdate.setDate(tmpdate.getDate() + day));
+            }
+            if (month != null) {
+                date = new Date(tmpdate.setMonth(tmpdate.getMonth() + month));
+            }
+            if (year != null) {
+                date = new Date(tmpdate.setFullYear(tmpdate.getFullYear() + year));
+            }
+            if (dayFormat == "") {
+                dayFormat = "numeric";
+            }
+            if (monthFormat == "") {
+                monthFormat = "2-digit";
+            }
+            if (yearFormat == "") {
+                yearFormat = "numeric";
+            }
+            var options = { year: `${yearFormat}`, month: `${monthFormat}`, day: `${dayFormat}` };
+            return date.toLocaleString('en-US', options);
+        }
+        catch (err) {
+            throw new error_wapper_1.errorwrapper.CustomError(this.addDateToCurrentDate, err.message);
+        }
+    }
+    static GenerateStation() {
+        let list = [];
+        list.push(this.TranslateStation(test_run_info_1.Station.DANANG));
+        list.push(this.TranslateStation(test_run_info_1.Station.PHANTHIET));
+        list.push(this.TranslateStation(test_run_info_1.Station.NHATRANG));
+        list.push(this.TranslateStation(test_run_info_1.Station.DANANG));
+        list.push(this.TranslateStation(test_run_info_1.Station.HUE));
+        list.push(this.TranslateStation(test_run_info_1.Station.QUANGNGAI));
+        var randomStation = list[Math.floor(Math.random() * list.length)];
+        return randomStation;
+    }
+    static GenerateSeatType() {
+        let list = [];
+        list.push(this.TranslateSeatType(test_run_info_1.SeatType.HARDBED));
+        list.push(this.TranslateSeatType(test_run_info_1.SeatType.SOFTSEAT));
+        list.push(this.TranslateSeatType(test_run_info_1.SeatType.SOFTSEATWITHAIR));
+        list.push(this.TranslateSeatType(test_run_info_1.SeatType.HARDBED));
+        list.push(this.TranslateSeatType(test_run_info_1.SeatType.SOFTBED));
+        list.push(this.TranslateSeatType(test_run_info_1.SeatType.SOFTBEDWITHAIR));
+        var randomStation = list[Math.floor(Math.random() * list.length)];
+        return randomStation;
+    }
+    static TranslateStation(station) {
+        let result = "";
+        if (station == test_run_info_1.Station.SAIGON) {
+            result = "Sài Gòn";
+        }
+        else if (station == test_run_info_1.Station.PHANTHIET) {
+            result = "Phan Thiết";
+        }
+        else if (station == test_run_info_1.Station.NHATRANG) {
+            result = "Nha Trang";
+        }
+        else if (station == test_run_info_1.Station.DANANG) {
+            result = "Đà Nẵng";
+        }
+        else if (station == test_run_info_1.Station.HUE) {
+            result = "Huế";
+        }
+        else if (station == test_run_info_1.Station.QUANGNGAI) {
+            result = "Quãng Ngãi";
+        }
+        return result;
+    }
+    static TranslateSeatType(seattype) {
+        let result = "";
+        if (seattype == test_run_info_1.SeatType.HARDBED) {
+            result = "Hard bed";
+        }
+        else if (seattype == test_run_info_1.SeatType.SOFTSEAT) {
+            result = "Soft seat";
+        }
+        else if (seattype == test_run_info_1.SeatType.SOFTSEATWITHAIR) {
+            result = "Soft seat with air conditioner";
+        }
+        else if (seattype == test_run_info_1.SeatType.SOFTBED) {
+            result = "Soft bed";
+        }
+        else if (seattype == test_run_info_1.SeatType.SOFTBEDWITHAIR) {
+            result = "Soft bed with air conditioner";
+        }
+        return result;
+    }
+}
+exports.Utility = Utility;
+//# sourceMappingURL=utility.js.map

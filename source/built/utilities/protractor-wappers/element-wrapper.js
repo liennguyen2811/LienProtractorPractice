@@ -15,9 +15,9 @@ const protractor_1 = require("protractor");
 const stop_watch_1 = __importDefault(require("../general/stop-watch"));
 const browser_wrapper_1 = __importDefault(require("./browser-wrapper"));
 const error_wapper_1 = require("./error-wapper");
-const general_1 = require("../../data-objects/data-objects/general/general");
-const test_run_info_1 = __importDefault(require("../../data-objects/data-objects/general/test-run-info"));
-const platform_1 = require("../../data-objects/data-objects/general/platform");
+const general_1 = require("../../data-objects/general/general");
+const test_run_info_1 = __importDefault(require("../../data-objects/general/test-run-info"));
+const platform_1 = require("../../data-objects/general/platform");
 class ElementWrapper {
     constructor(obj) {
         this._elementTimeout = 60;

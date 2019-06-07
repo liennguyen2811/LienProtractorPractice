@@ -2,7 +2,7 @@ import { errorwrapper } from "../protractor-wappers/error-wapper";
 
 export default class StopWatch {
 
-    private _startTime: number | undefined;
+    private _startTime: number = 0;
 
     /**
      * Start clock to count
@@ -11,7 +11,7 @@ export default class StopWatch {
      */
     public startClock(): void{
         try{
-            if (this._startTime == null){
+            if (this._startTime == 0){
                 this._startTime = new Date().getTime();
             } else{
                 throw Error ("Clock has already started");

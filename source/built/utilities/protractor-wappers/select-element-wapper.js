@@ -11,7 +11,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const test_run_info_1 = __importDefault(require("../../data-objects/data-objects/general/test-run-info"));
+const test_run_info_1 = __importDefault(require("../../data-objects/general/test-run-info"));
 const protractor_1 = require("protractor");
 const element_wrapper_1 = __importDefault(require("./element-wrapper"));
 const stop_watch_1 = __importDefault(require("../general/stop-watch"));

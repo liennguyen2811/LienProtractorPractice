@@ -22,6 +22,8 @@ const time_table_page_1 = __importDefault(require("./time-table-page"));
 const book_ticket_page_1 = __importDefault(require("./book-ticket-page"));
 const ticket_price_page_1 = __importDefault(require("./ticket-price-page"));
 const myticket_page_1 = __importDefault(require("./myticket-page"));
+const browser_wrapper_1 = __importDefault(require("../utilities/protractor-wappers/browser-wrapper"));
+const selenium_webdriver_1 = require("selenium-webdriver");
 class GeneralPage {
     constructor() {
         this.tabLogin = new element_wrapper_1.default(protractor_1.by.xpath("//div[@id= 'menu']//a[@href = '/Account/Login.cshtml']"));
@@ -253,7 +255,8 @@ class GeneralPage {
     getRowNumber(table) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return this.rowNumber(table).getSize();
+                let xpath = String.prototype.for("//table[@class='{0}']//tr", table);
+                return browser_wrapper_1.default.getDriverInstance().FindElements(selenium_webdriver_1.By.xpath(xpath)).count();
             }
             catch (err) {
                 throw new error_wapper_1.errorwrapper.CustomError(this.getRowNumber, message);

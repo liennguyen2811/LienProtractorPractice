@@ -7,7 +7,7 @@ class StopWatch {
     }
     startClock() {
         try {
-            if (this._startTime == null) {
+            if (this._startTime == 0) {
                 this._startTime = new Date().getTime();
             }
             else {
