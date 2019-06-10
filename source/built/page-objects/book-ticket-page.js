@@ -37,7 +37,8 @@ class BookTicketPage extends general_page_1.default {
             try {
                 yield logger_1.Logger.write(logger_1.FunctionType.UI, `Going Book Ticket  Page`);
                 this.btnBookTicket.click();
-                return yield BookTicketPage.getBookTickeInstance();
+                let bookTicketPage = require(`../page-objects/book-ticket-page`).default;
+                return yield bookTicketPage.getBookTickeInstance();
             }
             catch (err) {
                 throw new error_wapper_1.errorwrapper.CustomError(this.gotoGetBookTicket, err.message);

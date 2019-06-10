@@ -1,37 +1,46 @@
 import GeneralPage from "./general-page";
-import { By } from "selenium-webdriver";
 import { by } from "protractor";
 import ElementWrapper from "../utilities/protractor-wappers/element-wrapper";
 import HomePage from "./home-page";
+import { errorwrapper } from "../utilities/protractor-wappers/error-wapper";
 
-export default class LoginPage extends GeneralPage{
+export default class LoginPage extends GeneralPage {
     private static _loginPage: LoginPage;
 
     // element
-        protected txtUsername = new ElementWrapper(by.XPath("//input[@id='username']"));
-        protected txtPasword = new ElementWrapper(by.XPath("//input[@id='password']"));
-        protected btnLogin = new ElementWrapper(by.XPath("//input[@value='login']"));
-        protected lbErrorMessage = new ElementWrapper(by.XPath("//p[@class='message error LoginForm']"));
+    protected txtUsername = new ElementWrapper(by.xpath("//input[@id='username']"));
+    protected txtPasword = new ElementWrapper(by.xpath("//input[@id='password']"));
+    protected btnLogin = new ElementWrapper(by.xpath("//input[@value='login']"));
+    protected lbErrorMessage = new ElementWrapper(by.xpath("//p[@class='message error LoginForm']"));
 
-    public static async getLoginPageInstance(): Promise<LoginPage>{
+    public static getLoginPageInstance(): LoginPage {
         this._loginPage = new LoginPage();
         return this._loginPage;
     }
-    public  Login(username: string, password: string): HomePage
-    {
+    public async Login(username: string, password: string): Promise<HomePage> {
         // Submit login credetials
-        this.txtUsername.sendKeys(username);
-        if (password!= "")
-        {
-            this.txtPasword.sendKeys(password);
+        await this.txtUsername.sendKeys(username);
+        if (password != "") {
+            await this.txtPasword.sendKeys(password);
         }
-        this.btnLogin.click();
-       
+        await this.btnLogin.click();
         // Land on Home page
-        return this;
+        return HomePage.getHomePageInstance();
     }
-    public Geterrormessage(): Promise<string>
-    {
-        return this.lbErrorMessage.getText();
+    public async geterrormessage(): Promise<string> {
+        return await this.lbErrorMessage.getText();
+    }
+    
+    /**	
+	 * Check if login page is displayed or not
+	 * @returns {Promise<boolean>}
+	 * @memberof MaxCall
+	 */
+    public async isLoginPageDisplayed(timeOut?: number): Promise<boolean> {
+        try {
+            return await this.txtPasword.isDisplayed(timeOut);
+        } catch (err) {
+            throw new errorwrapper.CustomError(this.isLoginPageDisplayed, err.message);
+        }
     }
 }

@@ -9,6 +9,7 @@
     "@types/uuid": "^3.4.4",
     "error-wrapper": "^2.1.0",
     "js-logger": "^1.6.0",
+    "path": "^0.12.7",
     "protractor": "^5.4.2",
     "uuidv4": "^4.0.0"
   },

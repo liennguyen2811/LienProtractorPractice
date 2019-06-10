@@ -4,7 +4,10 @@ class TestRunInfo {
 }
 TestRunInfo.browser = "Chrome";
 TestRunInfo.elementTimeout = 60;
-TestRunInfo.RAILWAY_URL = "http://18.136.107.136/Page/HomePage.cshtml";
+TestRunInfo.testTimeout = 40000;
+TestRunInfo.pageTimeout = 60;
+TestRunInfo.conditionTimeout = 20000;
+TestRunInfo.RAILWAY_URL = "http://18.136.107.136/Account/Login.cshtml";
 TestRunInfo.USERNAME = "liennguyenlogigear12@gmail.com";
 TestRunInfo.PASSWORD = "liennguyen";
 exports.default = TestRunInfo;

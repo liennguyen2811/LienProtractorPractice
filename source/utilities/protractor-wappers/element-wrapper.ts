@@ -1,5 +1,5 @@
 
-import { by, ElementFinder, error, ExpectedConditions as until, Locator } from "protractor";
+import { by, ElementFinder, error, ExpectedConditions as until, Locator, protractor, browser } from "protractor";
 import { ILocation, ISize } from "selenium-webdriver";
 import StopWatch from "../general/stop-watch";
 import BrowserWrapper from "./browser-wrapper";
@@ -9,7 +9,7 @@ import TestRunInfo from "../../data-objects/general/test-run-info";
 import { Browser } from "../../data-objects/general/platform";
 
 export default class ElementWrapper {
-    private _elementTimeout: number = 60;
+    private _elementTimeout: number = TestRunInfo.elementTimeout;
     private _by: Locator;
     private _element: ElementFinder;
 
@@ -156,17 +156,17 @@ export default class ElementWrapper {
         }
         let stopWatch = new StopWatch();
         stopWatch.startClock();
-        await this.wait(stopWatch.getTimeLeftInSecond(timeoutInSecond));
-        await this._element.click().then(
-            async () => { },
-            async (err) => {
-                let _error: Error = <Error>err;
-                if (_error.message.includes("Other element would recieve the click") || _error.message.includes("element isnot attached to the page document")) {
-                    await this.click(stopWatch.getTimeLeftInSecond(timeoutInSecond));
-                } else {
-                    throw _error;
-                }
-            });
+        // await this.wait(stopWatch.getTimeLeftInSecond(timeoutInSecond));
+        await this._element.click()
+            // async () => { },
+            // async (err) => {
+            //     let _error: Error = <Error>err;
+            //     if (_error.message.includes("Other element would recieve the click") || _error.message.includes("element isnot attached to the page document")) {
+            //         await this.click(stopWatch.getTimeLeftInSecond(timeoutInSecond));
+            //     } else {
+            //         throw _error;
+            //     }
+            // });
         return this;
     }
     /**

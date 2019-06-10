@@ -3,6 +3,7 @@ import { FunctionType, Logger } from "../general/logger";
 import { errorwrapper } from "./error-wapper";
 import { async } from "q";
 import { Alert, ISize, Condition, WebDriver, promise } from "selenium-webdriver";
+import TestRunInfo from "../../data-objects/general/test-run-info";
 
 
 
@@ -81,16 +82,16 @@ export default class BrowserWrapper {
      * @returns Promise<void>
      * @memberof BrowserWapper
      */
-    public static async restart (waitForAngularEnabled: boolean = false): Promise<void>{
-        try{
+    public static async restart(waitForAngularEnabled: boolean = false): Promise<void> {
+        try {
             await Logger.write(FunctionType.UI, `Restart browser`);
             let currentBrowser: ProtractorBrowser = BrowserWrapper.getDriverInstance();
             await currentBrowser.restart();
-            BrowserWrapper._browserArray.length=0;
+            BrowserWrapper._browserArray.length = 0;
             currentBrowser = BrowserWrapper.getDriverInstance();
             await currentBrowser.waitForAngularEnabled(waitForAngularEnabled);
         }
-        catch (err){
+        catch (err) {
             throw new errorwrapper.CustomError(this.restart, err.message)
         }
     }
@@ -101,14 +102,14 @@ export default class BrowserWrapper {
      * @returns {Promise<void>}
      * @memberof BrowserWapper
      */
-    public static async restartAllBrowsers(waitForAngularEnabled: boolean = false): Promise<void>{
-        try{
+    public static async restartAllBrowsers(waitForAngularEnabled: boolean = false): Promise<void> {
+        try {
             await Logger.write(FunctionType.UI, `Restarting all browsers`);
             let numberBrowsers: number = BrowserWrapper._browserArray.length;
             let currentBrowser: ProtractorBrowser;
-            if (numberBrowsers!=1){
-                for (let i: number=1; i<= numberBrowsers; i++){
-                    BrowserWrapper._currentBrowser= BrowserWrapper._browserArray[i-1];
+            if (numberBrowsers != 1) {
+                for (let i: number = 1; i <= numberBrowsers; i++) {
+                    BrowserWrapper._currentBrowser = BrowserWrapper._browserArray[i - 1];
                     currentBrowser = BrowserWrapper.getDriverInstance();
                     await currentBrowser.restart();
                     currentBrowser = BrowserWrapper.getDriverInstance();
@@ -122,7 +123,7 @@ export default class BrowserWrapper {
             currentBrowser = BrowserWrapper.getDriverInstance();
             await currentBrowser.waitForAngularEnabled(waitForAngularEnabled);
         }
-        catch (err){
+        catch (err) {
             throw new errorwrapper.CustomError(this.restartAllBrowsers, err.message)
         }
     }
@@ -135,10 +136,10 @@ export default class BrowserWrapper {
      *
      */
     public static async executeScript(script: string | Function, ...var_args: any[]): Promise<{}> {
-        try{
-            return await BrowserWrapper.getDriverInstance().executeScript(script,var_args);
+        try {
+            return await BrowserWrapper.getDriverInstance().executeScript(script, var_args);
         }
-        catch (err){
+        catch (err) {
             throw new errorwrapper.CustomError(this.executeScript, err.message);
         }
     }
@@ -150,11 +151,11 @@ export default class BrowserWrapper {
      * @returns {Promise<void>} expected frame
      * @memberof BrowserWapper
      */
-    public static async switchToFrame(index: number): Promise<void>{
-        try{
+    public static async switchToFrame(index: number): Promise<void> {
+        try {
             await BrowserWrapper.getDriverInstance().switchTo().frame(index);
         }
-        catch (err){
+        catch (err) {
             throw new errorwrapper.CustomError(this.switchToFrame, err.message);
         }
     }
@@ -165,12 +166,12 @@ export default class BrowserWrapper {
      * @returns {Promise<void>} expect frame
      * @memberof BrowserWapper
      */
-    public static async switchToFrameById(id: string): Promise<void>{
-        try{
-            let webElement: WebElement= BrowserWrapper.getDriverInstance().findElement(By.id('id'));
+    public static async switchToFrameById(id: string): Promise<void> {
+        try {
+            let webElement: WebElement = BrowserWrapper.getDriverInstance().findElement(By.id('id'));
             await BrowserWrapper.getDriverInstance().switchTo().frame(webElement);
         }
-        catch (err){
+        catch (err) {
             throw new errorwrapper.CustomError(this.switchToFrameById, err.message)
         }
     }
@@ -180,19 +181,19 @@ export default class BrowserWrapper {
      * @returns {Promise<this>}
      * @memberof BrowserWapper
      */
-    public static async waitForAlertDisplay(): Promise<void>{
-        try{
+    public static async waitForAlertDisplay(): Promise<void> {
+        try {
             await BrowserWrapper.getDriverInstance().wait(protractor.ExpectedConditions.alertIsPresent);
         }
-        catch (err){
+        catch (err) {
             throw new errorwrapper.CustomError(this.waitForAlertDisplay, err.message)
         }
     }
-   /**
-     * Check alert is presented
-     * @returns {Promise<boolean>} 
-     * @memberof BrowserWrapper
-     */
+    /**
+      * Check alert is presented
+      * @returns {Promise<boolean>} 
+      * @memberof BrowserWrapper
+      */
     // public static async isAlertDisplay(): Promise<boolean> {
     //     try {
     //         return protractor.ExpectedConditions.alertIsPresent();
@@ -207,13 +208,12 @@ export default class BrowserWrapper {
      * @returns {Promise<this>}
      * @memberof BrowserWapper
      */
-    public static async acceptAlert(): Promise<void>{
-        try{
+    public static async acceptAlert(): Promise<void> {
+        try {
             await BrowserWrapper.getDriverInstance().switchTo().alert().accept();
         }
-        catch (err)
-        {
-            throw new errorwrapper.CustomError(this.acceptAlert,err.message)
+        catch (err) {
+            throw new errorwrapper.CustomError(this.acceptAlert, err.message)
         }
     }
     /**
@@ -222,11 +222,11 @@ export default class BrowserWrapper {
      * @returns {Promise<void>}
      * @memberof BrowserWapper
      */
-    public static async close(): Promise<void>{
+    public static async close(): Promise<void> {
         try {
             await BrowserWrapper.getDriverInstance().close();
         }
-        catch (err){
+        catch (err) {
             throw new errorwrapper.CustomError(this.close, err.message);
         }
     }
@@ -236,11 +236,11 @@ export default class BrowserWrapper {
      * @return {Promise<void>}
      * @memberof BrowserWapper
      */
-    public static async scrollToTop(): Promise<void>{
-        try{
+    public static async scrollToTop(): Promise<void> {
+        try {
             await this.executeScript("window.scrollTo(0, 0);");
         }
-        catch (err){
+        catch (err) {
             throw new errorwrapper.CustomError(this.scrollToTop, err.message);
         }
     }
@@ -250,11 +250,11 @@ export default class BrowserWrapper {
      * @return {Promise<void>}
      * @memberof BrowserWapper
      */
-    public static async sleepInSecond(second: number): Promise<void>{
-        try{
-            await BrowserWrapper.getDriverInstance().sleep(second *1000);
+    public static async sleepInSecond(second: number): Promise<void> {
+        try {
+            await BrowserWrapper.getDriverInstance().sleep(second * 1000);
         }
-        catch (err){
+        catch (err) {
             throw new errorwrapper.CustomError(this.sleepInSecond, err.mess);
         }
     }
@@ -265,7 +265,7 @@ export default class BrowserWrapper {
     //  * @memberof BrowserWapper
     //  */
     // public static async pressKey(button: Button): Promise<void>{
-      
+
     // }
     // /**
     //  * Find all elements by location
@@ -282,12 +282,12 @@ export default class BrowserWrapper {
      * @return {ActionSequence}
      * @memberof BrowserWapper
      */
-    public static getActions(): ActionSequence{
-        try{
+    public static getActions(): ActionSequence {
+        try {
             return BrowserWrapper.getDriverInstance().actions();
         }
-        catch(err){
-            throw new errorwrapper.CustomError(this.getActions,err.message);
+        catch (err) {
+            throw new errorwrapper.CustomError(this.getActions, err.message);
         }
     }
     /**
@@ -297,14 +297,13 @@ export default class BrowserWrapper {
      * @returns {Promise<void>}
      * @memberof BrowserWapper
      */
-    public static async settingWaitForAngularEnabled(waitForAngularEnabled: boolean): Promise<void>{
-        try{
+    public static async settingWaitForAngularEnabled(waitForAngularEnabled: boolean): Promise<void> {
+        try {
             await Logger.write(FunctionType.UI, `Setting wait for agular enabled`);
             let currentBrowser: ProtractorBrowser = await BrowserWrapper.getDriverInstance()
             await currentBrowser.waitForAngularEnabled(waitForAngularEnabled);
         }
-        catch(err)
-        {
+        catch (err) {
             throw new errorwrapper.CustomError(this.settingWaitForAngularEnabled, err.message)
         }
     }
@@ -314,15 +313,15 @@ export default class BrowserWrapper {
      * @returns {Promise<void>}
      * @memberof BrowserWapper
      */
-    public static async refreshPage(): Promise<void>{
-        try{
+    public static async refreshPage(): Promise<void> {
+        try {
             let currentBrowser: ProtractorBrowser = BrowserWrapper.getDriverInstance();
-            await currentBrowser.switchTo().alert().then(async (alert)=> {
+            await currentBrowser.switchTo().alert().then(async (alert) => {
                 await this.acceptAlert();
             },
-            () =>{}
+                () => { }
             );
-        } catch (err){
+        } catch (err) {
             throw new errorwrapper.CustomError(this.refreshPage, err.message);
         }
     }
@@ -333,11 +332,11 @@ export default class BrowserWrapper {
      * @returns{Promise<ISize>}
      * @member BrowserWapper 
      */
-    public static async getSize(): Promise<ISize>{
+    public static async getSize(): Promise<ISize> {
         try {
             return await BrowserWrapper.getDriverInstance().driver.manage().window().getSize();
         }
-        catch (err){
+        catch (err) {
             throw new errorwrapper.CustomError(this.getSize, err.message);
         }
     }
@@ -348,14 +347,13 @@ export default class BrowserWrapper {
      * @returns {Promise<BrowserWapper>}
      * @memberof BrowserWapper
      */
-    public static async waitForAngularEnabled(enabled?: boolean): Promise<void>{
-        try{
+    public static async waitForAngularEnabled(enabled?: boolean): Promise<void> {
+        try {
             let currentBrowser: ProtractorBrowser = await BrowserWrapper.getDriverInstance();
             await currentBrowser.waitForAngularEnabled(enabled);
         }
-        catch (err)
-        {
-            throw new errorwrapper.CustomError(this.waitForAngularEnabled,err.message);
+        catch (err) {
+            throw new errorwrapper.CustomError(this.waitForAngularEnabled, err.message);
         }
     }
     /**
@@ -378,6 +376,25 @@ export default class BrowserWrapper {
             return BrowserWrapper.getDriverInstance().wait(condition, opt_timeout, opt_message);
         } catch (err) {
             throw new errorwrapper.CustomError(this.wait, err.message);
+        }
+    }
+    /**
+     * Set Page load timeout
+     * @static
+     * @param {number} [timeoutInSecond] Time out to wait for page load
+     * @returns {Promise<void>}
+     * @memberof BrowserWrapper
+     */
+    public static async setPageLoadTimeout(timeoutInSecond?: number): Promise<void> {
+        try {
+
+            // let TestRunInfo = require(`@data-objects/general/test-run-info`).default();
+
+            if (timeoutInSecond == null)
+                timeoutInSecond = TestRunInfo.pageTimeout;
+            await BrowserWrapper.getDriverInstance().manage().timeouts().pageLoadTimeout(timeoutInSecond * 1000);
+        } catch (err) {
+            throw new errorwrapper.CustomError(this.setPageLoadTimeout, err.message);
         }
     }
 

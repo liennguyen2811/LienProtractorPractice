@@ -20,7 +20,7 @@ const test_run_info_1 = __importDefault(require("../../data-objects/general/test
 const platform_1 = require("../../data-objects/general/platform");
 class ElementWrapper {
     constructor(obj) {
-        this._elementTimeout = 60;
+        this._elementTimeout = test_run_info_1.default.elementTimeout;
         if (obj.constructor.name === "ElementFinder") {
             let eleFinder = obj;
             this._by = eleFinder.locator();
@@ -118,16 +118,7 @@ class ElementWrapper {
             }
             let stopWatch = new stop_watch_1.default();
             stopWatch.startClock();
-            yield this.wait(stopWatch.getTimeLeftInSecond(timeoutInSecond));
-            yield this._element.click().then(() => __awaiter(this, void 0, void 0, function* () { }), (err) => __awaiter(this, void 0, void 0, function* () {
-                let _error = err;
-                if (_error.message.includes("Other element would recieve the click") || _error.message.includes("element isnot attached to the page document")) {
-                    yield this.click(stopWatch.getTimeLeftInSecond(timeoutInSecond));
-                }
-                else {
-                    throw _error;
-                }
-            }));
+            yield this._element.click();
             return this;
         });
     }

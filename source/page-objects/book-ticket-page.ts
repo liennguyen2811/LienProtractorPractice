@@ -29,7 +29,8 @@ export default class BookTicketPage extends GeneralPage{
 	{ try{
         await Logger.write(FunctionType.UI, `Going Book Ticket  Page`)
         this.btnBookTicket.click();
-        return await BookTicketPage.getBookTickeInstance();
+        let bookTicketPage = require(`../page-objects/book-ticket-page`).default;
+        return await bookTicketPage.getBookTickeInstance();
     } catch(err){
         throw new errorwrapper.CustomError(this.gotoGetBookTicket, err.message)
     }   

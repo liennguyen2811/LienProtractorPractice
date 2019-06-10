@@ -11,22 +11,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const test_base_1 = __importDefault(require("./test-base"));
 const logger_1 = require("../utilities/general/logger");
-const test_run_info_1 = __importDefault(require("../data-objects/general/test-run-info"));
 const home_page_1 = __importDefault(require("../page-objects/home-page"));
-describe('MAX suite - 459981', function () {
+const test_run_info_1 = __importDefault(require("../data-objects/general/test-run-info"));
+const test_base_1 = __importDefault(require("./test-base"));
+describe('Login suite - TC02', function () {
     test_base_1.default.scheduleTestBase();
-    let expectedMsg = "Welcome liennguyenlogigear12@gmail.com";
-    let homePage;
+    let expectedMsg = "There was a problem with your login and/or errors exist in your form.";
+    let homePage = new home_page_1.default();
     let loginPage;
     beforeEach(() => __awaiter(this, void 0, void 0, function* () {
-        yield logger_1.Logger.write(logger_1.FunctionType.TESTCASE, `TC01- User can login into Raiway with valid username and password`);
+        yield logger_1.Logger.write(logger_1.FunctionType.TESTCASE, `TC04- User can login into Raiway with valid username and password`);
         homePage = home_page_1.default.getHomePageInstance();
     }), test_run_info_1.default.conditionTimeout);
-    it('TC01- User can login into Raiway with valid username and password', () => __awaiter(this, void 0, void 0, function* () {
-        loginPage = yield homePage.gotoLoginPage();
-        expect(yield loginPage.Login("liennguyenlogigear12@gmail.com", "liennguyen1").getWelcomeMessage()).toBe(expectedMsg, "Could not login");
+    it('Login page displays when un-logged User clicks on Book ticket tab', () => __awaiter(this, void 0, void 0, function* () {
+        loginPage = yield homePage.goToBookTicketUnloggedUser();
+        expect(yield loginPage.isLoginPageDisplayed(test_run_info_1.default.shortTimeout)).toBe(true, "Login page does not display");
     }));
     afterEach(() => __awaiter(this, void 0, void 0, function* () {
         yield logger_1.Logger.write(logger_1.FunctionType.NONE, `Final - Cleaning Up\n`);
@@ -35,4 +35,4 @@ describe('MAX suite - 459981', function () {
         catch (err) { }
     }), test_run_info_1.default.conditionTimeout);
 });
-//# sourceMappingURL=example1.js.map
+//# sourceMappingURL=TC-04.js.map

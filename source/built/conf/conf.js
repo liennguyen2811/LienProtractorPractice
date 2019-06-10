@@ -2,6 +2,6 @@
 exports.config = {
     framework: 'jasmine',
     seleniumAddress: 'http://localhost:4444/wd/hub',
-    specs: ['../testcases/example2.js']
+    specs: ['../testcases/TC-03.js']
 };
 //# sourceMappingURL=conf.js.map

@@ -7,10 +7,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const protractor_1 = require("protractor");
 const logger_1 = require("../general/logger");
 const error_wapper_1 = require("./error-wapper");
+const test_run_info_1 = __importDefault(require("../../data-objects/general/test-run-info"));
 class BrowserWrapper {
     static getDriverInstance() {
         try {
@@ -245,6 +249,18 @@ class BrowserWrapper {
         catch (err) {
             throw new error_wapper_1.errorwrapper.CustomError(this.wait, err.message);
         }
+    }
+    static setPageLoadTimeout(timeoutInSecond) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                if (timeoutInSecond == null)
+                    timeoutInSecond = test_run_info_1.default.pageTimeout;
+                yield BrowserWrapper.getDriverInstance().manage().timeouts().pageLoadTimeout(timeoutInSecond * 1000);
+            }
+            catch (err) {
+                throw new error_wapper_1.errorwrapper.CustomError(this.setPageLoadTimeout, err.message);
+            }
+        });
     }
 }
 BrowserWrapper._browserArray = new Array();
