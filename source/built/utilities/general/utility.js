@@ -3,9 +3,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const error_wapper_1 = require("../protractor-wappers/error-wapper");
+const error_wapper_1 = require("@utilities/protractor-wappers/error-wapper");
+const test_run_info_1 = require("@data-objects/general/test-run-info");
 const v4_1 = __importDefault(require("uuid/v4"));
-const test_run_info_1 = require("../../data-objects/general/test-run-info");
 class Utility {
     static insert(str, index, value) {
         try {

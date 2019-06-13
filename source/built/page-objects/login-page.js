@@ -11,11 +11,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const general_page_1 = __importDefault(require("./general-page"));
+const general_page_1 = __importDefault(require("@page-objects/general-page"));
 const protractor_1 = require("protractor");
-const element_wrapper_1 = __importDefault(require("../utilities/protractor-wappers/element-wrapper"));
-const home_page_1 = __importDefault(require("./home-page"));
-const error_wapper_1 = require("../utilities/protractor-wappers/error-wapper");
+const element_wrapper_1 = __importDefault(require("@utilities/protractor-wappers/element-wrapper"));
+const home_page_1 = __importDefault(require("@page-objects/home-page"));
+const error_wapper_1 = require("@utilities/protractor-wappers/error-wapper");
 class LoginPage extends general_page_1.default {
     constructor() {
         super(...arguments);
@@ -28,14 +28,19 @@ class LoginPage extends general_page_1.default {
         this._loginPage = new LoginPage();
         return this._loginPage;
     }
-    Login(username, password) {
+    login(username, password) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield this.txtUsername.sendKeys(username);
-            if (password != "") {
-                yield this.txtPasword.sendKeys(password);
+            try {
+                yield this.txtUsername.sendKeys(username);
+                if (password != "") {
+                    yield this.txtPasword.sendKeys(password);
+                }
+                yield this.btnLogin.click();
+                return home_page_1.default.getHomePageInstance();
             }
-            yield this.btnLogin.click();
-            return home_page_1.default.getHomePageInstance();
+            catch (err) {
+                throw new error_wapper_1.errorwrapper.CustomError(this.login, err.message);
+            }
         });
     }
     geterrormessage() {
@@ -50,6 +55,21 @@ class LoginPage extends general_page_1.default {
             }
             catch (err) {
                 throw new error_wapper_1.errorwrapper.CustomError(this.isLoginPageDisplayed, err.message);
+            }
+        });
+    }
+    checkNonPassWordWithValidInfo(username, password) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                for (let i = 0; i++; i < 4) {
+                    console.log("invalid password, ", i);
+                    yield this.login("liennguyenlogigear12@gmail.com", "liennguyen1");
+                }
+                let homePage = yield this.login(username, password);
+                return yield homePage.getNonpasswordmessage();
+            }
+            catch (err) {
+                throw new error_wapper_1.errorwrapper.CustomError(this.checkNonPassWordWithValidInfo, err.message);
             }
         });
     }

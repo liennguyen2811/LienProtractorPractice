@@ -11,11 +11,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const general_page_1 = __importDefault(require("./general-page"));
-const element_wrapper_1 = __importDefault(require("../utilities/protractor-wappers/element-wrapper"));
+const general_page_1 = __importDefault(require("@page-objects/general-page"));
+const element_wrapper_1 = __importDefault(require("@utilities/protractor-wappers/element-wrapper"));
 const protractor_1 = require("protractor");
-const logger_1 = require("../utilities/general/logger");
-const error_wapper_1 = require("../utilities/protractor-wappers/error-wapper");
+const logger_1 = require("@utilities/general/logger");
+const error_wapper_1 = require("@utilities/protractor-wappers/error-wapper");
 class BookTicketPage extends general_page_1.default {
     constructor() {
         super(...arguments);

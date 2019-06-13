@@ -1,13 +1,37 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const utility_1 = require("../../utilities/general/utility");
-const error_wapper_1 = require("../../utilities/protractor-wappers/error-wapper");
+const utility_1 = require("@utilities/general/utility");
+const error_wapper_1 = require("@utilities/protractor-wappers/error-wapper");
 class Account {
     constructor() {
         this.email = "";
         this.password = "";
         this.confirmpassword = "";
         this.regPID = "";
+    }
+    get Email() {
+        return this.email;
+    }
+    set Email(email) {
+        this.email = email;
+    }
+    get Password() {
+        return this.email;
+    }
+    set Password(password) {
+        this.email = password;
+    }
+    get ConfirmPassword() {
+        return this.confirmpassword;
+    }
+    set ConfirmPassword(confirmpassword) {
+        this.confirmpassword = confirmpassword;
+    }
+    get RegPID() {
+        return this.regPID;
+    }
+    set RegPID(regPID) {
+        this.regPID = regPID;
     }
     initAccount() {
         try {

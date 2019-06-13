@@ -11,10 +11,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const logger_1 = require("../utilities/general/logger");
-const home_page_1 = __importDefault(require("../page-objects/home-page"));
-const test_run_info_1 = __importDefault(require("../data-objects/general/test-run-info"));
-const test_base_1 = __importDefault(require("./test-base"));
+const logger_1 = require("@utilities/general/logger");
+const home_page_1 = __importDefault(require("@page-objects/home-page"));
+const test_run_info_1 = __importDefault(require("@data-objects/general/test-run-info"));
+const test_base_1 = __importDefault(require("@testcases/test-base"));
 describe('Login suite - TC02', function () {
     test_base_1.default.scheduleTestBase();
     let expectedMsg = "There was a problem with your login and/or errors exist in your form.";
@@ -31,6 +31,7 @@ describe('Login suite - TC02', function () {
     afterEach(() => __awaiter(this, void 0, void 0, function* () {
         yield logger_1.Logger.write(logger_1.FunctionType.NONE, `Final - Cleaning Up\n`);
         try {
+            homePage.logout();
         }
         catch (err) { }
     }), test_run_info_1.default.conditionTimeout);

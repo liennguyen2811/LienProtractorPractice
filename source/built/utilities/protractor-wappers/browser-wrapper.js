@@ -11,15 +11,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const test_run_info_1 = __importDefault(require("@data-objects/general/test-run-info"));
+const logger_1 = require("@utilities/general/logger");
+const error_wapper_1 = require("@utilities/protractor-wappers/error-wapper");
 const protractor_1 = require("protractor");
-const logger_1 = require("../general/logger");
-const error_wapper_1 = require("./error-wapper");
-const test_run_info_1 = __importDefault(require("../../data-objects/general/test-run-info"));
+let protractor = require("protractor");
 class BrowserWrapper {
     static getDriverInstance() {
         try {
             if (BrowserWrapper._browserArray.length == 0) {
-                BrowserWrapper._currentBrowser = protractor_1.protractor.browser;
+                BrowserWrapper._currentBrowser = protractor.browser;
                 BrowserWrapper._browserArray.push(BrowserWrapper._currentBrowser);
                 return BrowserWrapper._currentBrowser;
             }
@@ -141,7 +142,7 @@ class BrowserWrapper {
     static waitForAlertDisplay() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield BrowserWrapper.getDriverInstance().wait(protractor_1.protractor.ExpectedConditions.alertIsPresent);
+                yield BrowserWrapper.getDriverInstance().wait(protractor.ExpectedConditions.alertIsPresent);
             }
             catch (err) {
                 throw new error_wapper_1.errorwrapper.CustomError(this.waitForAlertDisplay, err.message);

@@ -11,13 +11,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const general_1 = require("@data-objects/general/general");
+const platform_1 = require("@data-objects/general/platform");
+const test_run_info_1 = __importDefault(require("@data-objects/general/test-run-info"));
+const stop_watch_1 = __importDefault(require("@utilities/general/stop-watch"));
+const browser_wrapper_1 = __importDefault(require("@utilities/protractor-wappers/browser-wrapper"));
+const error_wapper_1 = require("@utilities/protractor-wappers/error-wapper");
 const protractor_1 = require("protractor");
-const stop_watch_1 = __importDefault(require("../general/stop-watch"));
-const browser_wrapper_1 = __importDefault(require("./browser-wrapper"));
-const error_wapper_1 = require("./error-wapper");
-const general_1 = require("../../data-objects/general/general");
-const test_run_info_1 = __importDefault(require("../../data-objects/general/test-run-info"));
-const platform_1 = require("../../data-objects/general/platform");
+const selenium_webdriver_1 = require("selenium-webdriver");
 class ElementWrapper {
     constructor(obj) {
         this._elementTimeout = test_run_info_1.default.elementTimeout;
@@ -63,7 +64,7 @@ class ElementWrapper {
                 return yield this._element.getAttribute(attributeName);
             }
             catch (err) {
-                if (err instanceof protractor_1.error.StaleElementReferenceError) {
+                if (err instanceof selenium_webdriver_1.error.StaleElementReferenceError) {
                     return yield this.getAttribute(attributeName, sw.getTimeLeftInSecond(timeoutInSecond));
                 }
                 else {
@@ -118,7 +119,16 @@ class ElementWrapper {
             }
             let stopWatch = new stop_watch_1.default();
             stopWatch.startClock();
-            yield this._element.click();
+            yield this.wait(stopWatch.getTimeLeftInSecond(timeoutInSecond));
+            yield this._element.click().then(() => __awaiter(this, void 0, void 0, function* () { }), (err) => __awaiter(this, void 0, void 0, function* () {
+                let _error = err;
+                if (_error.message.includes("Other element would recieve the click") || _error.message.includes("element isnot attached to the page document")) {
+                    yield this.click(stopWatch.getTimeLeftInSecond(timeoutInSecond));
+                }
+                else {
+                    throw _error;
+                }
+            }));
             return this;
         });
     }
@@ -225,7 +235,7 @@ class ElementWrapper {
                 return this;
             }
             catch (err) {
-                throw new error_wapper_1.errorwrapper.CustomError(this.type, err.message);
+                throw new error_wapper_1.errorwrapper.CustomError(this.clear, err.message);
             }
         });
     }
@@ -293,7 +303,7 @@ class ElementWrapper {
                 return yield this._element.getCssValue(cssValue);
             }
             catch (err) {
-                if (err instanceof protractor_1.error.StaleElementReferenceError) {
+                if (err instanceof selenium_webdriver_1.error.StaleElementReferenceError) {
                     return yield this.getCssValue(cssValue, sw.getTimeLeftInSecond(timeoutInSecond));
                 }
                 else {
@@ -396,7 +406,7 @@ class ElementWrapper {
                     yield child.isDisplayed();
                 }
                 catch (err) {
-                    if (err instanceof protractor_1.error.NoSuchElementError) {
+                    if (err instanceof selenium_webdriver_1.error.NoSuchElementError) {
                         yield browser_wrapper_1.default.sleepInSecond(0.5);
                         child = yield this.element(by, sw.getTimeLeftInSecond(timeoutInSecond));
                     }

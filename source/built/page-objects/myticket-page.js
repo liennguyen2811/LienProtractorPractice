@@ -12,11 +12,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const protractor_1 = require("protractor");
-const browser_wrapper_1 = __importDefault(require("../utilities/protractor-wappers/browser-wrapper"));
-const element_wrapper_1 = __importDefault(require("../utilities/protractor-wappers/element-wrapper"));
-const select_element_wapper_1 = __importDefault(require("../utilities/protractor-wappers/select-element-wapper"));
-const general_page_1 = __importDefault(require("./general-page"));
-const ticket_1 = require("../data-objects/railway/ticket");
+const browser_wrapper_1 = __importDefault(require("@utilities/protractor-wappers/browser-wrapper"));
+const element_wrapper_1 = __importDefault(require("@utilities/protractor-wappers/element-wrapper"));
+const select_element_wapper_1 = __importDefault(require("@utilities/protractor-wappers/select-element-wapper"));
+const general_page_1 = __importDefault(require("page-objects/general-page"));
+const ticket_1 = require("@data-objects/railway/ticket");
 class MyTicketPage extends general_page_1.default {
     constructor() {
         super(...arguments);

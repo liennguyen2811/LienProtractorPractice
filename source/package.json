@@ -5,15 +5,17 @@
   "main": "index.js",
   "dependencies": {
     "@types/jasmine": "^3.3.12",
-    "@types/node": "^12.0.2",
     "@types/uuid": "^3.4.4",
     "error-wrapper": "^2.1.0",
     "js-logger": "^1.6.0",
+    "module-alias": "^2.2.0",
+    "module_name": "^1.0.0",
     "path": "^0.12.7",
     "protractor": "^5.4.2",
     "uuidv4": "^4.0.0"
   },
   "devDependencies": {
+    "@types/node": "^12.0.7",
     "ts-node": "^8.2.0",
     "typescript": "^3.4.5",
     "uuid": "^3.3.2"
@@ -23,5 +25,15 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "_moduleAliases": {
+    "@apis": "built/apis",
+    "@conf": "built/conf",
+    "@data-objects": "built/data-objects",
+    "@page-objects": "built/page-objects",
+    "@test-data": "built/test-data",
+    "@testcases": "built/testcases",
+    "@utilities": "built/utilities",
+    "@test-helpers": "built/test-helpers"
+  }
 }

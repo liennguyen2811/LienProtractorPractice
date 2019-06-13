@@ -11,8 +11,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const general_page_1 = __importDefault(require("./general-page"));
-const element_wrapper_1 = __importDefault(require("../utilities/protractor-wappers/element-wrapper"));
+const general_page_1 = __importDefault(require("@page-objects/general-page"));
+const element_wrapper_1 = __importDefault(require("@utilities/protractor-wappers/element-wrapper"));
 const protractor_1 = require("protractor");
 class ChangePassWordPage extends general_page_1.default {
     constructor() {

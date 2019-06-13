@@ -1,1 +1,1 @@
-{"version":3,"file":"helloworld.js","sourceRoot":"","sources":["../../testcases/helloworld.ts"],"names":[],"mappings":";AAAA,IAAI,OAAO,GAAG,aAAa,CAAC;AAC5B,OAAO,CAAC,GAAG,CAAC,OAAO,CAAC,CAAC"}
+{"version":3,"file":"helloworld.js","sourceRoot":"","sources":["../../src/testcases/helloworld.ts"],"names":[],"mappings":";AAAA,IAAI,OAAO,GAAG,aAAa,CAAC;AAC5B,OAAO,CAAC,GAAG,CAAC,OAAO,CAAC,CAAC"}

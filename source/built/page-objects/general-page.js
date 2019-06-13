@@ -11,11 +11,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const element_wrapper_1 = __importDefault(require("../utilities/protractor-wappers/element-wrapper"));
+const element_wrapper_1 = __importDefault(require("@utilities/protractor-wappers/element-wrapper"));
 const protractor_1 = require("protractor");
-const error_wapper_1 = require("../utilities/protractor-wappers/error-wapper");
-const logger_1 = require("../utilities/general/logger");
-const browser_wrapper_1 = __importDefault(require("../utilities/protractor-wappers/browser-wrapper"));
+const error_wapper_1 = require("@utilities/protractor-wappers/error-wapper");
+const logger_1 = require("@utilities/general/logger");
+const browser_wrapper_1 = __importDefault(require("@utilities/protractor-wappers/browser-wrapper"));
 const selenium_webdriver_1 = require("selenium-webdriver");
 class GeneralPage {
     constructor() {
@@ -132,6 +132,19 @@ class GeneralPage {
             }
             catch (err) {
                 throw new error_wapper_1.errorwrapper.CustomError(this.getLbTicketPriceHeaderMessage, err.message);
+            }
+        });
+    }
+    logout() {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield logger_1.Logger.write(logger_1.FunctionType.UI, `Going to log out`);
+                yield this.tabLogout.click();
+                let homePage = require(`../page-objects/home-page`).default;
+                return yield homePage.getHomePageInstance();
+            }
+            catch (err) {
+                throw new error_wapper_1.errorwrapper.CustomError(this.goToLoginPage, err.message);
             }
         });
     }
