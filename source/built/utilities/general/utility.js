@@ -2,10 +2,19 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const error_wapper_1 = require("@utilities/protractor-wappers/error-wapper");
 const test_run_info_1 = require("@data-objects/general/test-run-info");
 const v4_1 = __importDefault(require("uuid/v4"));
+const json2typescript_1 = require("json2typescript");
+const filePath = __importStar(require("path"));
 class Utility {
     static insert(str, index, value) {
         try {
@@ -167,6 +176,40 @@ class Utility {
         }
         return result;
     }
+    static getPath(filename) {
+        try {
+            let slitString = "built\\utilities\\general".length;
+            let projectPath = __dirname.slice(0, __dirname.length - slitString);
+            if (filename == null) {
+                return projectPath;
+            }
+            else {
+                return filePath.join(projectPath, filename);
+            }
+        }
+        catch (err) {
+            throw new error_wapper_1.errorwrapper.CustomError(this.getPath, err.message);
+        }
+    }
 }
 exports.Utility = Utility;
+class JsonUtility {
+    static deserialize(json, classReference) {
+        try {
+            let jsonConvert = new json2typescript_1.JsonConvert();
+            jsonConvert.ignorePrimitiveChecks = false;
+            jsonConvert.valueCheckingMode = json2typescript_1.ValueCheckingMode.DISALLOW_NULL;
+            try {
+                return jsonConvert.deserialize(json, classReference);
+            }
+            catch (e) {
+                console.log(e);
+            }
+        }
+        catch (err) {
+            throw new error_wapper_1.errorwrapper.CustomError(this.deserialize, err.message);
+        }
+    }
+}
+exports.JsonUtility = JsonUtility;
 //# sourceMappingURL=utility.js.map

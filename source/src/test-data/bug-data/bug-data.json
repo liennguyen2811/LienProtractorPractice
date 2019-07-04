@@ -1,0 +1,13 @@
+[
+    {
+        "BugIdJira": "IC-01",
+        "BugDescription": "Could not log in Railway website",
+        "Data": [
+            {
+                "TestcaseID": [
+                    "TC01"
+                ]
+            }
+        ]
+    }
+]

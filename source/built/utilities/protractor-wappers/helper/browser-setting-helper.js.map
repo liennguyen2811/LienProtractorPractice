@@ -1,0 +1,1 @@
+{"version":3,"file":"browser-setting-helper.js","sourceRoot":"","sources":["../../../../src/utilities/protractor-wappers/helper/browser-setting-helper.ts"],"names":[],"mappings":";;;;;AAAA,8EAAsD;AAEtD,MAAqB,oBAAoB;IAC9B,MAAM,CAAC,iBAAiB,CAAC,IAAY,EAAE,WAAmB,EAAE,QAAgB;QAC/E,IAAI,QAAQ,GAAmB,IAAI,wBAAc,EAAE,CAAC;IAExD,CAAC;CACJ;AALD,uCAKC"}

@@ -12,10 +12,10 @@ import TestBase from '@testcases/test-base';
  * Tested OS: Windows 10
  */
 
-describe('Login suite - TC01', function () {
+describe('Login suite TC01', function () {
 
   TestBase.scheduleTestBase();
-  let expectedMsg: string = "Welcome guest!";
+  let expectedMsg: string = "aaaWelcome liennguyenlogigear12@gmail.com";
 
   // Declare page object
   let homePage: HomePage = new HomePage()
@@ -34,7 +34,7 @@ describe('Login suite - TC01', function () {
 
             // VP. User is logged into Railway. Welcome user message is displayed.  
             await loginPage.login(TestRunInfo.USERNAME, TestRunInfo.PASSWORD);
-            expect (await homePage.getWelcomeMessage()).toBe(expectedMsg, "Could not login")
+            expect (await homePage.getWelcomeMessage()).toBe(expectedMsg, "Failed by: Could not login")
     
   });
 

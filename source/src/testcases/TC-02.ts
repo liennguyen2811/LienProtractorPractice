@@ -42,7 +42,7 @@ describe('Login suite - TC02', function () {
       await Logger.write(FunctionType.NONE, `Final - Cleaning Up\n`);
       try {
           // logout 
-          homePage.logout();
+          //homePage.logout();
       }
       catch (err) { }
   }, TestRunInfo.conditionTimeout);

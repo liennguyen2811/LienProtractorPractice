@@ -20,7 +20,7 @@ const selenium_webdriver_1 = require("selenium-webdriver");
 class GeneralPage {
     constructor() {
         this.tabLogin = new element_wrapper_1.default(protractor_1.by.xpath("//div[@id= 'menu']//a[@href = '/Account/Login.cshtml']"));
-        this.tabLogout = new element_wrapper_1.default(protractor_1.by.xpath("//div[@id= 'menu']//a[@href = '/Account/Logout.cshtml']"));
+        this.tabLogout = new element_wrapper_1.default(protractor_1.by.xpath("//div[@id= 'menu']//a[@href='/Account/Logout']"));
         this.tabRegister = new element_wrapper_1.default(protractor_1.by.xpath("//div[@id='menu']//a[@href='/Account/Register.cshtml']"));
         this.tabChangePassWord = new element_wrapper_1.default(protractor_1.by.xpath("//div[@id='menu']//a[@href='/Account/ChangePassword.cshtml']"));
         this.tabBookTicket = new element_wrapper_1.default(protractor_1.by.xpath("//a[@href='/Page/BookTicketPage.cshtml']"));
@@ -57,7 +57,6 @@ class GeneralPage {
     getWelcomeMessage() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                console.log("lien check");
                 return yield this.lbWelcomeMessage.getText();
             }
             catch (err) {

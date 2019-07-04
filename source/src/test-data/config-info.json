@@ -1,0 +1,6 @@
+{
+"browser": "chrome",
+"elementTimeout": 60,
+"pageTimeout": 60,
+"testTimeout": 80000
+}

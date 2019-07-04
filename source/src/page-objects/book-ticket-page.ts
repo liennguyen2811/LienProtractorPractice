@@ -2,7 +2,7 @@ import GeneralPage from "@page-objects/general-page";
 import ElementWrapper from "@utilities/protractor-wappers/element-wrapper";
 import { by } from "protractor";
 import { FunctionType, Logger } from "@utilities/general/logger";
-import { errorwrapper } from "@utilities/protractor-wappers/error-wapper";
+import { errorwrapper } from "@utilities/protractor-wappers/error-wapper"
 
 export default class BookTicketPage extends GeneralPage{
     private static _bookTicketPage: BookTicketPage;

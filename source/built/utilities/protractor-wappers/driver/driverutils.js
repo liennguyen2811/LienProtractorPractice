@@ -11,12 +11,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const test_run_info_1 = __importDefault(require("@data-objects/general/test-run-info"));
 const logger_1 = require("@utilities/general/logger");
 const error_wapper_1 = require("@utilities/protractor-wappers/error-wapper");
 const protractor_1 = require("protractor");
+const driver_manager_factory_1 = __importDefault(require("./manager/driver-manager-factory"));
 let protractor = require("protractor");
-class DriverUtils {
+class DriverUtils extends driver_manager_factory_1.default {
     static getDriverInstance() {
         try {
             if (DriverUtils._browserArray.length == 0) {
@@ -251,19 +251,6 @@ class DriverUtils {
             throw new error_wapper_1.errorwrapper.CustomError(this.wait, err.message);
         }
     }
-    static setPageLoadTimeout(timeoutInSecond) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                if (timeoutInSecond == null)
-                    timeoutInSecond = test_run_info_1.default.pageTimeout;
-                yield DriverUtils.getDriverInstance().manage().timeouts().pageLoadTimeout(timeoutInSecond * 1000);
-            }
-            catch (err) {
-                throw new error_wapper_1.errorwrapper.CustomError(this.setPageLoadTimeout, err.message);
-            }
-        });
-    }
 }
-DriverUtils._browserArray = new Array();
 exports.default = DriverUtils;
 //# sourceMappingURL=driverutils.js.map

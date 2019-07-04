@@ -32,7 +32,6 @@ describe('Login suite - TC02', function () {
     afterEach(() => __awaiter(this, void 0, void 0, function* () {
         yield logger_1.Logger.write(logger_1.FunctionType.NONE, `Final - Cleaning Up\n`);
         try {
-            homePage.logout();
         }
         catch (err) { }
     }), test_run_info_1.default.conditionTimeout);

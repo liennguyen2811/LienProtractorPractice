@@ -2,6 +2,8 @@ import { async } from "q";
 import TestRunInfo from "../data-objects/general/test-run-info";
 import BrowserWrapper from "../utilities/protractor-wappers/browser-wrapper";
 import { Logger, FunctionType } from "../utilities/general/logger";
+import { Utility } from "@utilities/general/utility";
+import { errorwrapper } from "@utilities/protractor-wappers/error-wapper";
 
 
 export default class TestBase{
@@ -25,5 +27,14 @@ export default class TestBase{
         await BrowserWrapper.maximize();
         await BrowserWrapper.get(url);
     };
+
+    public static setUpTestRunInfo(){
+        try{
+            let pathFile: string = Utility.getPath("src/test-data/config-info.json");
+            TestRunInfo.setUpTestRunInfo(pathFile);
+        } catch(err){
+            throw new errorwrapper.CustomError(this.setUpTestRunInfo, err.message);
+        }
+    }
 
 }

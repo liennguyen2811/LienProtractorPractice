@@ -20,7 +20,7 @@ export default class GeneralPage {
 
     //protected tabLogin = new ElementWrapper(by.xpath("//div[@id= 'menu']//a[@href = '/Account/Login.cshtml']"));
     protected tabLogin = new ElementWrapper(by.xpath("//div[@id= 'menu']//a[@href = '/Account/Login.cshtml']"));
-	protected tabLogout = new ElementWrapper(by.xpath("//div[@id= 'menu']//a[@href = '/Account/Logout.cshtml']"));
+	protected tabLogout = new ElementWrapper(by.xpath("//div[@id= 'menu']//a[@href='/Account/Logout']"));
 	protected tabRegister = new ElementWrapper(by.xpath("//div[@id='menu']//a[@href='/Account/Register.cshtml']"));
 	protected tabChangePassWord = new ElementWrapper(by.xpath("//div[@id='menu']//a[@href='/Account/ChangePassword.cshtml']"));
 	protected tabBookTicket = new ElementWrapper(by.xpath("//a[@href='/Page/BookTicketPage.cshtml']"));
@@ -68,7 +68,6 @@ export default class GeneralPage {
      */
     public async getWelcomeMessage(): Promise<string>
 	{  try{
-        console.log("lien check");
         return <string> await this.lbWelcomeMessage.getText();
 	}catch (err){
         throw new errorwrapper.CustomError(this.getWelcomeMessage,err.message)

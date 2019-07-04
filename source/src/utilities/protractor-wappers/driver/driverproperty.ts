@@ -10,55 +10,55 @@ export default class DriverProperty {
 	private runningMode: RunningMode = RunningMode.Local;
 	private capabilities: string = "";
 	private arguments: string ="";
-    private provider: string = "";
+  private provider: string = "";
     
-    public async getCapabilities(): Promise<string> {
-		return await this.capabilities;
+    public agetCapabilities(): string {
+		return  this.capabilities;
     }
-    public async setCapabilities(capabilities: string): Promise<void> {
+    public setCapabilities(capabilities: string): void {
 		this.capabilities = capabilities;
     }
-    public async getDriverExecutable(): Promise<string> {
-		return await this.driverExecutable;
+    public getDriverExecutable(): string{
+		return this.driverExecutable;
     }
-    public async setDriverExecutable(driverExecutable: string): Promise<void> {
+    public setDriverExecutable(driverExecutable: string): void{
 		this.driverExecutable = driverExecutable;
     }
-    public async getRunningMode(): Promise<RunningMode>{
-		return await this.runningMode;
+    public getRunningMode(): RunningMode{
+		return this.runningMode;
     }
-    public async setRunningMode(runningMode: RunningMode): Promise<void> {
+    public setRunningMode(runningMode: RunningMode): void {
 		this.runningMode = runningMode;
     }
-    public async isRemoteMode(): Promise<boolean> {
-		if (this.getRunningMode() != null && await this.getRunningMode()== RunningMode.Remote) {
+    public isRemoteMode(): boolean {
+		if (this.getRunningMode() != null && this.getRunningMode()== RunningMode.Remote) {
 			this._isRemoteMode = true;
 		}
 		return this._isRemoteMode;
     }
-    public async getRemoteUrl(): Promise<string> {
-		return await this.remoteUrl;
+    public getRemoteUrl(): string{
+		return this.remoteUrl;
     }
-    public async setRemoteUrl(remoteUrl: string): Promise<void> {
+    public  setRemoteUrl(remoteUrl: string): void {
 		this.remoteUrl = remoteUrl;
     }
-    public async  getDriverType(): Promise<DriverType> {
-		return await this.driverType;
+    public getDriverType(): DriverType{
+		return this.driverType;
     }
     
-	public async setDriverType(driverType: DriverType): Promise<void> {
+	public setDriverType(driverType: DriverType): void {
 		this.driverType = driverType;
     }
-    public async getArguments(): Promise<string> {
-		return await this.arguments;
+    public getArguments(): string {
+		return this.arguments;
     }
-    public async setArguments(arg: string):Promise<void> {
+    public setArguments(arg: string):void {
 		this.arguments = arg;
     }
-    public async getProvider(): Promise<string> {
+    public getProvider(): string {
 		return this.provider;
     }
-    public async  setProvider(provider: string) {
+    public setProvider(provider: string) {
 		this.provider = provider;
 	}
 }

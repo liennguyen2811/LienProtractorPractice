@@ -3,14 +3,12 @@ import { FunctionType, Logger } from "@utilities/general/logger";
 import { errorwrapper } from "@utilities/protractor-wappers/error-wapper";
 import { ProtractorBrowser,WebElement, ActionSequence, By } from "protractor";
 import { ISize, Condition, WebDriver, WebElementPromise,promise} from "selenium-webdriver";
+import DriverManagerFactory from "./manager/driver-manager-factory";
 let protractor = require("protractor");
 
 
-export default class DriverUtils {
-    private static _currentBrowser: ProtractorBrowser;
-    private static readonly _browserArray: ProtractorBrowser[] = new Array();
-
-    /**
+export default class DriverUtils extends DriverManagerFactory {
+ /**
     * 
     * @static
     * @returns {ProtractorBrowser}
@@ -377,24 +375,5 @@ export default class DriverUtils {
             throw new errorwrapper.CustomError(this.wait, err.message);
         }
     }
-    /**
-     * Set Page load timeout
-     * @static
-     * @param {number} [timeoutInSecond] Time out to wait for page load
-     * @returns {Promise<void>}
-     * @memberof DriverUtils
-     */
-    public static async setPageLoadTimeout(timeoutInSecond?: number): Promise<void> {
-        try {
-
-            // let TestRunInfo = require(`@data-objects/general/test-run-info`).default();
-
-            if (timeoutInSecond == null)
-                timeoutInSecond = TestRunInfo.pageTimeout;
-            await DriverUtils.getDriverInstance().manage().timeouts().pageLoadTimeout(timeoutInSecond * 1000);
-        } catch (err) {
-            throw new errorwrapper.CustomError(this.setPageLoadTimeout, err.message);
-        }
-    }
-
+   
 }

@@ -31,6 +31,7 @@ class LoginPage extends general_page_1.default {
     login(username, password) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                yield this.txtPasword.scrollToElement();
                 yield this.txtUsername.sendKeys(username);
                 if (password != "") {
                     yield this.txtPasword.sendKeys(password);

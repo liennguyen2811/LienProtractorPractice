@@ -20,6 +20,7 @@ export default class LoginPage extends GeneralPage {
     public async login(username: string, password: string): Promise<HomePage> {
         try{
         // Submit login credetials
+        await this.txtPasword.scrollToElement();
         await this.txtUsername.sendKeys(username);
         if (password != "") {
             await this.txtPasword.sendKeys(password);

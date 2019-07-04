@@ -1,6 +1,8 @@
 import { errorwrapper } from "@utilities/protractor-wappers/error-wapper";
 import TestRunInfo, { Station, SeatType } from "@data-objects/general/test-run-info";
 import uuidv4 from 'uuid/v4';
+import { JsonConvert, ValueCheckingMode } from "json2typescript";
+import * as filePath from "path"
 
 
 export class Utility{
@@ -232,6 +234,50 @@ export class Utility{
 
 			return result;
 	}
+
+	/**
+	 * Get the current file directory
+	 * @static
+	 * @param {string} filename
+	 * @memberof Utility
+	 */
+	public static getPath(filename?: string): string {
+		try{
+			let slitString: number = "built\\utilities\\general".length;
+			let projectPath: string = __dirname.slice(0,__dirname.length-slitString);
+
+			if (filename == null){
+				return projectPath;
+			}else {
+				return filePath.join(projectPath, filename);
+			}
+		}catch(err){
+			throw new errorwrapper.CustomError(this.getPath, err.message)
+		}
+	}
+
 }
+export class JsonUtility{
 
-
+	/**
+	 * @static
+	 * @param {*}json
+	 * @param {new()=>} classReference
+	 * @return{*}
+	 * @memberof JsonUtility
+	 */
+	public static deserialize(json: any, classReference: new()=>any){
+		try{
+			let jsonConvert = new JsonConvert();
+			jsonConvert.ignorePrimitiveChecks = false;
+			jsonConvert.valueCheckingMode = ValueCheckingMode.DISALLOW_NULL;
+			try{
+				return jsonConvert.deserialize(json,classReference);
+			} catch(e){
+				console.log((<Error>e));
+			}
+		}catch(err){
+			throw new errorwrapper.CustomError(this.deserialize, err.message);
+		}
+	}
+}
