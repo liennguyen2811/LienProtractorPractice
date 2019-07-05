@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites disabled="0" errors="0" failures="1" tests="2" time="12.395">
- <testsuite name="Login suite TC01" timestamp="2019-07-05T09:40:50" hostname="localhost" time="6.159" errors="0" tests="1" skipped="0" disabled="0" failures="1">
-  <testcase classname="Login suite TC01" name="TC01- User can login into Raiway with valid username and password" time="6.156">
+<testsuites disabled="0" errors="0" failures="1" tests="2" time="15.848">
+ <testsuite name="Login suite TC01" timestamp="2019-07-05T10:20:48" hostname="localhost" time="8.817" errors="0" tests="1" skipped="0" disabled="0" failures="1">
+  <testcase classname="Login suite TC01" name="TC01- User can login into Raiway with valid username and password" time="8.816">
    <failure type="exception" message="Failed: Failed by: Could not login. Welcome liennguyenlogigear12@gmail.com does nto equal to aaaWelcome liennguyenlogigear12@gmail.com"><![CDATA[Error: Failed by: Could not login. Welcome liennguyenlogigear12@gmail.com does nto equal to aaaWelcome liennguyenlogigear12@gmail.com
     at compare (F:\ProtractorPractice\source\src\utilities\matcher\customerMatcher.ts:48:27)
     at compare (C:\Users\lien.nguyen\AppData\Roaming\npm\node_modules\protractor\node_modules\jasminewd2\index.js:284:35)
@@ -27,7 +27,7 @@ Error
    </failure>
   </testcase>
  </testsuite>
- <testsuite name="Login suite - TC02" timestamp="2019-07-05T09:40:57" hostname="localhost" time="6.236" errors="0" tests="1" skipped="0" disabled="0" failures="0">
-  <testcase classname="Login suite - TC02" name="TC02- User can not login with blank Username textbox" time="6.235" />
+ <testsuite name="Login suite - TC02" timestamp="2019-07-05T10:20:56" hostname="localhost" time="7.031" errors="0" tests="1" skipped="0" disabled="0" failures="0">
+  <testcase classname="Login suite - TC02" name="TC02- User can not login with blank Username textbox" time="7.029" />
  </testsuite>
 </testsuites>
