@@ -56,12 +56,13 @@ export default class LoginPage extends GeneralPage {
     public async checkNonPassWordWithValidInfo(username: string, password: string): Promise<string> {
         try {
             
-            for (let i: number = 0; i ++; i <4){ 
+            for (let i: number = 0; i< 4; i++){ 
                 console.log("invalid password, ", i);
                 await this.login("liennguyenlogigear12@gmail.com", "liennguyen1");  
             }
             let homePage: HomePage = await this.login(username, password);
             return  await homePage.getNonpasswordmessage()
+           
 
         } catch (err) {
             throw new errorwrapper.CustomError(this.checkNonPassWordWithValidInfo, err.message);

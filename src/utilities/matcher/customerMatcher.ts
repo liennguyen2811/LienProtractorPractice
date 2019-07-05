@@ -45,7 +45,7 @@ export let customMacher: jasmine.CustomMatcherFactories = {
                     }catch(err){}
 
                     ConfigReport.checkErrorPic = false;
-                    throw new Error(result.message + ". " + actual + " does nto equal to " + expected);
+                    throw new Error(result.message + ". " + actual + " does not equal to " + expected);
                 } 
                 return result;
             }

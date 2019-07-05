@@ -62,7 +62,7 @@ class LoginPage extends general_page_1.default {
     checkNonPassWordWithValidInfo(username, password) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                for (let i = 0; i++; i < 4) {
+                for (let i = 0; i < 4; i++) {
                     console.log("invalid password, ", i);
                     yield this.login("liennguyenlogigear12@gmail.com", "liennguyen1");
                 }

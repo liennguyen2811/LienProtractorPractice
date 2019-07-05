@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites disabled="0" errors="0" failures="1" tests="2" time="16.819">
- <testsuite name="Login suite TC01" timestamp="2019-07-05T16:16:36" hostname="localhost" time="9.062" errors="0" tests="1" skipped="0" disabled="0" failures="1">
-  <testcase classname="Login suite TC01" name="TC01- User can login into Raiway with valid username and password" time="9.059">
-   <failure type="exception" message="Failed: Failed by: Could not login. Welcome liennguyenlogigear12@gmail.com does nto equal to aaaWelcome liennguyenlogigear12@gmail.com"><![CDATA[Error: Failed by: Could not login. Welcome liennguyenlogigear12@gmail.com does nto equal to aaaWelcome liennguyenlogigear12@gmail.com
+<testsuites disabled="0" errors="0" failures="1" tests="1" time="9.142">
+ <testsuite name="Login suite - TC04" timestamp="2019-07-05T17:03:01" hostname="localhost" time="9.142" errors="0" tests="1" skipped="0" disabled="0" failures="1">
+  <testcase classname="Login suite - TC04" name="Login page displays when un-logged User clicks on Book ticket tab" time="9.14">
+   <failure type="exception" message="Failed: Login page does not display. Invalid username or password. Please try again. does not equal to You have used 4 out of 5 login attempts. After all 5 have been used, you will be unable to login for 15 minutes"><![CDATA[Error: Login page does not display. Invalid username or password. Please try again. does not equal to You have used 4 out of 5 login attempts. After all 5 have been used, you will be unable to login for 15 minutes
     at compare (F:\ProtractorPractice\src\utilities\matcher\customerMatcher.ts:48:27)
     at compare (C:\Users\lien.nguyen\AppData\Roaming\npm\node_modules\protractor\node_modules\jasminewd2\index.js:284:35)
     at C:\Users\lien.nguyen\AppData\Roaming\npm\node_modules\protractor\node_modules\jasminewd2\index.js:269:16
@@ -15,19 +15,16 @@
     at resolveAt (C:\Users\lien.nguyen\AppData\Roaming\npm\node_modules\protractor\node_modules\jasminewd2\maybePromise.js:64:14)
 From asynchronous test: 
 Error
-    at Suite.<anonymous> (F:\ProtractorPractice\src\testcases\TC-01.ts:29:3)
+    at Suite.<anonymous> (F:\ProtractorPractice\src\testcases\TC-04.ts:30:3)
     at addSpecsToSuite (C:\Users\lien.nguyen\AppData\Roaming\npm\node_modules\protractor\node_modules\jasmine-core\lib\jasmine-core\jasmine.js:1107:25)
     at Env.describe (C:\Users\lien.nguyen\AppData\Roaming\npm\node_modules\protractor\node_modules\jasmine-core\lib\jasmine-core\jasmine.js:1074:7)
     at describe (C:\Users\lien.nguyen\AppData\Roaming\npm\node_modules\protractor\node_modules\jasmine-core\lib\jasmine-core\jasmine.js:4399:18)
-    at Object.<anonymous> (F:\ProtractorPractice\src\testcases\TC-01.ts:15:1)
+    at Object.<anonymous> (F:\ProtractorPractice\src\testcases\TC-04.ts:15:1)
     at Module._compile (internal/modules/cjs/loader.js:701:30)
     at Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)
     at Module.load (internal/modules/cjs/loader.js:600:32)
     at tryModuleLoad (internal/modules/cjs/loader.js:539:12)]]>
    </failure>
   </testcase>
- </testsuite>
- <testsuite name="Login suite - TC02" timestamp="2019-07-05T16:16:46" hostname="localhost" time="7.757" errors="0" tests="1" skipped="0" disabled="0" failures="0">
-  <testcase classname="Login suite - TC02" name="TC02- User can not login with blank Username textbox" time="7.757" />
  </testsuite>
 </testsuites>

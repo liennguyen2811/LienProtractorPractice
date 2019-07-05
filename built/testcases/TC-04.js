@@ -14,9 +14,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const home_page_1 = __importDefault(require("@page-objects/home-page"));
 const test_run_info_1 = __importDefault(require("@data-objects/general/test-run-info"));
 const test_base_1 = __importDefault(require("@testcases/test-base"));
-describe('Login suite - TC02', function () {
+describe('Login suite - TC04', function () {
     test_base_1.default.scheduleTestBase();
-    let expectedMsg = "You have used 4 out of 5 login attempts. After all 5 have been used, you will be unable to login for 15 minutes.";
+    let expectedMsg = "You have used 4 out of 5 login attempts. After all 5 have been used, you will be unable to login for 15 minutes";
     let homePage = new home_page_1.default();
     let loginPage;
     beforeEach(() => __awaiter(this, void 0, void 0, function* () {

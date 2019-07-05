@@ -12,10 +12,10 @@ import TestBase from '@testcases/test-base';
  * Tested OS: Windows 10
  */
 
-describe('Login suite - TC02', function () {
+describe('Login suite - TC04', function () {
 
   TestBase.scheduleTestBase();
-  let expectedMsg: string = "You have used 4 out of 5 login attempts. After all 5 have been used, you will be unable to login for 15 minutes.";
+  let expectedMsg: string = "You have used 4 out of 5 login attempts. After all 5 have been used, you will be unable to login for 15 minutes";
 
 
   // Declare page object
