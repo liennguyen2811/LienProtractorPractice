@@ -16,7 +16,6 @@ let jsLogger = require('js-logger');
 const test_base_1 = __importDefault(require("@testcases/test-base"));
 const customerMatcher_1 = require("@utilities/matcher/customerMatcher");
 const config_report_1 = require("@utilities/report-email/config-report");
-const protractor_1 = require("protractor");
 const test_run_info_1 = __importDefault(require("@data-objects/general/test-run-info"));
 test_base_1.default.setUpTestRunInfo();
 exports.config = {
@@ -37,23 +36,17 @@ exports.config = {
     },
     onComplete: function () {
         return __awaiter(this, void 0, void 0, function* () {
-            var browserName, browserVersion;
-            var capsPromise = protractor_1.protractor.browser.getCapabilities();
-            capsPromise.then(function (caps) {
-                return __awaiter(this, void 0, void 0, function* () {
-                    browserName = caps.get('browserName');
-                    browserVersion = caps.get('version');
-                    console.log("Lien onComplete browserName ", browserName);
-                });
-            });
             yield config_report_1.ConfigReport.convertXMLtoPieChart();
         });
     },
     framework: 'jasmine',
     capabilities: {
         browserName: `${test_run_info_1.default.browser}`,
+        binary: 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe'
     },
-    seleniumAddress: 'http://localhost:4444/wd/hub',
+    seleniumAddress: 'http://192.168.170.195:4444/wd/hub',
+    directConnect: false,
+    SELENIUM_PROMISE_MANAGER: false,
     specs: ['../testcases/TC-01.js',
         '../testcases/TC-02.js']
 };

@@ -70,12 +70,15 @@ class HTMLEmailRepportCustom {
                     console.log("testCase.result2", testCase.result);
                     for (let n = 0; n < failureT; n++) {
                         temReportMess += failureT[n].attr.message;
+                        console.log("temReportMess--1", temReportMess);
                     }
                     temReportMess += config_report_1.ConfigReport.getBugErrorMessage(testCase.id, temReportMess);
-                    if (temReportMess.indexOf("Failed by") > 1) {
+                    console.log("temReportMess--2", temReportMess);
+                    console.log(temReportMess.indexOf("Failed by"));
+                    if (temReportMess.indexOf("Failed by") > 0) {
                         allSuiteInfo.skipped++;
                         testCase.result = 'Failed with Known Bug';
-                        console.log("testCase.result3", testCase.result);
+                        console.log("testCase.result", testCase.result);
                     }
                     else {
                         allSuiteInfo.failed += 1;
