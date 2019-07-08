@@ -11,10 +11,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const general_page_1 = __importDefault(require("@page-objects/general-page"));
+const general_page_old_1 = __importDefault(require("@page-objects/general-page-old"));
 const element_wrapper_1 = __importDefault(require("@utilities/protractor-wappers/element-wrapper"));
 const protractor_1 = require("protractor");
-class ChangePassWordPage extends general_page_1.default {
+class ChangePassWordPage extends general_page_old_1.default {
     constructor() {
         super(...arguments);
         this.txtCurrentPassword = new element_wrapper_1.default(protractor_1.by.XPath("//input[@id='currentPassword']"));

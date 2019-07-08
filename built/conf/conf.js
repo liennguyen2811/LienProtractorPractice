@@ -48,7 +48,7 @@ exports.config = {
     directConnect: false,
     SELENIUM_PROMISE_MANAGER: false,
     specs: [
-        '../testcases/TC-04.js'
+        '../testcases/TC-01 -refactor.js'
     ]
 };
 //# sourceMappingURL=conf.js.map

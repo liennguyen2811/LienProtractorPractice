@@ -9,5 +9,16 @@
                 ]
             }
         ]
+    },
+    {
+        "BugIdJira": "BugJiraID-02",
+        "BugDescription": "The warning message does not display after wrong loging 4 times in Railway website",
+        "Data": [
+            {
+                "TestcaseID": [
+                    "TC01"
+                ]
+            }
+        ]
     }
 ]

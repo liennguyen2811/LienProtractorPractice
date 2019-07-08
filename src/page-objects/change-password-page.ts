@@ -1,4 +1,4 @@
-import GeneralPage from "@page-objects/general-page";
+import GeneralPage from "@page-objects/general-page-old";
 import ElementWrapper from "@utilities/protractor-wappers/element-wrapper";
 import { by } from "protractor";
 

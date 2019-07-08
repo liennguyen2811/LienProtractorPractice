@@ -15,9 +15,9 @@ const protractor_1 = require("protractor");
 const browser_wrapper_1 = __importDefault(require("@utilities/protractor-wappers/browser-wrapper"));
 const element_wrapper_1 = __importDefault(require("@utilities/protractor-wappers/element-wrapper"));
 const select_element_wapper_1 = __importDefault(require("@utilities/protractor-wappers/select-element-wapper"));
-const general_page_1 = __importDefault(require("page-objects/general-page"));
+const general_page_old_1 = __importDefault(require("@page-objects/general-page-old"));
 const ticket_1 = require("@data-objects/railway/ticket");
-class MyTicketPage extends general_page_1.default {
+class MyTicketPage extends general_page_old_1.default {
     constructor() {
         super(...arguments);
         this.cmbFilterDepartStation = new select_element_wapper_1.default(protractor_1.by.XPath("//select[@name='FilterDpStation']"));

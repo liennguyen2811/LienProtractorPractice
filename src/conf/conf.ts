@@ -63,5 +63,5 @@ directConnect: false,
 SELENIUM_PROMISE_MANAGER: false,
   //seleniumAddress: 'http://localhost:4444/wd/hub',
    specs: [//'../testcases/TC-01.js',
-          '../testcases/TC-04.js']
+          '../testcases/TC-01 -refactor.js']
 }

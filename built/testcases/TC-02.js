@@ -12,17 +12,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const logger_1 = require("@utilities/general/logger");
-const home_page_1 = __importDefault(require("@page-objects/home-page"));
+const home_page_old_1 = __importDefault(require("@page-objects/home-page-old"));
 const test_run_info_1 = __importDefault(require("@data-objects/general/test-run-info"));
 const test_base_1 = __importDefault(require("@testcases/test-base"));
 describe('Login suite - TC02', function () {
     test_base_1.default.scheduleTestBase();
     let expectedMsg = "There was a problem with your login and/or errors exist in your form.";
-    let homePage = new home_page_1.default();
+    let homePage = new home_page_old_1.default();
     let loginPage;
     beforeEach(() => __awaiter(this, void 0, void 0, function* () {
         yield logger_1.Logger.write(logger_1.FunctionType.TESTCASE, `TC02- User can't login with blank Username textbox`);
-        homePage = home_page_1.default.getHomePageInstance();
+        homePage = home_page_old_1.default.getHomePageInstance();
     }), test_run_info_1.default.conditionTimeout);
     it('TC02- User can not login with blank Username textbox', () => __awaiter(this, void 0, void 0, function* () {
         loginPage = yield homePage.goToLoginPage();

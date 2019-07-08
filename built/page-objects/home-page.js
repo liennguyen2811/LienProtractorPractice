@@ -11,9 +11,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const general_page_1 = __importDefault(require("@page-objects/general-page"));
 const browser_wrapper_1 = __importDefault(require("@utilities/protractor-wappers/browser-wrapper"));
 const test_run_info_1 = __importDefault(require("@data-objects/general/test-run-info"));
+const general_page_1 = __importDefault(require("./general-page"));
 class HomePage extends general_page_1.default {
     static getHomePageInstance() {
         this._homePage = new HomePage();

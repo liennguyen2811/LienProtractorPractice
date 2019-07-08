@@ -1,12 +1,11 @@
 import IBaseControlImp from "./base-control-imp";
-import { IClickable } from "../control-base/i-clickable";
 import { errorwrapper } from "../error-wapper";
 import StopWatch from "@utilities/general/stop-watch";
-import BaseControlImp from "./base-control-imp";
 import BaseControl from "./base-control-imp";
 import BrowserWrapper from "../browser-wrapper";
 import { ILocation } from "selenium-webdriver";
 import { Locator, ElementFinder } from "protractor";
+import IClickable from "../control-base/i-clickable";
 
 export class Clickable extends BaseControl implements IClickable{
 

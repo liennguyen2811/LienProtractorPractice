@@ -11,18 +11,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const general_page_1 = __importDefault(require("@page-objects/general-page"));
 const protractor_1 = require("protractor");
-const element_wrapper_1 = __importDefault(require("@utilities/protractor-wappers/element-wrapper"));
-const home_page_1 = __importDefault(require("@page-objects/home-page"));
+const home_page_old_1 = __importDefault(require("@page-objects/home-page-old"));
 const error_wapper_1 = require("@utilities/protractor-wappers/error-wapper");
+const textbox_1 = __importDefault(require("@utilities/protractor-wappers/control-common-imp/textbox"));
+const button_1 = __importDefault(require("@utilities/protractor-wappers/control-common-imp/button"));
+const lable_1 = __importDefault(require("@utilities/protractor-wappers/control-common-imp/lable"));
+const general_page_1 = __importDefault(require("./general-page"));
 class LoginPage extends general_page_1.default {
     constructor() {
         super(...arguments);
-        this.txtUsername = new element_wrapper_1.default(protractor_1.by.xpath("//input[@id='username']"));
-        this.txtPasword = new element_wrapper_1.default(protractor_1.by.xpath("//input[@id='password']"));
-        this.btnLogin = new element_wrapper_1.default(protractor_1.by.xpath("//input[@value='login']"));
-        this.lbErrorMessage = new element_wrapper_1.default(protractor_1.by.xpath("//p[@class='message error LoginForm']"));
+        this.password = new textbox_1.default(protractor_1.by.xpath("//input[@id='password']"));
+        this.userName = new textbox_1.default(protractor_1.by.xpath("//input[@id='username']"));
+        this.logIn = new button_1.default(protractor_1.by.xpath("//input[@value='login']"));
+        this.errorMessage = new lable_1.default(protractor_1.by.xpath("//p[@class='message error LoginForm']"));
     }
     static getLoginPageInstance() {
         this._loginPage = new LoginPage();
@@ -31,13 +33,13 @@ class LoginPage extends general_page_1.default {
     login(username, password) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield this.txtPasword.scrollToElement();
-                yield this.txtUsername.sendKeys(username);
+                yield this.password.scrollToElement();
+                yield this.userName.sendKeys(username);
                 if (password != "") {
-                    yield this.txtPasword.sendKeys(password);
+                    yield this.password.sendKeys(password);
                 }
-                yield this.btnLogin.click();
-                return home_page_1.default.getHomePageInstance();
+                yield this.logIn.click();
+                return home_page_old_1.default.getHomePageInstance();
             }
             catch (err) {
                 throw new error_wapper_1.errorwrapper.CustomError(this.login, err.message);
@@ -46,32 +48,7 @@ class LoginPage extends general_page_1.default {
     }
     geterrormessage() {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.lbErrorMessage.getText();
-        });
-    }
-    isLoginPageDisplayed(timeOut) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                return yield this.txtPasword.isDisplayed(timeOut);
-            }
-            catch (err) {
-                throw new error_wapper_1.errorwrapper.CustomError(this.isLoginPageDisplayed, err.message);
-            }
-        });
-    }
-    checkNonPassWordWithValidInfo(username, password) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                for (let i = 0; i < 4; i++) {
-                    console.log("invalid password, ", i);
-                    yield this.login("liennguyenlogigear12@gmail.com", "liennguyen1");
-                }
-                let homePage = yield this.login(username, password);
-                return yield homePage.getNonpasswordmessage();
-            }
-            catch (err) {
-                throw new error_wapper_1.errorwrapper.CustomError(this.checkNonPassWordWithValidInfo, err.message);
-            }
+            return yield this.errorMessage.getText();
         });
     }
 }

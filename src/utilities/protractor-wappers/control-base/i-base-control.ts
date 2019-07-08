@@ -14,5 +14,6 @@ export interface IBaseControl{
     waitForControlStable(timeoutInSecond: number): Promise<void>;
     waitForPresenceOf(timeoutInSecond: number): Promise<this>
     wait(timeoutInSecond: number): Promise<this> 
+    scrollToElement(timeoutInSecond: number): Promise<this>
 
 }

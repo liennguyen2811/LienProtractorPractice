@@ -1,7 +1,7 @@
 
 import { FunctionType } from '../utilities/general/logger';
-import LoginPage from '@page-objects/login-page';
-import HomePage from '@page-objects/home-page';
+import LoginPage from '@page-objects/login-page-old';
+import HomePage from '@page-objects/home-page-old';
 import TestRunInfo from '@data-objects/general/test-run-info';
 import TestBase from '@testcases/test-base';
 /** 
@@ -34,7 +34,7 @@ describe('Login suite - TC04', function () {
             loginPage = await homePage.goToLoginPage();
 
             // VP. User is logged into Railway. Welcome user message is displayed.  
-            expect (await loginPage.checkNonPassWordWithValidInfo(TestRunInfo.USERNAME,TestRunInfo.PASSWORD)).toBe(expectedMsg, "Login page does not display");
+            expect (await loginPage.checkNonPassWordWithValidInfo(TestRunInfo.USERNAME,TestRunInfo.PASSWORD)).toBe(expectedMsg, "Failed by BugJiraID-02: The warning message does not display after wrong loging 4 times in Railway website");
         
   });
 

@@ -1,5 +1,6 @@
-import { IClickable } from "../control-base/i-clickable";
+
 import { Locator } from "protractor";
+import IClickable from "../control-base/i-clickable";
 
 export interface ICombobox extends IClickable{
     selectByID(id: string, timeoutInSecond: number): Promise<void>;

@@ -1,5 +1,5 @@
-import { IClickable } from "../control-base/i-clickable";
+import IClickable from "../control-base/i-clickable";
 
-export interface ILink extends IClickable{
+export default interface ILink extends IClickable{
     
 }

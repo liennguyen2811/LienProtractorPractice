@@ -1,4 +1,4 @@
-import GeneralPage from "@page-objects/general-page";
+import GeneralPage from "@page-objects/general-page-old";
 
 export default class TimeTablePage extends GeneralPage{
     private static _timeTablePage: TimeTablePage;

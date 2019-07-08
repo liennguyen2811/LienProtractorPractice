@@ -1,7 +1,7 @@
 
 import { Logger, FunctionType } from '@utilities/general/logger';
-import LoginPage from '@page-objects/login-page';
-import HomePage from '@page-objects/home-page';
+import LoginPage from '@page-objects/login-page-old';
+import HomePage from '@page-objects/home-page-old';
 import TestRunInfo from '@data-objects/general/test-run-info';
 import TestBase from '@testcases/test-base';
 /** 

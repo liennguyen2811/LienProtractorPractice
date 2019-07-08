@@ -1,9 +1,9 @@
 
 import { Logger, FunctionType } from '@utilities/general/logger';
-import LoginPage from '@page-objects/login-page';
-import HomePage from '@page-objects/home-page';
+import HomePage from '@page-objects/home-page-old';
 import TestRunInfo from '@data-objects/general/test-run-info';
 import TestBase from '@testcases/test-base';
+import LoginPageOld from '@page-objects/login-page-old';
 /** 
  * Type: RailWay
  * Suite: Login
@@ -19,7 +19,7 @@ describe('Login suite - TC02', function () {
 
   // Declare page object
   let homePage: HomePage = new HomePage()
-  let loginPage: LoginPage
+  let loginPage: LoginPageOld
 
   beforeEach(async () => {
       await Logger.write(FunctionType.TESTCASE, `TC02- User can't login with blank Username textbox`);

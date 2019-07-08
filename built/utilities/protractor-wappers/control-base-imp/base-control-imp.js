@@ -18,6 +18,7 @@ const stop_watch_1 = __importDefault(require("@utilities/general/stop-watch"));
 const protractor_1 = require("protractor");
 const general_1 = require("@data-objects/general/general");
 const platform_1 = require("@data-objects/general/platform");
+const typescript_string_operations_1 = require("typescript-string-operations");
 class BaseControl {
     constructor(obj) {
         this._elementTimeout = test_run_info_1.default.elementTimeout;
@@ -26,10 +27,12 @@ class BaseControl {
             this._by = eleFinder.locator();
             this._element = eleFinder;
         }
-        else {
+        else if (obj.constructor.name === "Locator") {
             let loc = obj;
             this._by = loc;
             this._element = browser_wrapper_1.default.getDriverInstance().element(this._by);
+        }
+        else {
         }
     }
     element(by, timeoutInSecond = this._elementTimeout) {
@@ -283,6 +286,61 @@ class BaseControl {
             }
             catch (err) {
                 throw new error_wapper_1.errorwrapper.CustomError(this.moveMouse, err.message);
+            }
+        });
+    }
+    scrollToElement(timeoutInSecond = this._elementTimeout) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                let id = yield this._element.getAttribute("id");
+                yield browser_wrapper_1.default.executeScript(`document.getElementById('${id}').scrollIntoView(false);`);
+                return this;
+            }
+            catch (err) {
+                throw new error_wapper_1.errorwrapper.CustomError(this.scrollToElement, err.message);
+            }
+        });
+    }
+    sendKeys(value) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield browser_wrapper_1.default.getActions().mouseMove(this._element).perform();
+                yield this._element.sendKeys(value).then(() => __awaiter(this, void 0, void 0, function* () { }));
+                return this;
+            }
+            catch (err) {
+                throw new error_wapper_1.errorwrapper.CustomError(this.sendKeys, err.message);
+            }
+        });
+    }
+    setDynamicValue(value) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let dynamicLocator;
+            let location;
+            location = typescript_string_operations_1.String.Format(dynamicLocator, value);
+        });
+    }
+    getByLocator() {
+        return __awaiter(this, void 0, void 0, function* () {
+            let body = this._locator.replace("[\\w\\s]*=(.*)", `${1}`).trim();
+            let type = this._locator.replace("([\\w\\s]*)=.*", `${1}`).trim();
+            switch (type) {
+                case "class":
+                    return protractor_1.by.className(body);
+                case "css":
+                    return protractor_1.by.cssSelector(body);
+                case "id":
+                    return protractor_1.by.id(body);
+                case "link":
+                    return protractor_1.by.linkText(body);
+                case "xpath":
+                    return protractor_1.by.xpath(body);
+                case "text":
+                    return protractor_1.by.xpath(typescript_string_operations_1.String.Format("//*[contains(text(), '%s')]", body));
+                case "name":
+                    return protractor_1.by.name(body);
+                default:
+                    return protractor_1.by.xpath(this._locator);
             }
         });
     }

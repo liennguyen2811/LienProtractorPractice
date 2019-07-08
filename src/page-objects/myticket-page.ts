@@ -2,7 +2,7 @@ import { by } from "protractor";
 import BrowserWrapper from "@utilities/protractor-wappers/browser-wrapper";
 import ElementWrapper from "@utilities/protractor-wappers/element-wrapper";
 import SelectElementWrapper from "@utilities/protractor-wappers/select-element-wapper";
-import GeneralPage from "page-objects/general-page";
+import GeneralPage from "@page-objects/general-page-old";
 import { Ticket } from "@data-objects/railway/ticket";
 import { strict } from "assert";
 

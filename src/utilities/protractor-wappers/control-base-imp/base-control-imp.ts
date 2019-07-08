@@ -5,30 +5,53 @@ import { errorwrapper } from "../error-wapper";
 import StopWatch from "@utilities/general/stop-watch";
 import { by, ElementFinder, ExpectedConditions as until, Locator, error } from "protractor";
 import { CoordinateType } from "@data-objects/general/general";
-import { ILocation, ISize } from "selenium-webdriver";
+import { ILocation, ISize, By } from "selenium-webdriver";
 import { Browser } from "@data-objects/general/platform";
+import { String } from 'typescript-string-operations';
 
 export default class BaseControl implements IBaseControl{
      _elementTimeout: number = TestRunInfo.elementTimeout;
-    _by: Locator;
+     _by: Locator;
      _element: ElementFinder;
+     _locator: string;
+     _dynamicLocator: string
+     
+     
     /**
      * Create a wapper for web element
      * @param {Locator | ElementFinder} obj
      */
+    constructor(locator: string)
+    constructor(obj: Locator)
 
-    constructor(obj: Locator | ElementFinder) {
+
+    constructor(obj: Locator | ElementFinder |string) {
+
         if (obj.constructor.name === "ElementFinder") {
             let eleFinder = obj as ElementFinder;
             this._by = eleFinder.locator();
             this._element = eleFinder;
-        } else {
+        } else if (obj.constructor.name === "Locator") {
             let loc = obj as Locator;
             this._by = loc;
             this._element = BrowserWrapper.getDriverInstance().element(this._by);
+        } else{
 
         }
     }
+
+    // constructor(obj: Locator | ElementFinder) {
+    //     if (obj.constructor.name === "ElementFinder") {
+    //         let eleFinder = obj as ElementFinder;
+    //         this._by = eleFinder.locator();
+    //         this._element = eleFinder;
+    //     } else {
+    //         let loc = obj as Locator;
+    //         this._by = loc;
+    //         this._element = BrowserWrapper.getDriverInstance().element(this._by);
+
+    //     }
+    // }
    
     /**
      * Find all child elements of an element
@@ -344,4 +367,68 @@ public async moveMouse(opt_offset: ILocation, timeoutInSecond: number = this._el
         throw new errorwrapper.CustomError(this.moveMouse, err.message)
     }
 }
+/**
+        * Scroll to element
+        * @static
+        * @returns {Promise<void>} 
+        * @memberof ElementWrapper
+        */
+       public async scrollToElement(timeoutInSecond: number = this._elementTimeout): Promise<this> {
+        try {
+            let id: string = await this._element.getAttribute("id");
+            await BrowserWrapper.executeScript(`document.getElementById('${id}').scrollIntoView(false);`);
+            return this;
+        } catch (err) {
+            throw new errorwrapper.CustomError(this.scrollToElement, err.message);
+        }
+    }
+     /**
+     * Clear textbox and input content to element with out check value
+     * @param {(...(string | number | promise.Promise<string | number>)[])} var_args content to type
+     * @returns {Promise<this>} 
+     * @memberof ElementWrapper
+     */
+    public async sendKeys(value: any): Promise<this> {
+        try {
+            await BrowserWrapper.getActions().mouseMove(this._element).perform();
+            await this._element.sendKeys(value).then(
+                async () => { }
+            );
+
+            return this;
+        } catch (err) {
+            throw new errorwrapper.CustomError(this.sendKeys, err.message);
+        }
+    }
+    public async setDynamicValue(value: string) {
+        let dynamicLocator: string;
+        let location : Locator;
+        location = String.Format(dynamicLocator,value);
+        
+    }
+
+    public async getByLocator(){
+        let body: string = this._locator.replace("[\\w\\s]*=(.*)",`${1}`).trim();
+        let type: string = this._locator.replace("([\\w\\s]*)=.*", `${1}`).trim();
+        switch (type) {
+            case "class":
+                return by.className(body);
+            case "css":
+                return by.cssSelector(body);
+            case "id":
+                return by.id(body);
+            case "link":
+                return by.linkText(body);
+            case "xpath":
+                return by.xpath(body);
+            case "text":
+                return by.xpath(String.Format("//*[contains(text(), '%s')]", body));
+            case "name":
+                return by.name(body);
+            default:
+                return by.xpath(this._locator);
+            }
+
+    }
+
 }
