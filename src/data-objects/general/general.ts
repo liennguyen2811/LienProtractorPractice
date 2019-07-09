@@ -31,4 +31,7 @@ export enum Button {
     BACKSPACE = "backspace",
 }
 
-
+export enum TabName{
+  login = "LogIn",
+  logout = "LogOut"
+}

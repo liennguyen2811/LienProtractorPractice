@@ -16,8 +16,10 @@ const protractor_1 = require("protractor");
 const error_wapper_1 = require("@utilities/protractor-wappers/error-wapper");
 const logger_1 = require("@utilities/general/logger");
 const browser_wrapper_1 = __importDefault(require("@utilities/protractor-wappers/browser-wrapper"));
+const link_1 = __importDefault(require("@utilities/protractor-wappers/control-common-imp/link"));
 class GeneralPageOld {
     constructor() {
+        this.navigationItem = new link_1.default(protractor_1.by.xpath("//div[@id= 'menu']//a[@href = '/Account/Login.cshtml']"));
         this.tabLogin = new element_wrapper_1.default(protractor_1.by.xpath("//div[@id= 'menu']//a[@href = '/Account/Login.cshtml']"));
         this.tabLogout = new element_wrapper_1.default(protractor_1.by.xpath("//div[@id= 'menu']//a[@href='/Account/Logout']"));
         this.tabRegister = new element_wrapper_1.default(protractor_1.by.xpath("//div[@id='menu']//a[@href='/Account/Register.cshtml']"));
@@ -151,8 +153,10 @@ class GeneralPageOld {
             try {
                 yield logger_1.Logger.write(logger_1.FunctionType.UI, `Going to Login Page`);
                 yield this.tabLogin.click();
-                let loginPage = require(`../page-objects/login-page`).default;
-                return yield loginPage.getLoginPageInstance();
+                console.log(this.tabLogin);
+                console.log(this.navigationItem);
+                let loginPageOld = require(`../page-objects/login-page-old`).default;
+                return yield loginPageOld.getLoginPageOldInstance();
             }
             catch (err) {
                 throw new error_wapper_1.errorwrapper.CustomError(this.goToLoginPage, err.message);

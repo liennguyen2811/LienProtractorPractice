@@ -1,9 +1,9 @@
 
 import { Logger, FunctionType } from '@utilities/general/logger';
-import LoginPage from '@page-objects/login-page-old';
-import HomePage from '@page-objects/home-page-old';
 import TestRunInfo from '@data-objects/general/test-run-info';
 import TestBase from '@testcases/test-base';
+import LoginPageOld from '@page-objects/login-page-old';
+import HomePageOld from '@page-objects/home-page-old';
 /** 
  * Type: RailWay
  * Suite: Login
@@ -18,19 +18,19 @@ describe('Login suite - TC02', function () {
   let expectedMsg: string = "There was a problem with your login and/or errors exist in your form.";
 
   // Declare page object
-  let homePage: HomePage = new HomePage()
-  let loginPage: LoginPage
+  let homePageOld: HomePageOld = new HomePageOld()
+  let loginPage: LoginPageOld
 
   beforeEach(async () => {
       await Logger.write(FunctionType.TESTCASE, `TC03- Login page displays when un-logged User clicks on Book ticket tab`);
-      homePage = HomePage.getHomePageInstance();
+      homePageOld = HomePageOld.getHomePageInstance();
   }, TestRunInfo.conditionTimeout);
 
   it('Login page displays when un-logged User clicks on Book ticket tab', async () => {
             // 2. Clickon "Login" tab
             // 3. Enter valid Email and Password
             // 4. Click on "Login" button
-            loginPage = await homePage.goToBookTicketUnloggedUser();
+            loginPage = await homePageOld.goToBookTicketUnloggedUser();
 
             // VP. User is logged into Railway. Welcome user message is displayed.  
             expect (await loginPage.isLoginPageDisplayed(TestRunInfo.shortTimeout)).toBe(true, "Login page does not display");
@@ -41,7 +41,7 @@ describe('Login suite - TC02', function () {
       await Logger.write(FunctionType.NONE, `Final - Cleaning Up\n`);
       try {
           // logout 
-          homePage.logout();
+          homePageOld.logout();
       }
       catch (err) { }
   }, TestRunInfo.conditionTimeout);

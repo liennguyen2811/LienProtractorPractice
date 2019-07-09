@@ -12,26 +12,26 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const logger_1 = require("@utilities/general/logger");
-const home_page_old_1 = __importDefault(require("@page-objects/home-page-old"));
 const test_run_info_1 = __importDefault(require("@data-objects/general/test-run-info"));
 const test_base_1 = __importDefault(require("@testcases/test-base"));
+const home_page_old_1 = __importDefault(require("@page-objects/home-page-old"));
 describe('Login suite - TC02', function () {
     test_base_1.default.scheduleTestBase();
     let expectedMsg = "There was a problem with your login and/or errors exist in your form.";
-    let homePage = new home_page_old_1.default();
+    let homePageOld = new home_page_old_1.default();
     let loginPage;
     beforeEach(() => __awaiter(this, void 0, void 0, function* () {
         yield logger_1.Logger.write(logger_1.FunctionType.TESTCASE, `TC03- Login page displays when un-logged User clicks on Book ticket tab`);
-        homePage = home_page_old_1.default.getHomePageInstance();
+        homePageOld = home_page_old_1.default.getHomePageInstance();
     }), test_run_info_1.default.conditionTimeout);
     it('Login page displays when un-logged User clicks on Book ticket tab', () => __awaiter(this, void 0, void 0, function* () {
-        loginPage = yield homePage.goToBookTicketUnloggedUser();
+        loginPage = yield homePageOld.goToBookTicketUnloggedUser();
         expect(yield loginPage.isLoginPageDisplayed(test_run_info_1.default.shortTimeout)).toBe(true, "Login page does not display");
     }));
     afterEach(() => __awaiter(this, void 0, void 0, function* () {
         yield logger_1.Logger.write(logger_1.FunctionType.NONE, `Final - Cleaning Up\n`);
         try {
-            homePage.logout();
+            homePageOld.logout();
         }
         catch (err) { }
     }), test_run_info_1.default.conditionTimeout);

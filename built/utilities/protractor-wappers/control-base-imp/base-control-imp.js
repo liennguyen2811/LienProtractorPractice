@@ -27,12 +27,10 @@ class BaseControl {
             this._by = eleFinder.locator();
             this._element = eleFinder;
         }
-        else if (obj.constructor.name === "Locator") {
+        else {
             let loc = obj;
             this._by = loc;
             this._element = browser_wrapper_1.default.getDriverInstance().element(this._by);
-        }
-        else {
         }
     }
     element(by, timeoutInSecond = this._elementTimeout) {
@@ -313,11 +311,10 @@ class BaseControl {
             }
         });
     }
-    setDynamicValue(value) {
+    setDynamicValue(...args) {
         return __awaiter(this, void 0, void 0, function* () {
-            let dynamicLocator;
-            let location;
-            location = typescript_string_operations_1.String.Format(dynamicLocator, value);
+            this._locator = typescript_string_operations_1.String.Format(this._dynamicLocator, args);
+            this._by = this.getByLocator();
         });
     }
     getByLocator() {
@@ -342,6 +339,26 @@ class BaseControl {
                 default:
                     return protractor_1.by.xpath(this._locator);
             }
+        });
+    }
+    click(timeoutInSecond = this._elementTimeout) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (timeoutInSecond < 0) {
+                throw new error_wapper_1.errorwrapper.TimeoutError;
+            }
+            let stopWatch = new stop_watch_1.default();
+            stopWatch.startClock();
+            yield this.wait(stopWatch.getTimeLeftInSecond(timeoutInSecond));
+            yield this._element.click().then(() => __awaiter(this, void 0, void 0, function* () { }), (err) => __awaiter(this, void 0, void 0, function* () {
+                let _error = err;
+                if (_error.message.includes("Other element would recieve the click") || _error.message.includes("element isnot attached to the page document")) {
+                    yield this.click(stopWatch.getTimeLeftInSecond(timeoutInSecond));
+                }
+                else {
+                    throw _error;
+                }
+            }));
+            return this;
         });
     }
 }

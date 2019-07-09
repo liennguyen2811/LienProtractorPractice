@@ -1,4 +1,4 @@
-import { async } from "q";
+
 import TestRunInfo from "../data-objects/general/test-run-info";
 import BrowserWrapper from "../utilities/protractor-wappers/browser-wrapper";
 import { Logger, FunctionType } from "../utilities/general/logger";

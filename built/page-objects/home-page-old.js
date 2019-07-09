@@ -11,13 +11,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const general_page_old_1 = __importDefault(require("@page-objects/general-page-old"));
 const browser_wrapper_1 = __importDefault(require("@utilities/protractor-wappers/browser-wrapper"));
 const test_run_info_1 = __importDefault(require("@data-objects/general/test-run-info"));
-class HomePage extends general_page_old_1.default {
+const general_page_old_1 = __importDefault(require("@page-objects/general-page-old"));
+class HomePageOld extends general_page_old_1.default {
     static getHomePageInstance() {
-        this._homePage = new HomePage();
-        return this._homePage;
+        this._homePageold = new HomePageOld();
+        return this._homePageold;
     }
     navigateToWebPage() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -27,5 +27,5 @@ class HomePage extends general_page_old_1.default {
         });
     }
 }
-exports.default = HomePage;
+exports.default = HomePageOld;
 //# sourceMappingURL=home-page-old.js.map

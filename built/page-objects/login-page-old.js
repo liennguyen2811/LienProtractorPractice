@@ -13,9 +13,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const protractor_1 = require("protractor");
 const element_wrapper_1 = __importDefault(require("@utilities/protractor-wappers/element-wrapper"));
-const home_page_old_1 = __importDefault(require("@page-objects/home-page-old"));
 const error_wapper_1 = require("@utilities/protractor-wappers/error-wapper");
 const general_page_old_1 = __importDefault(require("./general-page-old"));
+const home_page_old_1 = __importDefault(require("./home-page-old"));
 class LoginPageOld extends general_page_old_1.default {
     constructor() {
         super(...arguments);
@@ -24,9 +24,9 @@ class LoginPageOld extends general_page_old_1.default {
         this.btnLogin = new element_wrapper_1.default(protractor_1.by.xpath("//input[@value='login']"));
         this.lbErrorMessage = new element_wrapper_1.default(protractor_1.by.xpath("//p[@class='message error LoginForm']"));
     }
-    static getLoginPageInstance() {
-        this._loginPage = new LoginPageOld();
-        return this._loginPage;
+    static getLoginPageOldInstance() {
+        this._loginPageold = new LoginPageOld();
+        return this._loginPageold;
     }
     login(username, password) {
         return __awaiter(this, void 0, void 0, function* () {

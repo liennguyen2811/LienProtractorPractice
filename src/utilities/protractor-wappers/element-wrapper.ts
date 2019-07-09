@@ -5,14 +5,16 @@ import TestRunInfo from "@data-objects/general/test-run-info";
 import StopWatch from "@utilities/general/stop-watch";
 import BrowserWrapper from "@utilities/protractor-wappers/browser-wrapper";
 import { errorwrapper } from "@utilities/protractor-wappers/error-wapper";
-import { by, ElementFinder, ExpectedConditions as until, Locator, ProtractorBrowser } from "protractor";
-import { error, ILocation, ISize, WebElementPromise } from "selenium-webdriver";
+import { by, ElementFinder, ExpectedConditions as until, Locator } from "protractor";
+import { error, ILocation, ISize } from "selenium-webdriver";
 
 
 export default class ElementWrapper {
-    private _elementTimeout: number = TestRunInfo.elementTimeout;
-    private _by: Locator;
-    private _element: ElementFinder;
+    _elementTimeout: number = TestRunInfo.elementTimeout;
+    _by: Locator;
+    _element: ElementFinder;
+    _locator: string;
+    _dynamicLocator: string
 
     /**
      * Create a wapper for web element

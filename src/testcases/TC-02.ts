@@ -1,6 +1,6 @@
 
 import { Logger, FunctionType } from '@utilities/general/logger';
-import HomePage from '@page-objects/home-page-old';
+import HomePageOld from '@page-objects/home-page-old';
 import TestRunInfo from '@data-objects/general/test-run-info';
 import TestBase from '@testcases/test-base';
 import LoginPageOld from '@page-objects/login-page-old';
@@ -18,12 +18,12 @@ describe('Login suite - TC02', function () {
   let expectedMsg: string = "There was a problem with your login and/or errors exist in your form.";
 
   // Declare page object
-  let homePage: HomePage = new HomePage()
+  let homePage: HomePageOld = new HomePageOld()
   let loginPage: LoginPageOld
 
   beforeEach(async () => {
       await Logger.write(FunctionType.TESTCASE, `TC02- User can't login with blank Username textbox`);
-      homePage = HomePage.getHomePageInstance();
+      homePage = HomePageOld.getHomePageInstance();
   }, TestRunInfo.conditionTimeout);
 
   it('TC02- User can not login with blank Username textbox', async () => {

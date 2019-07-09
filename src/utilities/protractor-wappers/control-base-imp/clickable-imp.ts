@@ -98,37 +98,31 @@ export class Clickable extends BaseControl implements IClickable{
             throw new errorwrapper.CustomError(this.type, err.message);
         }
     }
-    /**
-    * Move mouse and click on the target
-    * @param {ILocation} [opt_offset]
-    * @param {number} [timeoutInSecond=this._elementTimeout] maximum time to wait
-    * @returns {Promise<this>} 
-    * @memberof ElementWrapper
-    */
-   public async moveMouseAndClick(timeoutInSecond: number = this._elementTimeout, opt_offset: ILocation,): Promise<this> {
-    try {
-        if (timeoutInSecond < 0) {
-            throw new errorwrapper.NoSuchElementError(this._by);
+    public async moveMouseAndClick(timeoutInSecond: number = this._elementTimeout,opt_offset: ILocation): Promise<this> {
+        try {
+            if (timeoutInSecond < 0) {
+                throw new errorwrapper.NoSuchElementError(this._by);
+            }
+
+            let stopWatch = new StopWatch();
+            stopWatch.startClock();
+
+            await this.wait(stopWatch.getTimeLeftInSecond(timeoutInSecond));
+            await BrowserWrapper.getActions().mouseMove(this._element, opt_offset).click().perform().then(
+                async () => { },
+                async (error) => {
+                    let _error: Error = <Error>error;
+
+                    if (_error.message.includes("Element is not currently interactable") || _error.name == errorwrapper.StaleElementReferenceError.name) {
+                        await this.moveMouseAndClick(stopWatch.getTimeLeftInSecond(timeoutInSecond),opt_offset);
+                    } else {
+                        throw _error;
+                    }
+                });
+            return this;
+        } catch (err) {
+            throw new errorwrapper.CustomError(this.moveMouseAndClick, err.message);
         }
-
-        let stopWatch = new StopWatch();
-        stopWatch.startClock();
-
-        await this.wait(stopWatch.getTimeLeftInSecond(timeoutInSecond));
-        await BrowserWrapper.getActions().mouseMove(this._element, opt_offset).click().perform().then(
-            async () => { },
-            async (error) => {
-                let _error: Error = <Error>error;
-
-                if (_error.message.includes("Element is not currently interactable") || _error.name == errorwrapper.StaleElementReferenceError.name) {
-                    await this.moveMouseAndClick(stopWatch.getTimeLeftInSecond(timeoutInSecond), opt_offset);
-                } else {
-                    throw _error;
-                }
-            });
-        return this;
-    } catch (err) {
-        throw new errorwrapper.CustomError(this.moveMouseAndClick, err.message);
     }
-}
+
 }

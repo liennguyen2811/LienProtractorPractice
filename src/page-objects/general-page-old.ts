@@ -1,7 +1,6 @@
 import ElementWrapper from "@utilities/protractor-wappers/element-wrapper";
 import { by } from "protractor";
 import { errorwrapper } from "@utilities/protractor-wappers/error-wapper";
-import LoginPage from "@page-objects/login-page-old";
 import { Logger, FunctionType } from "@utilities/general/logger";
 import RegisterPage from "@page-objects/register-page";
 import ChangePassWordPage from "@page-objects/change-password-page";
@@ -10,14 +9,16 @@ import BookTicketPage from "@page-objects/book-ticket-page";
 import TicketPricePage from "@page-objects/ticket-price-page";
 import MyTicketPage from "@page-objects/myticket-page";
 import BrowserWrapper from "@utilities/protractor-wappers/browser-wrapper";
+import LoginPageOld from "./login-page-old";
+import Link from "@utilities/protractor-wappers/control-common-imp/link";
 
 
 export default class GeneralPageOld {
 
-    private static _generalPage: GeneralPageOld ;
+    private static _generalPageold: GeneralPageOld ;
     //constructor(){};
 
-    //protected tabLogin = new ElementWrapper(by.xpath("//div[@id= 'menu']//a[@href = '/Account/Login.cshtml']"));
+    navigationItem: Link = new Link(by.xpath("//div[@id= 'menu']//a[@href = '/Account/Login.cshtml']"));
     protected tabLogin = new ElementWrapper(by.xpath("//div[@id= 'menu']//a[@href = '/Account/Login.cshtml']"));
 	protected tabLogout = new ElementWrapper(by.xpath("//div[@id= 'menu']//a[@href='/Account/Logout']"));
 	protected tabRegister = new ElementWrapper(by.xpath("//div[@id='menu']//a[@href='/Account/Register.cshtml']"));
@@ -161,7 +162,7 @@ export default class GeneralPageOld {
      * @returns {Promise<LoginPage>}
      * @memberof GeneralPage
      */
-    public async logout(): Promise<LoginPage>
+    public async logout(): Promise<LoginPageOld>
 	{ try{
         await Logger.write(FunctionType.UI, `Going to log out`)
         await this.tabLogout.click();
@@ -176,12 +177,15 @@ export default class GeneralPageOld {
      * @returns {Promise<LoginPage>}
      * @memberof GeneralPage
      */
-    public async goToLoginPage(): Promise<LoginPage>
+    public async goToLoginPage(): Promise<LoginPageOld>
 	{ try{
         await Logger.write(FunctionType.UI, `Going to Login Page`)
-        await this.tabLogin.click();
-        let loginPage  = require(`../page-objects/login-page`).default;
-        return  await loginPage.getLoginPageInstance();
+        await this.tabLogin.click()
+        console.log(this.tabLogin);
+        console.log(this.navigationItem);
+       // this.navigationItem.click();
+        let loginPageOld  = require(`../page-objects/login-page-old`).default;
+        return  await loginPageOld.getLoginPageOldInstance();
     } catch(err){
         throw new errorwrapper.CustomError(this.goToLoginPage, err.message)
     }     
@@ -281,7 +285,7 @@ export default class GeneralPageOld {
      * @returns {Promise<MyTicketPage>}
      * @memberof GeneralPage
      */
-    public async goToBookTicketUnloggedUser(): Promise<LoginPage>
+    public async goToBookTicketUnloggedUser(): Promise<LoginPageOld>
 	{ try{
         await Logger.write(FunctionType.UI, `Going to book ticket page unlogger user`)
         await this.tabBookTicket.click();

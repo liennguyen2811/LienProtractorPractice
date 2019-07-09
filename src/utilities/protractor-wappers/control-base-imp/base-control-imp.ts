@@ -10,48 +10,31 @@ import { Browser } from "@data-objects/general/platform";
 import { String } from 'typescript-string-operations';
 
 export default class BaseControl implements IBaseControl{
-     _elementTimeout: number = TestRunInfo.elementTimeout;
-     _by: Locator;
-     _element: ElementFinder;
+    _elementTimeout: number = TestRunInfo.elementTimeout;
+    _by: Locator;
+    _element: ElementFinder;
      _locator: string;
      _dynamicLocator: string
      
      
+    
     /**
      * Create a wapper for web element
      * @param {Locator | ElementFinder} obj
      */
-    constructor(locator: string)
-    constructor(obj: Locator)
 
-
-    constructor(obj: Locator | ElementFinder |string) {
-
+    constructor(obj: Locator | ElementFinder) {
         if (obj.constructor.name === "ElementFinder") {
             let eleFinder = obj as ElementFinder;
             this._by = eleFinder.locator();
             this._element = eleFinder;
-        } else if (obj.constructor.name === "Locator") {
+        } else {
             let loc = obj as Locator;
             this._by = loc;
             this._element = BrowserWrapper.getDriverInstance().element(this._by);
-        } else{
 
         }
     }
-
-    // constructor(obj: Locator | ElementFinder) {
-    //     if (obj.constructor.name === "ElementFinder") {
-    //         let eleFinder = obj as ElementFinder;
-    //         this._by = eleFinder.locator();
-    //         this._element = eleFinder;
-    //     } else {
-    //         let loc = obj as Locator;
-    //         this._by = loc;
-    //         this._element = BrowserWrapper.getDriverInstance().element(this._by);
-
-    //     }
-    // }
    
     /**
      * Find all child elements of an element
@@ -400,12 +383,11 @@ public async moveMouse(opt_offset: ILocation, timeoutInSecond: number = this._el
             throw new errorwrapper.CustomError(this.sendKeys, err.message);
         }
     }
-    public async setDynamicValue(value: string) {
-        let dynamicLocator: string;
-        let location : Locator;
-        location = String.Format(dynamicLocator,value);
+    public async setDynamicValue(...args: any[]) {
+        this._locator = String.Format(this._dynamicLocator, args);
+		this._by = this.getByLocator();
+	}
         
-    }
 
     public async getByLocator(){
         let body: string = this._locator.replace("[\\w\\s]*=(.*)",`${1}`).trim();
@@ -431,4 +413,30 @@ public async moveMouse(opt_offset: ILocation, timeoutInSecond: number = this._el
 
     }
 
+    /**
+     * click and wait for click is effect
+     * @param {number} [timeoutInSecond = this._elementTimeout] maximum time to wait
+     * @returns {Promise<this>}
+     * @memberof ElementWrapper
+     */
+    public async click(timeoutInSecond: number = this._elementTimeout): Promise<this> {
+
+        if (timeoutInSecond < 0) {
+            throw new errorwrapper.TimeoutError;
+        }
+        let stopWatch = new StopWatch();
+        stopWatch.startClock();
+        await this.wait(stopWatch.getTimeLeftInSecond(timeoutInSecond));
+        await this._element.click().then(
+            async () => { },
+            async (err) => {
+                let _error: Error = <Error>err;
+                if (_error.message.includes("Other element would recieve the click") || _error.message.includes("element isnot attached to the page document")) {
+                    await this.click(stopWatch.getTimeLeftInSecond(timeoutInSecond));
+                } else {
+                    throw _error;
+                }
+            });
+        return this;
+    }
 }

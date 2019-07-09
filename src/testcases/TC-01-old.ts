@@ -3,7 +3,8 @@ import { Logger, FunctionType } from '@utilities/general/logger';
 import HomePage from '@page-objects/home-page-old';
 import TestRunInfo from '@data-objects/general/test-run-info';
 import TestBase from '@testcases/test-base';
-import LoginPage from '@page-objects/login-page-old';
+import HomePageOld from '@page-objects/home-page-old';
+import LoginPageOld from '@page-objects/login-page-old';
 
 /** 
  * Type: RailWay
@@ -19,23 +20,23 @@ describe('Login suite TC01', function () {
   let expectedMsg: string = "aaaWelcome liennguyenlogigear12@gmail.com";
 
   // Declare page object
-  let homePage: HomePage = new HomePage()
-  let loginPage: LoginPage
+  let homePageOld: HomePageOld = new HomePageOld()
+  let loginPageOld: LoginPageOld
 
   beforeEach(async () => {
       await Logger.write(FunctionType.TESTCASE, `TC01- User can login into Raiway with valid username and password`);
-      homePage = HomePage.getHomePageInstance();
+      homePageOld = HomePage.getHomePageInstance();
   }, TestRunInfo.conditionTimeout);
 
   it('TC01- User can login into Raiway with valid username and password', async () => {
             // 2. Clickon "Login" tab
             // 3. Enter valid Email and Password
             // 4. Click on "Login" button
-            loginPage = await homePage.goToLoginPage();
+            loginPageOld = await homePageOld.goToLoginPage();
 
             // VP. User is logged into Railway. Welcome user message is displayed.  
-            await loginPage.login(TestRunInfo.USERNAME, TestRunInfo.PASSWORD);
-            expect (await homePage.getWelcomeMessage()).toBe(expectedMsg, "Failed by: Could not login")
+            await loginPageOld.login(TestRunInfo.USERNAME, TestRunInfo.PASSWORD);
+            expect (await homePageOld.getWelcomeMessage()).toBe(expectedMsg, "Failed by: Could not login")
     
   });
 
@@ -43,7 +44,7 @@ describe('Login suite TC01', function () {
       await Logger.write(FunctionType.NONE, `Final - Cleaning Up\n`);
       try {
           // logout 
-          homePage.logout();
+          homePageOld.logout();
       }
       catch (err) { }
   }, TestRunInfo.conditionTimeout);

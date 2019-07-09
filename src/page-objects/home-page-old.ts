@@ -1,16 +1,15 @@
-import GeneralPage from "@page-objects/general-page-old";
 import BrowserWrapper from "@utilities/protractor-wappers/browser-wrapper";
 import TestRunInfo from "@data-objects/general/test-run-info";
-import { promise } from "protractor";
+import GeneralPageOld from "@page-objects/general-page-old";
 
-export default class HomePage extends GeneralPage {
-    private static _homePage: HomePage;
+export default class HomePageOld extends GeneralPageOld {
+    private static _homePageold: HomePageOld;
 
     // element
 
-    public static getHomePageInstance(): HomePage {
-        this._homePage = new HomePage();
-        return this._homePage;
+    public static getHomePageInstance(): HomePageOld {
+        this._homePageold = new HomePageOld();
+        return this._homePageold;
     }
 
     public async navigateToWebPage() {

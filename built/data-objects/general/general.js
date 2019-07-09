@@ -33,4 +33,9 @@ var Button;
     Button["CTRL_V"] = "ctrl+v";
     Button["BACKSPACE"] = "backspace";
 })(Button = exports.Button || (exports.Button = {}));
+var TabName;
+(function (TabName) {
+    TabName["login"] = "LogIn";
+    TabName["logout"] = "LogOut";
+})(TabName = exports.TabName || (exports.TabName = {}));
 //# sourceMappingURL=general.js.map
