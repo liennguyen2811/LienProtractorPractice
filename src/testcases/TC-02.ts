@@ -1,9 +1,10 @@
 
 import { Logger, FunctionType } from '@utilities/general/logger';
-import HomePageOld from '@page-objects/home-page-old';
 import TestRunInfo from '@data-objects/general/test-run-info';
 import TestBase from '@testcases/test-base';
-import LoginPageOld from '@page-objects/login-page-old';
+import LoginPage from '@page-objects/login-page';
+import HomePage from '@page-objects/home-page';
+
 /** 
  * Type: RailWay
  * Suite: Login
@@ -18,12 +19,12 @@ describe('Login suite - TC02', function () {
   let expectedMsg: string = "There was a problem with your login and/or errors exist in your form.";
 
   // Declare page object
-  let homePage: HomePageOld = new HomePageOld()
-  let loginPage: LoginPageOld
+  let homePage: HomePage = new HomePage()
+  let loginPage: LoginPage
 
   beforeEach(async () => {
       await Logger.write(FunctionType.TESTCASE, `TC02- User can't login with blank Username textbox`);
-      homePage = HomePageOld.getHomePageInstance();
+      homePage = HomePage.getHomePageInstance();
   }, TestRunInfo.conditionTimeout);
 
   it('TC02- User can not login with blank Username textbox', async () => {

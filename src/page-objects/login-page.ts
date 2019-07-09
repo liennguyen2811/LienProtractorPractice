@@ -61,7 +61,6 @@ export default class LoginPage extends GeneralPage {
         try {
             
             for (let i: number = 0; i< 4; i++){ 
-                console.log("invalid password, ", i);
                 await this.login("liennguyenlogigear12@gmail.com", "liennguyen1");  
             }
             let homePage: HomePage = await this.login(username, password);

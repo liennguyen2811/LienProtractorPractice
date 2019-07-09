@@ -17,9 +17,11 @@ const error_wapper_1 = require("@utilities/protractor-wappers/error-wapper");
 const logger_1 = require("@utilities/general/logger");
 const browser_wrapper_1 = __importDefault(require("@utilities/protractor-wappers/browser-wrapper"));
 const link_1 = __importDefault(require("@utilities/protractor-wappers/control-common-imp/link"));
+const lable_1 = __importDefault(require("@utilities/protractor-wappers/control-common-imp/lable"));
 class GeneralPage {
     constructor() {
         this.navigationItem = new link_1.default(protractor_1.by.xpath("//div[@id= 'menu']//a[@href = '/Account/Login.cshtml']"));
+        this.errorNoneMessage = new lable_1.default(protractor_1.by.xpath(".//*[@id='content']/p"));
         this.tabLogin = new element_wrapper_1.default(protractor_1.by.xpath("//div[@id= 'menu']//a[@href = '/Account/Login.cshtml']"));
         this.tabLogout = new element_wrapper_1.default(protractor_1.by.xpath("//div[@id= 'menu']//a[@href='/Account/Logout']"));
         this.tabRegister = new element_wrapper_1.default(protractor_1.by.xpath("//div[@id='menu']//a[@href='/Account/Register.cshtml']"));
@@ -68,7 +70,7 @@ class GeneralPage {
     getNonpasswordmessage() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return yield this.lbNonPassWordInput.getText();
+                return yield this.errorNoneMessage.getText();
             }
             catch (err) {
                 throw new error_wapper_1.errorwrapper.CustomError(this.getNonpasswordmessage, err.message);

@@ -12,9 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const logger_1 = require("@utilities/general/logger");
-const home_page_1 = __importDefault(require("@page-objects/home-page"));
 const test_run_info_1 = __importDefault(require("@data-objects/general/test-run-info"));
 const test_base_1 = __importDefault(require("@testcases/test-base"));
+const home_page_1 = __importDefault(require("@page-objects/home-page"));
 describe('Login suite TC01', function () {
     test_base_1.default.scheduleTestBase();
     let expectedMsg = "aaaWelcome liennguyenlogigear12@gmail.com";

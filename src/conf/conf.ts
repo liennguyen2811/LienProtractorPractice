@@ -62,7 +62,8 @@ seleniumAddress: 'http://192.168.170.195:4444/wd/hub',
 directConnect: false,
 SELENIUM_PROMISE_MANAGER: false,
 //seleniumAddress: 'http://localhost:4444/wd/hub',
-   specs: [//'../testcases/TC-02.js',
-          //'../testcases/TC-01-old.js',
-          '../testcases/TC-01-refactor.js']
+   specs: ['../testcases/TC-02.js',
+          '../testcases/TC-01.js',
+          '../testcases/TC-03.js',
+          '../testcases/TC-04.js']
 }

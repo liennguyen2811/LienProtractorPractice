@@ -2,8 +2,10 @@
 import { Logger, FunctionType } from '@utilities/general/logger';
 import TestRunInfo from '@data-objects/general/test-run-info';
 import TestBase from '@testcases/test-base';
-import LoginPageOld from '@page-objects/login-page-old';
-import HomePageOld from '@page-objects/home-page-old';
+import HomePage from '@page-objects/home-page';
+import LoginPage from '@page-objects/login-page';
+
+
 /** 
  * Type: RailWay
  * Suite: Login
@@ -18,12 +20,12 @@ describe('Login suite - TC02', function () {
   let expectedMsg: string = "There was a problem with your login and/or errors exist in your form.";
 
   // Declare page object
-  let homePageOld: HomePageOld = new HomePageOld()
-  let loginPage: LoginPageOld
+  let homePageOld: HomePage = new HomePage();
+  let loginPage: LoginPage;
 
   beforeEach(async () => {
       await Logger.write(FunctionType.TESTCASE, `TC03- Login page displays when un-logged User clicks on Book ticket tab`);
-      homePageOld = HomePageOld.getHomePageInstance();
+      homePageOld = HomePage.getHomePageInstance();
   }, TestRunInfo.conditionTimeout);
 
   it('Login page displays when un-logged User clicks on Book ticket tab', async () => {

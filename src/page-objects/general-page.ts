@@ -11,6 +11,7 @@ import MyTicketPage from "@page-objects/myticket-page";
 import BrowserWrapper from "@utilities/protractor-wappers/browser-wrapper";
 import Link from "@utilities/protractor-wappers/control-common-imp/link";
 import LoginPage from "./login-page";
+import Lable from "@utilities/protractor-wappers/control-common-imp/lable";
 
 
 export default class GeneralPage {
@@ -19,6 +20,8 @@ export default class GeneralPage {
     //constructor(){};
 
     navigationItem: Link = new Link(by.xpath("//div[@id= 'menu']//a[@href = '/Account/Login.cshtml']"));
+    
+    errorNoneMessage: Lable = new Lable(by.xpath(".//*[@id='content']/p"));
     protected tabLogin = new ElementWrapper(by.xpath("//div[@id= 'menu']//a[@href = '/Account/Login.cshtml']"));
 	protected tabLogout = new ElementWrapper(by.xpath("//div[@id= 'menu']//a[@href='/Account/Logout']"));
 	protected tabRegister = new ElementWrapper(by.xpath("//div[@id='menu']//a[@href='/Account/Register.cshtml']"));
@@ -80,7 +83,7 @@ export default class GeneralPage {
      */
     public async getNonpasswordmessage(): Promise<string>
 	{  try{
-        return await this.lbNonPassWordInput.getText();
+        return await this.errorNoneMessage.getText();
 	}catch (err){
         throw new errorwrapper.CustomError(this.getNonpasswordmessage,err.message)
     }
