@@ -35,10 +35,10 @@ class Account {
     }
     initAccount() {
         try {
-            this.email = utility_1.Utility.getRandomGmailByIndex();
+            this.email = utility_1.Utility.getRandomGmail();
             this.password = utility_1.Utility.createRandomString(6);
             this.confirmpassword = this.password;
-            this.regPID = utility_1.Utility.createRandomString(6);
+            this.regPID = utility_1.Utility.createRandomString(8);
             return this;
         }
         catch (err) {

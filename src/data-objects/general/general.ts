@@ -31,7 +31,43 @@ export enum Button {
     BACKSPACE = "backspace",
 }
 
-export enum TabName{
-  login = "LogIn",
-  logout = "LogOut"
+export enum PageName{
+  LOGIN = "Login",
+  LOGOUT = "Log out",
+  REGISTER = "Register",
+  CHANGEPASSWORD = "Change password",
+  CONTACT ="Contact",
+  BOOKTICKET = "Book ticket"
 }
+
+export enum RegisterItem{
+    EMAIL ="email",
+    PASSWORD ="password",
+    PID = "pid",
+    REGISTER = "register",
+    CONFIRMPASSWORD ="confirmPassword"
+}
+
+export enum ChangePasswordItem{
+    CURRENTPASSWORD = "currentPassword",
+    NEWPASSWORD = "newPassword",
+    CONFIRMPASSWORD = "confirmPassword"
+}
+export enum Station
+    {
+        SAIGON,
+        PHANTHIET,
+        NHATRANG,
+        DANANG,
+        HUE,
+        QUANGNGAI
+    }
+export enum SeatType
+    {
+        HARDSEAT,
+        SOFTSEAT,
+        SOFTSEATWITHAIR,
+        HARDBED,
+        SOFTBED,
+        SOFTBEDWITHAIR
+    }

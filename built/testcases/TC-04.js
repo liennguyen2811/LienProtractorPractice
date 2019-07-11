@@ -24,7 +24,7 @@ describe('Login suite - TC04', function () {
     }), test_run_info_1.default.conditionTimeout);
     it('Login page displays when un-logged User clicks on Book ticket tab', () => __awaiter(this, void 0, void 0, function* () {
         loginPage = yield homePage.goToLoginPage();
-        expect(yield loginPage.checkNonPassWordWithValidInfo(test_run_info_1.default.USERNAME, test_run_info_1.default.PASSWORD)).toBe(expectedMsg, "Failed by BugJiraID-02: The warning message does not display after wrong loging 4 times in Railway website");
+        expect(yield loginPage.checkNonPassWordWithValidInfo(test_run_info_1.default.USERNAME, test_run_info_1.default.PASSWORD)).toBe(expectedMsg, "Failed by: The warning message does not display after wrong loging 4 times in Railway website");
     }));
     afterEach(() => __awaiter(this, void 0, void 0, function* () {
         try {

@@ -7,11 +7,9 @@ describe('Protractor Demo Maximize', function() {
         await browser.manage().window().maximize();
         let frame1:WebElement = element(by.id("frame1")).getWebElement();
         await browser.sleep(6000);
-        console.log("Switch IFrame1 element");
         await browser.switchTo().frame(frame1);
 		let frame3:WebElement = element(by.xpath("//iframe[@id='frame3']")).getWebElement();
         await browser.sleep(6000);
-        console.log("Switch IFrame2 element");
 		browser.switchTo().frame(frame3);
 
 		let checkbox:WebElement  = element(by.xpath("//input[@type='checkbox']"));
@@ -19,7 +17,6 @@ describe('Protractor Demo Maximize', function() {
 		await checkbox.isSelected().then(async function(checked){
 			// if check box is not selected then click the checkbox
 			if(! checked){
-                console.log("Get checkbox")
                 checkbox.click();
                 await browser.sleep(6000);
 			}

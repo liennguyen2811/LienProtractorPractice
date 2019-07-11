@@ -6,6 +6,7 @@ import { by, Locator, ElementFinder } from "protractor";
 import StopWatch from "@utilities/general/stop-watch";
 
 export default class Combobox extends Clickable implements ICombobox{
+    
     constructor(obj: Locator | ElementFinder) {
         super(obj); 
     }
@@ -19,10 +20,10 @@ export default class Combobox extends Clickable implements ICombobox{
     public async selectByID(id: string, timeoutInSecond: number= this._elementTimeout): Promise<void>{
         let sw = new StopWatch();
         sw.startClock();
-
         try{
+
             await this._element.waitForControlStable();
-            await this._element.click();
+            await this._element.click()
             let e = await this._element.element(by.xpath(`//*[@id = '${id}']`));
             await e.click();
         } catch (_err){

@@ -20,6 +20,7 @@ class TestRunInfo {
             TestRunInfo.pageTimeout = configData.pageTimeout;
             TestRunInfo.shortTimeout = TestRunInfo.testTimeout / 12;
             TestRunInfo.conditionTimeout = TestRunInfo.testTimeout / 2;
+            TestRunInfo.longTimeout = TestRunInfo.testTimeout * 4;
         }
         catch (err) {
             throw new error_wapper_1.errorwrapper.CustomError(this.setUpTestRunInfo, err.message);
@@ -30,22 +31,4 @@ TestRunInfo.RAILWAY_URL = "http://18.136.107.136/Account/Login.cshtml";
 TestRunInfo.USERNAME = "liennguyenlogigear12@gmail.com";
 TestRunInfo.PASSWORD = "liennguyen";
 exports.default = TestRunInfo;
-var Station;
-(function (Station) {
-    Station[Station["SAIGON"] = 0] = "SAIGON";
-    Station[Station["PHANTHIET"] = 1] = "PHANTHIET";
-    Station[Station["NHATRANG"] = 2] = "NHATRANG";
-    Station[Station["DANANG"] = 3] = "DANANG";
-    Station[Station["HUE"] = 4] = "HUE";
-    Station[Station["QUANGNGAI"] = 5] = "QUANGNGAI";
-})(Station = exports.Station || (exports.Station = {}));
-var SeatType;
-(function (SeatType) {
-    SeatType[SeatType["HARDSEAT"] = 0] = "HARDSEAT";
-    SeatType[SeatType["SOFTSEAT"] = 1] = "SOFTSEAT";
-    SeatType[SeatType["SOFTSEATWITHAIR"] = 2] = "SOFTSEATWITHAIR";
-    SeatType[SeatType["HARDBED"] = 3] = "HARDBED";
-    SeatType[SeatType["SOFTBED"] = 4] = "SOFTBED";
-    SeatType[SeatType["SOFTBEDWITHAIR"] = 5] = "SOFTBEDWITHAIR";
-})(SeatType = exports.SeatType || (exports.SeatType = {}));
 //# sourceMappingURL=test-run-info.js.map

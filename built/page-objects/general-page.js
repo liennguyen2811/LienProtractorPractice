@@ -18,9 +18,14 @@ const logger_1 = require("@utilities/general/logger");
 const browser_wrapper_1 = __importDefault(require("@utilities/protractor-wappers/browser-wrapper"));
 const link_1 = __importDefault(require("@utilities/protractor-wappers/control-common-imp/link"));
 const lable_1 = __importDefault(require("@utilities/protractor-wappers/control-common-imp/lable"));
+const general_1 = require("@data-objects/general/general");
 class GeneralPage {
     constructor() {
-        this.navigationItem = new link_1.default(protractor_1.by.xpath("//div[@id= 'menu']//a[@href = '/Account/Login.cshtml']"));
+        this.navigationItem1 = new link_1.default(protractor_1.by.xpath("//div[@id= 'menu']//a[@href = '/Account/Login.cshtml']"));
+        this.thankMessage = new lable_1.default(protractor_1.by.xpath("//div[@id='content']//h1"));
+        this.passwordChangeDone = new lable_1.default(protractor_1.by.xpath("//form[@id='ChangePW']/fieldset/p[@class='message success']"));
+        this.errorMsgChangePass = new lable_1.default(protractor_1.by.xpath("//form[@id='ChangePW']/fieldset/p[@class='message error']"));
+        this.bookTicketMessage = new lable_1.default(protractor_1.by.xpath("//div[@id='content']//h1[text()='Ticket booked successfully!']"));
         this.errorNoneMessage = new lable_1.default(protractor_1.by.xpath(".//*[@id='content']/p"));
         this.tabLogin = new element_wrapper_1.default(protractor_1.by.xpath("//div[@id= 'menu']//a[@href = '/Account/Login.cshtml']"));
         this.tabLogout = new element_wrapper_1.default(protractor_1.by.xpath("//div[@id= 'menu']//a[@href='/Account/Logout']"));
@@ -30,6 +35,7 @@ class GeneralPage {
         this.tabTimeTable = new element_wrapper_1.default(protractor_1.by.xpath("//a[@href='TrainTimeListPage.cshtml']"));
         this.tabTicketPrice = new element_wrapper_1.default(protractor_1.by.xpath("//a[@href='/Page/TrainPriceListPage.cshtml']"));
         this.tabMyTicket = new element_wrapper_1.default(protractor_1.by.xpath("//a[@href='/Page/ManageTicket.cshtml']"));
+        this.tabContact = new element_wrapper_1.default(protractor_1.by.xpath("//a[@href='/Page/Contact.cshtml']"));
         this.lbWelcomeMessage = new element_wrapper_1.default(protractor_1.by.xpath("//div[@class= 'account']/strong"));
         this.lbNonPassWordInput = new element_wrapper_1.default(protractor_1.by.xpath(".//*[@id='content']/p"));
         this.lbThankMessage = new element_wrapper_1.default(protractor_1.by.xpath("//div[@id='content']//h1"));
@@ -38,6 +44,9 @@ class GeneralPage {
         this.lbErrorMessageChangePass = new element_wrapper_1.default(protractor_1.by.xpath("//form[@id='ChangePW']/fieldset/p[@class='message error']"));
         this.lblBookTicketMessage = new element_wrapper_1.default(protractor_1.by.xpath("//div[@id='content']//h1[text()='Ticket booked successfully!']"));
         this.lbTicketPriceHeaderMessage = new element_wrapper_1.default(protractor_1.by.xpath("//table[@class='MyTable MedTable']//tr[@class='TableSmallHeader']/th"));
+    }
+    navigationItem(tabName) {
+        return new link_1.default(protractor_1.by.xpath(`//a[contains(.,'${tabName}')]`));
     }
     cellTable(tablename, rowindex, columnname) {
         return new element_wrapper_1.default(protractor_1.by.xpath(`"//table[@class='${tablename}']//tr['${rowindex}']/td[count(//th[.= '${columnname}']//preceding-sibling::th) + 1]`));
@@ -77,23 +86,23 @@ class GeneralPage {
             }
         });
     }
-    getLbThankMessage() {
+    getThankMessage() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return yield this.lbThankMessage.getText();
+                return yield this.thankMessage.getText();
             }
             catch (err) {
-                throw new error_wapper_1.errorwrapper.CustomError(this.getLbThankMessage, err.message);
+                throw new error_wapper_1.errorwrapper.CustomError(this.getThankMessage, err.message);
             }
         });
     }
-    getLbPasswordchangedone() {
+    getPasswordChangeDoneMsg() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return yield this.lbPasswordchangedone.getText();
+                return yield this.passwordChangeDone.getText();
             }
             catch (err) {
-                throw new error_wapper_1.errorwrapper.CustomError(this.getLbPasswordchangedone, err.message);
+                throw new error_wapper_1.errorwrapper.CustomError(this.getPasswordChangeDoneMsg, err.message);
             }
         });
     }
@@ -107,23 +116,23 @@ class GeneralPage {
             }
         });
     }
-    getLbErrorMessageChangePass() {
+    getErrorMessageChangePass() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return yield this.lbErrorMessageChangePass.getText();
+                return yield this.errorMsgChangePass.getText();
             }
             catch (err) {
-                throw new error_wapper_1.errorwrapper.CustomError(this.getLbErrorMessageChangePass, err.message);
+                throw new error_wapper_1.errorwrapper.CustomError(this.getErrorMessageChangePass, err.message);
             }
         });
     }
-    getLblBookTicketMessage() {
+    getBookTicketMessage() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return yield this.lblBookTicketMessage.getText();
+                return yield this.bookTicketMessage.getText();
             }
             catch (err) {
-                throw new error_wapper_1.errorwrapper.CustomError(this.getLblBookTicketMessage, err.message);
+                throw new error_wapper_1.errorwrapper.CustomError(this.getBookTicketMessage, err.message);
             }
         });
     }
@@ -154,9 +163,41 @@ class GeneralPage {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 yield logger_1.Logger.write(logger_1.FunctionType.UI, `Going to Login Page`);
-                yield this.navigationItem.click();
+                yield this.navigationItem("Login").click();
                 let loginPage = require(`../page-objects/login-page`).default;
                 return yield loginPage.getLoginPageInstance();
+            }
+            catch (err) {
+                throw new error_wapper_1.errorwrapper.CustomError(this.goToLoginPage, err.message);
+            }
+        });
+    }
+    goToPage(namePage) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield logger_1.Logger.write(logger_1.FunctionType.UI, `Going to ${namePage} Page`);
+                yield this.navigationItem(namePage).waitForPresenceOf();
+                yield this.navigationItem(namePage).click();
+                if (namePage == general_1.PageName.LOGIN) {
+                    let loginPage = require(`../page-objects/login-page`).default;
+                    return yield loginPage.getLoginPageInstance();
+                }
+                else if (namePage == general_1.PageName.LOGOUT) {
+                    let homePage = require(`../page-objects/home-page`).default;
+                    return yield homePage.getHomePageInstance();
+                }
+                else if (namePage == general_1.PageName.REGISTER) {
+                    let registerPage = require(`../page-objects/register-page`).default;
+                    return yield registerPage.getRegisterPageInstance();
+                }
+                else if (namePage == general_1.PageName.CHANGEPASSWORD) {
+                    let changePasswordPage = require(`../page-objects/change-password-page`).default;
+                    return yield changePasswordPage.getChangePassWordPageInstance();
+                }
+                else if (namePage == general_1.PageName.BOOKTICKET) {
+                    let bookTicketPage = require(`../page-objects/book-ticket-page`).default;
+                    return yield bookTicketPage.getBookTickeInstance();
+                }
             }
             catch (err) {
                 throw new error_wapper_1.errorwrapper.CustomError(this.goToLoginPage, err.message);
@@ -307,6 +348,16 @@ class GeneralPage {
             }
             catch (err) {
                 throw new error_wapper_1.errorwrapper.CustomError(this.bookTicketFromTicketPrice, err.message);
+            }
+        });
+    }
+    isLogOut() {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                return this.navigationItem(general_1.PageName.LOGIN).isDisplayed();
+            }
+            catch (err) {
+                throw new error_wapper_1.errorwrapper.CustomError(this.getWelcomeMessage, err.message);
             }
         });
     }

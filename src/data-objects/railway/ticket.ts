@@ -1,6 +1,6 @@
 import { Utility } from "@utilities/general/utility";
+import { Station, SeatType } from "@data-objects/general/general";
 //import { Station, SeatType } from "..general/test-run-info";
-import { Station, SeatType } from "@data-objects/general/test-run-info";
 
 export class Ticket{
 
@@ -50,7 +50,7 @@ export class Ticket{
            // this.ArriveStation = Constant.stations[this.DepartFrom][new Random().Next(Constant.stations[this.DepartFrom].Count())];
              return this;
         }
-        public Ticket(departstation:Station,arrivestation: Station, seattype: SeatType, ticketamount: number)
+        public initTicket(departstation:Station,arrivestation: Station, seattype: SeatType, ticketamount: number)
         {
             this.departstation = Utility.TranslateStation(departstation);
             this.arrivestation = Utility.TranslateStation(arrivestation);

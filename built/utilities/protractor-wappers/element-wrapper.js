@@ -115,7 +115,7 @@ class ElementWrapper {
     click(timeoutInSecond = this._elementTimeout) {
         return __awaiter(this, void 0, void 0, function* () {
             if (timeoutInSecond < 0) {
-                throw new error_wapper_1.errorwrapper.TimeoutError;
+                throw new error_wapper_1.errorwrapper.NoSuchElementError(this._by);
             }
             let stopWatch = new stop_watch_1.default();
             stopWatch.startClock();
@@ -395,11 +395,11 @@ class ElementWrapper {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 if (timeoutInSecond < 0) {
-                    throw new error_wapper_1.errorwrapper.TimeoutError();
+                    throw new error_wapper_1.errorwrapper.NoSuchElementError(by);
                 }
                 let sw = new stop_watch_1.default();
                 sw.startClock;
-                yield this.wait(sw.getTimeLeftInSecond(timeoutInSecond));
+                browser_wrapper_1.default.sleepInSecond(5);
                 let child;
                 try {
                     child = this._element.element(by);
@@ -407,7 +407,7 @@ class ElementWrapper {
                 }
                 catch (err) {
                     if (err instanceof selenium_webdriver_1.error.NoSuchElementError) {
-                        yield browser_wrapper_1.default.sleepInSecond(0.5);
+                        yield browser_wrapper_1.default.sleepInSecond(1);
                         child = yield this.element(by, sw.getTimeLeftInSecond(timeoutInSecond));
                     }
                     else {

@@ -13,11 +13,9 @@ export default class BaseControl implements IBaseControl{
     _elementTimeout: number = TestRunInfo.elementTimeout;
     _by: Locator;
     _element: ElementFinder;
-     _locator: string;
-     _dynamicLocator: string
+    _locator: string;
+    _dynamicLocator: string
      
-     
-    
     /**
      * Create a wapper for web element
      * @param {Locator | ElementFinder} obj

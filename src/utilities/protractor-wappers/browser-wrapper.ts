@@ -254,7 +254,7 @@ export default class BrowserWrapper {
             await BrowserWrapper.getDriverInstance().sleep(second * 1000);
         }
         catch (err) {
-            throw new errorwrapper.CustomError(this.sleepInSecond, err.mess);
+            throw new errorwrapper.CustomError(this.sleepInSecond, err.message);
         }
     }
     // /**

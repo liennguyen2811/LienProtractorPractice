@@ -2,21 +2,21 @@ import { by } from "protractor";
 import BrowserWrapper from "@utilities/protractor-wappers/browser-wrapper";
 import ElementWrapper from "@utilities/protractor-wappers/element-wrapper";
 import SelectElementWrapper from "@utilities/protractor-wappers/select-element-wapper";
-import GeneralPage from "@page-objects/general-page-old";
+import GeneralPage from "@page-objects/general-page";
 import { Ticket } from "@data-objects/railway/ticket";
-import { strict } from "assert";
+
 
 export default class MyTicketPage extends GeneralPage {
     private static _myTicketPage: MyTicketPage;
 
     // element
-    protected cmbFilterDepartStation = new SelectElementWrapper(by.XPath("//select[@name='FilterDpStation']"));
-    protected cmbFilterArriveStation = new SelectElementWrapper(by.XPath("//select[@name='FilterArStation']"));
-    protected txtFilterDepartDate = new ElementWrapper(by.XPath("//input[@name='FilterDpDate']"));
-    protected cmbFilterStatus = new SelectElementWrapper(by.XPath("//select[@name='FilterStatus']"));
-    protected btnApplyFilter = new ElementWrapper(by.XPath("//input[@value='Apply filter']"));
-    protected msgNoResult = new ElementWrapper(by.XPath("//div[@class='error message']"));
-    protected alertCancle = new ElementWrapper(by.XPath("//table[@class='MyTable']//tr[2]/td[count(//th[.='Operation']//preceding-sibling::th) + 1]"));
+    protected cmbFilterDepartStation = new SelectElementWrapper(by.xpath("//select[@name='FilterDpStation']"));
+    protected cmbFilterArriveStation = new SelectElementWrapper(by.xpath("//select[@name='FilterArStation']"));
+    protected txtFilterDepartDate = new ElementWrapper(by.xpath("//input[@name='FilterDpDate']"));
+    protected cmbFilterStatus = new SelectElementWrapper(by.xpath("//select[@name='FilterStatus']"));
+    protected btnApplyFilter = new ElementWrapper(by.xpath("//input[@value='Apply filter']"));
+    protected msgNoResult = new ElementWrapper(by.xpath("//div[@class='error message']"));
+    protected alertCancle = new ElementWrapper(by.xpath("//table[@class='MyTable']//tr[2]/td[count(//th[.='Operation']//preceding-sibling::th) + 1]"));
 
 
     public static async getMyTicketPageInstance(): Promise<MyTicketPage> {

@@ -35,10 +35,10 @@ export class Account{
 
     public initAccount(): Account{
         try{
-            this.email = Utility.getRandomGmailByIndex();
+            this.email = Utility.getRandomGmail();
             this.password = Utility.createRandomString(6);
             this.confirmpassword = this.password;
-            this.regPID = Utility.createRandomString(6);
+            this.regPID = Utility.createRandomString(8);
             return this;
         } catch (err){
             throw new errorwrapper.CustomError(this.initAccount, err.message);

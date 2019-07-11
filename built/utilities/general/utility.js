@@ -11,10 +11,10 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const error_wapper_1 = require("@utilities/protractor-wappers/error-wapper");
-const test_run_info_1 = require("@data-objects/general/test-run-info");
 const v4_1 = __importDefault(require("uuid/v4"));
 const json2typescript_1 = require("json2typescript");
 const filePath = __importStar(require("path"));
+const general_1 = require("@data-objects/general/general");
 class Utility {
     static insert(str, index, value) {
         try {
@@ -44,25 +44,13 @@ class Utility {
             throw new error_wapper_1.errorwrapper.CustomError(this.getRandomNumber, err.message);
         }
     }
-    static getRandomGmailByIndex() {
+    static getRandomGmail() {
         try {
-            let today = (new Date().getTime());
-            let index = Math.floor(Math.abs(today - 1525340325732));
-            let email = "testautomationrailway";
-            let hexIndex = index.toString(2);
-            let hexIndexArray = hexIndex.split("");
-            for (let i = 0; i < hexIndexArray.length; i++) {
-                if (hexIndexArray[i] == "1") {
-                    email = this.insert(email, email.length - hexIndexArray.length + i, ".");
-                }
-            }
-            if (email.startsWith(".") == true) {
-                return email.substring(1, email.length) + "@gmail.com";
-            }
+            let email = this.createRandomString(15, "railway");
             return email + "@gmail.com";
         }
         catch (err) {
-            throw new error_wapper_1.errorwrapper.CustomError(this.getRandomGmailByIndex, err.message);
+            throw new error_wapper_1.errorwrapper.CustomError(this.getRandomGmail, err.message);
         }
     }
     static createRandomString(length, prefix = "") {
@@ -115,63 +103,63 @@ class Utility {
     }
     static GenerateStation() {
         let list = [];
-        list.push(this.TranslateStation(test_run_info_1.Station.DANANG));
-        list.push(this.TranslateStation(test_run_info_1.Station.PHANTHIET));
-        list.push(this.TranslateStation(test_run_info_1.Station.NHATRANG));
-        list.push(this.TranslateStation(test_run_info_1.Station.DANANG));
-        list.push(this.TranslateStation(test_run_info_1.Station.HUE));
-        list.push(this.TranslateStation(test_run_info_1.Station.QUANGNGAI));
+        list.push(this.TranslateStation(general_1.Station.DANANG));
+        list.push(this.TranslateStation(general_1.Station.PHANTHIET));
+        list.push(this.TranslateStation(general_1.Station.NHATRANG));
+        list.push(this.TranslateStation(general_1.Station.DANANG));
+        list.push(this.TranslateStation(general_1.Station.HUE));
+        list.push(this.TranslateStation(general_1.Station.QUANGNGAI));
         var randomStation = list[Math.floor(Math.random() * list.length)];
         return randomStation;
     }
     static GenerateSeatType() {
         let list = [];
-        list.push(this.TranslateSeatType(test_run_info_1.SeatType.HARDBED));
-        list.push(this.TranslateSeatType(test_run_info_1.SeatType.SOFTSEAT));
-        list.push(this.TranslateSeatType(test_run_info_1.SeatType.SOFTSEATWITHAIR));
-        list.push(this.TranslateSeatType(test_run_info_1.SeatType.HARDBED));
-        list.push(this.TranslateSeatType(test_run_info_1.SeatType.SOFTBED));
-        list.push(this.TranslateSeatType(test_run_info_1.SeatType.SOFTBEDWITHAIR));
+        list.push(this.TranslateSeatType(general_1.SeatType.HARDBED));
+        list.push(this.TranslateSeatType(general_1.SeatType.SOFTSEAT));
+        list.push(this.TranslateSeatType(general_1.SeatType.SOFTSEATWITHAIR));
+        list.push(this.TranslateSeatType(general_1.SeatType.HARDBED));
+        list.push(this.TranslateSeatType(general_1.SeatType.SOFTBED));
+        list.push(this.TranslateSeatType(general_1.SeatType.SOFTBEDWITHAIR));
         var randomStation = list[Math.floor(Math.random() * list.length)];
         return randomStation;
     }
     static TranslateStation(station) {
         let result = "";
-        if (station == test_run_info_1.Station.SAIGON) {
+        if (station == general_1.Station.SAIGON) {
             result = "Sài Gòn";
         }
-        else if (station == test_run_info_1.Station.PHANTHIET) {
+        else if (station == general_1.Station.PHANTHIET) {
             result = "Phan Thiết";
         }
-        else if (station == test_run_info_1.Station.NHATRANG) {
+        else if (station == general_1.Station.NHATRANG) {
             result = "Nha Trang";
         }
-        else if (station == test_run_info_1.Station.DANANG) {
+        else if (station == general_1.Station.DANANG) {
             result = "Đà Nẵng";
         }
-        else if (station == test_run_info_1.Station.HUE) {
+        else if (station == general_1.Station.HUE) {
             result = "Huế";
         }
-        else if (station == test_run_info_1.Station.QUANGNGAI) {
+        else if (station == general_1.Station.QUANGNGAI) {
             result = "Quãng Ngãi";
         }
         return result;
     }
     static TranslateSeatType(seattype) {
         let result = "";
-        if (seattype == test_run_info_1.SeatType.HARDBED) {
+        if (seattype == general_1.SeatType.HARDBED) {
             result = "Hard bed";
         }
-        else if (seattype == test_run_info_1.SeatType.SOFTSEAT) {
+        else if (seattype == general_1.SeatType.SOFTSEAT) {
             result = "Soft seat";
         }
-        else if (seattype == test_run_info_1.SeatType.SOFTSEATWITHAIR) {
+        else if (seattype == general_1.SeatType.SOFTSEATWITHAIR) {
             result = "Soft seat with air conditioner";
         }
-        else if (seattype == test_run_info_1.SeatType.SOFTBED) {
+        else if (seattype == general_1.SeatType.SOFTBED) {
             result = "Soft bed";
         }
-        else if (seattype == test_run_info_1.SeatType.SOFTBEDWITHAIR) {
+        else if (seattype == general_1.SeatType.SOFTBEDWITHAIR) {
             result = "Soft bed with air conditioner";
         }
         return result;

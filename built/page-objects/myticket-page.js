@@ -15,18 +15,18 @@ const protractor_1 = require("protractor");
 const browser_wrapper_1 = __importDefault(require("@utilities/protractor-wappers/browser-wrapper"));
 const element_wrapper_1 = __importDefault(require("@utilities/protractor-wappers/element-wrapper"));
 const select_element_wapper_1 = __importDefault(require("@utilities/protractor-wappers/select-element-wapper"));
-const general_page_old_1 = __importDefault(require("@page-objects/general-page-old"));
+const general_page_1 = __importDefault(require("@page-objects/general-page"));
 const ticket_1 = require("@data-objects/railway/ticket");
-class MyTicketPage extends general_page_old_1.default {
+class MyTicketPage extends general_page_1.default {
     constructor() {
         super(...arguments);
-        this.cmbFilterDepartStation = new select_element_wapper_1.default(protractor_1.by.XPath("//select[@name='FilterDpStation']"));
-        this.cmbFilterArriveStation = new select_element_wapper_1.default(protractor_1.by.XPath("//select[@name='FilterArStation']"));
-        this.txtFilterDepartDate = new element_wrapper_1.default(protractor_1.by.XPath("//input[@name='FilterDpDate']"));
-        this.cmbFilterStatus = new select_element_wapper_1.default(protractor_1.by.XPath("//select[@name='FilterStatus']"));
-        this.btnApplyFilter = new element_wrapper_1.default(protractor_1.by.XPath("//input[@value='Apply filter']"));
-        this.msgNoResult = new element_wrapper_1.default(protractor_1.by.XPath("//div[@class='error message']"));
-        this.alertCancle = new element_wrapper_1.default(protractor_1.by.XPath("//table[@class='MyTable']//tr[2]/td[count(//th[.='Operation']//preceding-sibling::th) + 1]"));
+        this.cmbFilterDepartStation = new select_element_wapper_1.default(protractor_1.by.xpath("//select[@name='FilterDpStation']"));
+        this.cmbFilterArriveStation = new select_element_wapper_1.default(protractor_1.by.xpath("//select[@name='FilterArStation']"));
+        this.txtFilterDepartDate = new element_wrapper_1.default(protractor_1.by.xpath("//input[@name='FilterDpDate']"));
+        this.cmbFilterStatus = new select_element_wapper_1.default(protractor_1.by.xpath("//select[@name='FilterStatus']"));
+        this.btnApplyFilter = new element_wrapper_1.default(protractor_1.by.xpath("//input[@value='Apply filter']"));
+        this.msgNoResult = new element_wrapper_1.default(protractor_1.by.xpath("//div[@class='error message']"));
+        this.alertCancle = new element_wrapper_1.default(protractor_1.by.xpath("//table[@class='MyTable']//tr[2]/td[count(//th[.='Operation']//preceding-sibling::th) + 1]"));
     }
     static getMyTicketPageInstance() {
         return __awaiter(this, void 0, void 0, function* () {

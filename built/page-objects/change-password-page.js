@@ -11,29 +11,37 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const general_page_old_1 = __importDefault(require("@page-objects/general-page-old"));
-const element_wrapper_1 = __importDefault(require("@utilities/protractor-wappers/element-wrapper"));
+const general_page_1 = __importDefault(require("@page-objects/general-page"));
 const protractor_1 = require("protractor");
-class ChangePassWordPage extends general_page_old_1.default {
+const error_wapper_1 = require("@utilities/protractor-wappers/error-wapper");
+const textbox_1 = __importDefault(require("@utilities/protractor-wappers/control-common-imp/textbox"));
+const general_1 = require("@data-objects/general/general");
+const button_1 = __importDefault(require("@utilities/protractor-wappers/control-common-imp/button"));
+class ChangePassWordPage extends general_page_1.default {
     constructor() {
         super(...arguments);
-        this.txtCurrentPassword = new element_wrapper_1.default(protractor_1.by.XPath("//input[@id='currentPassword']"));
-        this.txtNewPassword = new element_wrapper_1.default(protractor_1.by.XPath("//input[@id='newPassword']"));
-        this.txtConfirmPassword = new element_wrapper_1.default(protractor_1.by.XPath("//input[@id='confirmPassword']"));
-        this.btnChangePassword = new element_wrapper_1.default(protractor_1.by.XPath("//input[@value='Change Password']"));
+        this.change = new button_1.default(protractor_1.by.xpath("//input[@value='Change Password']"));
     }
-    static getChangePassWordInstance() {
+    changePassworkItem(item) {
+        return new textbox_1.default(protractor_1.by.xpath(`//input[@id='${item}']`));
+    }
+    static getChangePassWordPageInstance() {
+        this._changePassWordPage = new ChangePassWordPage();
+        return this._changePassWordPage;
+    }
+    changePassword(currentPassword, newPassword, confirmPassword) {
         return __awaiter(this, void 0, void 0, function* () {
-            this._changePassWordPage = new ChangePassWordPage();
-            return this._changePassWordPage;
+            try {
+                yield this.changePassworkItem(general_1.ChangePasswordItem.CURRENTPASSWORD).sendKeys(currentPassword);
+                yield this.changePassworkItem(general_1.ChangePasswordItem.NEWPASSWORD).sendKeys(newPassword);
+                yield this.changePassworkItem(general_1.ChangePasswordItem.CONFIRMPASSWORD).sendKeys(confirmPassword);
+                yield this.change.click();
+                return this;
+            }
+            catch (err) {
+                throw new error_wapper_1.errorwrapper.CustomError(this.changePassword, err.message);
+            }
         });
-    }
-    ChangePassword(currentPassword, newPassword, confirmPassword) {
-        this.txtCurrentPassword.sendKeys(currentPassword);
-        this.txtNewPassword.sendKeys(newPassword);
-        this.txtConfirmPassword.sendKeys(confirmPassword);
-        this.btnChangePassword.click();
-        return this;
     }
 }
 exports.default = ChangePassWordPage;

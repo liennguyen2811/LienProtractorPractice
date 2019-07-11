@@ -3,6 +3,7 @@ import TestRunInfo from '@data-objects/general/test-run-info';
 import TestBase from '@testcases/test-base';
 import HomePage from '@page-objects/home-page';
 import LoginPage from '@page-objects/login-page';
+import { PageName } from '@data-objects/general/general';
 
  /* Type: RailWay
  * Suite: Login
@@ -29,7 +30,7 @@ describe('Login suite TC01', function () {
             // 2. Clickon "Login" tab
             // 3. Enter valid Email and Password
             // 4. Click on "Login" button
-            loginPage = await homePage.goToLoginPage();
+            loginPage = await homePage.goToPage(PageName.LOGIN);
             
             // VP. User is logged into Railway. Welcome user message is displayed.  
             await loginPage.login(TestRunInfo.USERNAME, TestRunInfo.PASSWORD);
@@ -41,7 +42,7 @@ describe('Login suite TC01', function () {
       await Logger.write(FunctionType.NONE, `Final - Cleaning Up\n`);
       try {
           //logout 
-          homePage.logout();
+          homePage.goToPage(PageName.LOGOUT);
       }
       catch (err) { }
   }, TestRunInfo.conditionTimeout);

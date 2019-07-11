@@ -17,17 +17,14 @@ describe('Protractor Demo Maximize', function () {
             yield protractor_1.browser.manage().window().maximize();
             let frame1 = protractor_1.element(protractor_1.by.id("frame1")).getWebElement();
             yield protractor_1.browser.sleep(6000);
-            console.log("Switch IFrame1 element");
             yield protractor_1.browser.switchTo().frame(frame1);
             let frame3 = protractor_1.element(protractor_1.by.xpath("//iframe[@id='frame3']")).getWebElement();
             yield protractor_1.browser.sleep(6000);
-            console.log("Switch IFrame2 element");
             protractor_1.browser.switchTo().frame(frame3);
             let checkbox = protractor_1.element(protractor_1.by.xpath("//input[@type='checkbox']"));
             yield checkbox.isSelected().then(function (checked) {
                 return __awaiter(this, void 0, void 0, function* () {
                     if (!checked) {
-                        console.log("Get checkbox");
                         checkbox.click();
                         yield protractor_1.browser.sleep(6000);
                     }

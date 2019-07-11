@@ -12,15 +12,18 @@ import BrowserWrapper from "@utilities/protractor-wappers/browser-wrapper";
 import Link from "@utilities/protractor-wappers/control-common-imp/link";
 import LoginPage from "./login-page";
 import Lable from "@utilities/protractor-wappers/control-common-imp/lable";
+import { PageName } from "@data-objects/general/general";
 
 
 export default class GeneralPage {
 
     private static _generalPage: GeneralPage ;
-    //constructor(){};
+    navigationItem1: Link = new Link(by.xpath("//div[@id= 'menu']//a[@href = '/Account/Login.cshtml']"));
+    thankMessage: Lable =  new Lable(by.xpath("//div[@id='content']//h1"));
+    passwordChangeDone: Lable = new Lable(by.xpath("//form[@id='ChangePW']/fieldset/p[@class='message success']"));
+    errorMsgChangePass: Lable = new Lable(by.xpath("//form[@id='ChangePW']/fieldset/p[@class='message error']"));
+    bookTicketMessage: Lable = new Lable(by.xpath("//div[@id='content']//h1[text()='Ticket booked successfully!']"));
 
-    navigationItem: Link = new Link(by.xpath("//div[@id= 'menu']//a[@href = '/Account/Login.cshtml']"));
-    
     errorNoneMessage: Lable = new Lable(by.xpath(".//*[@id='content']/p"));
     protected tabLogin = new ElementWrapper(by.xpath("//div[@id= 'menu']//a[@href = '/Account/Login.cshtml']"));
 	protected tabLogout = new ElementWrapper(by.xpath("//div[@id= 'menu']//a[@href='/Account/Logout']"));
@@ -29,7 +32,8 @@ export default class GeneralPage {
 	protected tabBookTicket = new ElementWrapper(by.xpath("//a[@href='/Page/BookTicketPage.cshtml']"));
 	protected tabTimeTable = new ElementWrapper(by.xpath("//a[@href='TrainTimeListPage.cshtml']"));
 	protected tabTicketPrice = new ElementWrapper(by.xpath("//a[@href='/Page/TrainPriceListPage.cshtml']"));
-	protected tabMyTicket = new ElementWrapper(by.xpath("//a[@href='/Page/ManageTicket.cshtml']"));
+    protected tabMyTicket = new ElementWrapper(by.xpath("//a[@href='/Page/ManageTicket.cshtml']"));
+    protected tabContact = new ElementWrapper(by.xpath("//a[@href='/Page/Contact.cshtml']"));
 	
 	protected lbWelcomeMessage = new ElementWrapper(by.xpath("//div[@class= 'account']/strong"));
 	protected lbNonPassWordInput = new ElementWrapper(by.xpath(".//*[@id='content']/p"));
@@ -41,6 +45,9 @@ export default class GeneralPage {
 	protected lbTicketPriceHeaderMessage = new ElementWrapper(by.xpath("//table[@class='MyTable MedTable']//tr[@class='TableSmallHeader']/th"));
 
     // Dynamic control
+    protected navigationItem (tabName: string ): Link {
+            return new Link(by.xpath(`//a[contains(.,'${tabName}')]`));
+    }
     protected cellTable(tablename: string,rowindex: number,columnname: string ): ElementWrapper {
 		return new ElementWrapper(by.xpath(`"//table[@class='${tablename}']//tr['${rowindex}']/td[count(//th[.= '${columnname}']//preceding-sibling::th) + 1]`));
     }
@@ -59,11 +66,6 @@ export default class GeneralPage {
     protected bookTicket(seattype: string): ElementWrapper {
 		return new ElementWrapper(by.xpath(`//table[@class='NoBorder']//td[.='${seattype}']/following-sibling::td[.='Book ticket']`));
 	}
-    // public static getGeneralPageInstance(): GeneralPage{
-    //     this._generalPage = new GeneralPage();
-    //     //await this._generalPage.waitForLoading try to find spiner to handle the line
-    //     return this._generalPage;
-    // }
     /**
      *GetTextMessage
      *@returns{Promise<boolean>}
@@ -93,11 +95,11 @@ export default class GeneralPage {
      *@returns{Promise<boolean>}
      *@memberof GeneralPage
      */
-    public async getLbThankMessage(): Promise<string>
+    public async getThankMessage(): Promise<string>
 	{  try{
-        return await this.lbThankMessage.getText();
+        return await this.thankMessage.getText();
 	}catch (err){
-        throw new errorwrapper.CustomError(this.getLbThankMessage,err.message)
+        throw new errorwrapper.CustomError(this.getThankMessage,err.message)
     }
     }
      /**
@@ -105,11 +107,11 @@ export default class GeneralPage {
      *@returns{Promise<boolean>}
      *@memberof GeneralPage
      */
-    public async getLbPasswordchangedone(): Promise<string>
+    public async getPasswordChangeDoneMsg(): Promise<string>
 	{  try{
-        return await this.lbPasswordchangedone.getText();
+        return await this.passwordChangeDone.getText();
 	}catch (err){
-        throw new errorwrapper.CustomError(this.getLbPasswordchangedone,err.message)
+        throw new errorwrapper.CustomError(this.getPasswordChangeDoneMsg,err.message)
     }
     }
      /**
@@ -129,11 +131,11 @@ export default class GeneralPage {
      *@returns{Promise<boolean>}
      *@memberof GeneralPage
      */
-    public async getLbErrorMessageChangePass(): Promise<string>
+    public async getErrorMessageChangePass(): Promise<string>
 	{  try{
-        return await this.lbErrorMessageChangePass.getText();
+        return await this.errorMsgChangePass.getText();
 	}catch (err){
-        throw new errorwrapper.CustomError(this.getLbErrorMessageChangePass,err.message)
+        throw new errorwrapper.CustomError(this.getErrorMessageChangePass,err.message)
     }
     }
     /**
@@ -141,11 +143,11 @@ export default class GeneralPage {
      *@returns{Promise<boolean>}
      *@memberof GeneralPage
      */
-    public async getLblBookTicketMessage(): Promise<string>
+    public async getBookTicketMessage(): Promise<string>
 	{  try{
-        return await this.lblBookTicketMessage.getText();
+        return await this.bookTicketMessage.getText();
 	}catch (err){
-        throw new errorwrapper.CustomError(this.getLblBookTicketMessage,err.message)
+        throw new errorwrapper.CustomError(this.getBookTicketMessage,err.message)
     }
     }
     /**
@@ -183,9 +185,47 @@ export default class GeneralPage {
     public async goToLoginPage(): Promise<LoginPage>
 	{ try{
         await Logger.write(FunctionType.UI, `Going to Login Page`)
-        await this.navigationItem.click();
+        await this.navigationItem("Login").click();
         let loginPage  = require(`../page-objects/login-page`).default;
         return  await loginPage.getLoginPageInstance();
+    } catch(err){
+        throw new errorwrapper.CustomError(this.goToLoginPage, err.message)
+    }     
+    }
+
+    /**
+     * Go to LoginPage
+     * @returns {Promise<LoginPage>}
+     * @memberof GeneralPage
+     */
+
+     
+    public async goToPage(namePage: PageName): Promise<any>
+	{ try{
+        await Logger.write(FunctionType.UI, `Going to ${namePage} Page`)
+        await this.navigationItem(namePage).waitForPresenceOf();
+        await this.navigationItem(namePage).click();
+        if (namePage==PageName.LOGIN){
+            let loginPage  = require(`../page-objects/login-page`).default;
+            return  await loginPage.getLoginPageInstance();
+        } else if (namePage==PageName.LOGOUT){
+            let homePage  = require(`../page-objects/home-page`).default;
+            return  await homePage.getHomePageInstance();
+        } else if (namePage==PageName.REGISTER)
+        {
+            let registerPage = require(`../page-objects/register-page`).default;
+            return await registerPage.getRegisterPageInstance();
+        } else if (namePage==PageName.CHANGEPASSWORD)
+        {
+            let changePasswordPage = require(`../page-objects/change-password-page`).default;
+            return await changePasswordPage.getChangePassWordPageInstance();
+        } 
+        else if (namePage==PageName.BOOKTICKET)
+        {
+            let bookTicketPage = require(`../page-objects/book-ticket-page`).default;
+            return await bookTicketPage.getBookTickeInstance();
+        } 
+
     } catch(err){
         throw new errorwrapper.CustomError(this.goToLoginPage, err.message)
     }     
@@ -344,5 +384,18 @@ export default class GeneralPage {
              throw new errorwrapper.CustomError(this.bookTicketFromTicketPrice, err.message)
          }
      }
+      /**
+     * Return true if logout, false if log in
+     *@returns{Promise<boolean>}
+     *@memberof GeneralPage
+     */
+    public async isLogOut(): Promise<boolean>
+	{  try{
+        return this.navigationItem(PageName.LOGIN).isDisplayed();
+	}catch (err){
+        throw new errorwrapper.CustomError(this.getWelcomeMessage,err.message)
+    }
+    }
+    
 
 }

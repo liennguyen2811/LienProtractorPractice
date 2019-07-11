@@ -44,7 +44,7 @@ class LoginPageOld extends general_page_old_1.default {
             }
         });
     }
-    geterrormessage() {
+    getErrormessage() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield this.lbErrorMessage.getText();
         });

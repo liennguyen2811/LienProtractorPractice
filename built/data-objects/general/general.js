@@ -33,9 +33,45 @@ var Button;
     Button["CTRL_V"] = "ctrl+v";
     Button["BACKSPACE"] = "backspace";
 })(Button = exports.Button || (exports.Button = {}));
-var TabName;
-(function (TabName) {
-    TabName["login"] = "LogIn";
-    TabName["logout"] = "LogOut";
-})(TabName = exports.TabName || (exports.TabName = {}));
+var PageName;
+(function (PageName) {
+    PageName["LOGIN"] = "Login";
+    PageName["LOGOUT"] = "Log out";
+    PageName["REGISTER"] = "Register";
+    PageName["CHANGEPASSWORD"] = "Change password";
+    PageName["CONTACT"] = "Contact";
+    PageName["BOOKTICKET"] = "Book ticket";
+})(PageName = exports.PageName || (exports.PageName = {}));
+var RegisterItem;
+(function (RegisterItem) {
+    RegisterItem["EMAIL"] = "email";
+    RegisterItem["PASSWORD"] = "password";
+    RegisterItem["PID"] = "pid";
+    RegisterItem["REGISTER"] = "register";
+    RegisterItem["CONFIRMPASSWORD"] = "confirmPassword";
+})(RegisterItem = exports.RegisterItem || (exports.RegisterItem = {}));
+var ChangePasswordItem;
+(function (ChangePasswordItem) {
+    ChangePasswordItem["CURRENTPASSWORD"] = "currentPassword";
+    ChangePasswordItem["NEWPASSWORD"] = "newPassword";
+    ChangePasswordItem["CONFIRMPASSWORD"] = "confirmPassword";
+})(ChangePasswordItem = exports.ChangePasswordItem || (exports.ChangePasswordItem = {}));
+var Station;
+(function (Station) {
+    Station[Station["SAIGON"] = 0] = "SAIGON";
+    Station[Station["PHANTHIET"] = 1] = "PHANTHIET";
+    Station[Station["NHATRANG"] = 2] = "NHATRANG";
+    Station[Station["DANANG"] = 3] = "DANANG";
+    Station[Station["HUE"] = 4] = "HUE";
+    Station[Station["QUANGNGAI"] = 5] = "QUANGNGAI";
+})(Station = exports.Station || (exports.Station = {}));
+var SeatType;
+(function (SeatType) {
+    SeatType[SeatType["HARDSEAT"] = 0] = "HARDSEAT";
+    SeatType[SeatType["SOFTSEAT"] = 1] = "SOFTSEAT";
+    SeatType[SeatType["SOFTSEATWITHAIR"] = 2] = "SOFTSEATWITHAIR";
+    SeatType[SeatType["HARDBED"] = 3] = "HARDBED";
+    SeatType[SeatType["SOFTBED"] = 4] = "SOFTBED";
+    SeatType[SeatType["SOFTBEDWITHAIR"] = 5] = "SOFTBEDWITHAIR";
+})(SeatType = exports.SeatType || (exports.SeatType = {}));
 //# sourceMappingURL=general.js.map

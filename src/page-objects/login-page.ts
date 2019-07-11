@@ -1,6 +1,5 @@
 
 import { by } from "protractor";
-import ElementWrapper from "@utilities/protractor-wappers/element-wrapper";
 import { errorwrapper } from "@utilities/protractor-wappers/error-wapper";
 import GeneralPage from "./general-page";
 import HomePage from "./home-page";
@@ -36,7 +35,7 @@ export default class LoginPage extends GeneralPage {
         throw new errorwrapper.CustomError(this.login, err.message);
     }
     }
-    public async geterrormessage(): Promise<string> {
+    public async getErrormessage(): Promise<string> {
         return await this.errorMessage.getText();
     }
     

@@ -1,8 +1,8 @@
 import { errorwrapper } from "@utilities/protractor-wappers/error-wapper";
-import TestRunInfo, { Station, SeatType } from "@data-objects/general/test-run-info";
 import uuidv4 from 'uuid/v4';
 import { JsonConvert, ValueCheckingMode } from "json2typescript";
 import * as filePath from "path"
+import { SeatType, Station } from "@data-objects/general/general";
 
 
 export class Utility{
@@ -57,27 +57,12 @@ export class Utility{
 	 * @returns random gmail
 	 * @memberof Gmail
 	 */
-	public static getRandomGmailByIndex(): string {
+	public static getRandomGmail(): string {
 		try {
-			let today: number = (new Date().getTime());
-			let index = Math.floor(Math.abs(today - 1525340325732));
-
-			let email = "testautomationrailway";
-			let hexIndex = index.toString(2);
-			let hexIndexArray = hexIndex.split("");
-			for (let i = 0; i < hexIndexArray.length; i++) {
-				if (hexIndexArray[i] == "1") {
-					email = this.insert(email, email.length - hexIndexArray.length + i, ".")
-
-				}
-			}
-
-			if (email.startsWith(".") == true) {
-				return email.substring(1, email.length) + "@gmail.com";
-			}
+			let email = this.createRandomString(15, "railway");
 			return email + "@gmail.com";
 		} catch (err) {
-			throw new errorwrapper.CustomError(this.getRandomGmailByIndex, err.message);
+			throw new errorwrapper.CustomError(this.getRandomGmail, err.message);
 		}
     }
     /**

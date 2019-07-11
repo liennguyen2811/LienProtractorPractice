@@ -50,8 +50,9 @@ class SelectElementWrapper {
             sw.startClock();
             try {
                 yield this._element.waitForControlStable();
-                yield this._element.click(sw.getTimeLeftInSecond(timeoutInSecond));
-                let optionElement = yield this._element.element(by, sw.getTimeLeftInSecond(timeoutInSecond));
+                yield this._element.click(sw.getTimeLeftInSecond(test_run_info_1.default.longTimeout));
+                browser_wrapper_1.default.sleepInSecond(100);
+                let optionElement = yield this._element.element(by, sw.getTimeLeftInSecond(test_run_info_1.default.longTimeout));
                 yield optionElement.click();
                 yield this._element.waitForControlStable();
             }
@@ -69,7 +70,7 @@ class SelectElementWrapper {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 let tagName = yield this._element.getAttribute("tagName");
-                let locator = "";
+                let locator;
                 let tagNameLowCase = yield tagName.toLowerCase();
                 if (tagNameLowCase == "select") {
                     locator = protractor_1.by.xpath(`//option[text()='${text}']`);

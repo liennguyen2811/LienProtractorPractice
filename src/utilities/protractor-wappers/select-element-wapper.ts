@@ -2,7 +2,6 @@ import TestRunInfo from "@data-objects/general/test-run-info";
 import ElementWrapper from "@utilities/protractor-wappers/element-wrapper";
 import StopWatch from "@utilities/general/stop-watch";
 import { errorwrapper } from "@utilities/protractor-wappers/error-wapper";
-import { TextDecoder } from "util";
 import BrowserWrapper from "./browser-wrapper";
 import { by, Locator } from "protractor";
 
@@ -56,8 +55,9 @@ export default class SelectElementWrapper{
 
         try {
             await this._element.waitForControlStable();
-            await this._element.click(sw.getTimeLeftInSecond(timeoutInSecond));
-            let optionElement = await this._element.element(by, sw.getTimeLeftInSecond(timeoutInSecond));
+            await this._element.click(sw.getTimeLeftInSecond(TestRunInfo.longTimeout));
+            BrowserWrapper.sleepInSecond(100);
+            let optionElement = await this._element.element(by,sw.getTimeLeftInSecond(TestRunInfo.longTimeout));
             await optionElement.click();
             await this._element.waitForControlStable();
         } catch (err) {
@@ -74,10 +74,10 @@ export default class SelectElementWrapper{
      * @returns {Promise<void>}
      * @memberof SelectElementWrapper
      */
-    public async selectOptionByText(text: string){
+    public async selectOptionByText(text: string): Promise<void>{
         try{
             let tagName= await this._element.getAttribute("tagName");
-            let locator: Locator = "";
+            let locator: Locator
             let tagNameLowCase = await tagName.toLowerCase();
             if(tagNameLowCase == "select"){
                 locator = by.xpath(`//option[text()='${text}']`);
@@ -87,7 +87,7 @@ export default class SelectElementWrapper{
             await this.selectOption(locator);
         } catch(err){
             throw new errorwrapper.CustomError(this.selectOptionByText, err.message)
-        }
+
     }
     
     /**
@@ -164,4 +164,5 @@ public async selectOptionByIndex(index: number): Promise<void> {
         throw new errorwrapper.CustomError(this.selectOptionByIndex, err.message);
     }
 }
+
 }

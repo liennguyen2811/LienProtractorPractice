@@ -46,7 +46,7 @@ class Ticket {
         this.ticketamount = 1;
         return this;
     }
-    Ticket(departstation, arrivestation, seattype, ticketamount) {
+    initTicket(departstation, arrivestation, seattype, ticketamount) {
         this.departstation = utility_1.Utility.TranslateStation(departstation);
         this.arrivestation = utility_1.Utility.TranslateStation(arrivestation);
         this.departdate = utility_1.Utility.addDateToCurrentDate(1);

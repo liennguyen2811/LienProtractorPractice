@@ -10,6 +10,7 @@ export default class TestRunInfo{
     static testTimeout: number;
     static shortTimeout: number;
     static pageTimeout: number;
+    static longTimeout: number;
     static conditionTimeout: number;
 
 	static RAILWAY_URL: string = "http://18.136.107.136/Account/Login.cshtml";
@@ -29,27 +30,10 @@ export default class TestRunInfo{
             TestRunInfo.pageTimeout = configData.pageTimeout;
             TestRunInfo.shortTimeout = TestRunInfo.testTimeout/12;
             TestRunInfo.conditionTimeout = TestRunInfo.testTimeout/2;
+            TestRunInfo.longTimeout = TestRunInfo.testTimeout*4;
             
         } catch(err){
             throw new errorwrapper.CustomError(this.setUpTestRunInfo, err.message)
         }
     }
 }
-export enum Station
-    {
-        SAIGON,
-        PHANTHIET,
-        NHATRANG,
-        DANANG,
-        HUE,
-        QUANGNGAI
-    }
-export enum SeatType
-    {
-        HARDSEAT,
-        SOFTSEAT,
-        SOFTSEATWITHAIR,
-        HARDBED,
-        SOFTBED,
-        SOFTBEDWITHAIR
-    }

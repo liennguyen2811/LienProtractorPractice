@@ -1,4 +1,4 @@
-import GeneralPage from "@page-objects/general-page-old";
+import GeneralPage from "@page-objects/general-page";
 
 export default class TicketPricePage extends GeneralPage{
     private static _ticketPricePage: TicketPricePage;

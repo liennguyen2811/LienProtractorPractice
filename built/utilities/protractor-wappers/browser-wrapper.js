@@ -185,7 +185,7 @@ class BrowserWrapper {
                 yield BrowserWrapper.getDriverInstance().sleep(second * 1000);
             }
             catch (err) {
-                throw new error_wapper_1.errorwrapper.CustomError(this.sleepInSecond, err.mess);
+                throw new error_wapper_1.errorwrapper.CustomError(this.sleepInSecond, err.message);
             }
         });
     }

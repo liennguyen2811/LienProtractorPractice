@@ -155,7 +155,7 @@ export default class ElementWrapper {
     public async click(timeoutInSecond: number = this._elementTimeout): Promise<this> {
 
         if (timeoutInSecond < 0) {
-            throw new errorwrapper.TimeoutError;
+            throw new errorwrapper.NoSuchElementError(this._by)
         }
         let stopWatch = new StopWatch();
         stopWatch.startClock();
@@ -516,11 +516,12 @@ export default class ElementWrapper {
     public async element(by: Locator, timeoutInSecond = this._elementTimeout): Promise<ElementFinder> {
         try {
             if (timeoutInSecond < 0) {
-                throw new errorwrapper.TimeoutError();
+                throw new errorwrapper.NoSuchElementError(by);
             }
             let sw = new StopWatch();
             sw.startClock
-            await this.wait(sw.getTimeLeftInSecond(timeoutInSecond));
+           // await this.wait(sw.getTimeLeftInSecond(timeoutInSecond));
+           BrowserWrapper.sleepInSecond(5)
             let child: ElementFinder
             try {
                 child = this._element.element(by);
@@ -529,8 +530,8 @@ export default class ElementWrapper {
             }
             catch (err) {
                 if (err instanceof error.NoSuchElementError) {
-                    await BrowserWrapper.sleepInSecond(0.5);
-                    child = await this.element(by, sw.getTimeLeftInSecond(timeoutInSecond));
+                    await BrowserWrapper.sleepInSecond(1);
+                    child = await this.element(by,sw.getTimeLeftInSecond(timeoutInSecond));
                 }
                 else {
                     throw err;
