@@ -25,7 +25,6 @@ class Combobox extends clickable_imp_1.Clickable {
             let sw = new stop_watch_1.default();
             sw.startClock();
             try {
-                yield this._element.waitForControlStable();
                 yield this._element.click();
                 let e = yield this._element.element(protractor_1.by.xpath(`//*[@id = '${id}']`));
                 yield e.click();
@@ -46,11 +45,11 @@ class Combobox extends clickable_imp_1.Clickable {
             let sw = new stop_watch_1.default();
             sw.startClock();
             try {
-                yield this._element.waitForControlStable();
+                browser_wrapper_1.default.sleepInSecond(2);
                 yield this._element.click();
                 let optionElement = yield this._element.element(by);
                 yield optionElement.click();
-                yield this._element.waitForControlStable();
+                browser_wrapper_1.default.sleepInSecond(2);
             }
             catch (err) {
                 if (err.message.includes("element not interactable")) {
@@ -62,14 +61,15 @@ class Combobox extends clickable_imp_1.Clickable {
             }
         });
     }
-    selectOptionByText(text) {
+    selectOptionByText(text, parent) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                browser_wrapper_1.default.sleepInSecond(2);
                 let tagName = yield this._element.getAttribute("tagName");
                 let locator = "";
                 let tagNameLowCase = yield tagName.toLowerCase();
                 if (tagNameLowCase == "select") {
-                    locator = protractor_1.by.xpath(`//option[text()='${text}']`);
+                    locator = protractor_1.by.xpath(`//select[@name= '${parent}']//option[text()='${text}']`);
                 }
                 else if (tagNameLowCase == "div") {
                     locator = protractor_1.by.xpath(`//div[@role='option']//span[contains(text(),'${text}')]`);

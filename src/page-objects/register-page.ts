@@ -1,7 +1,6 @@
 import { Account } from "@data-objects/railway/account";
 import { FunctionType, Logger } from "@utilities/general/logger";
 import BrowserWrapper from "@utilities/protractor-wappers/browser-wrapper";
-import ElementWrapper from "@utilities/protractor-wappers/element-wrapper";
 import { errorwrapper } from "@utilities/protractor-wappers/error-wapper";
 import { browser, by } from "protractor";
 import Textbox from "@utilities/protractor-wappers/control-common-imp/textbox";
@@ -14,13 +13,6 @@ export default class RegisterPage extends GeneralPage {
 
     // element
     Register: Button = new Button(by.xpath("//input[@value='Register']"));
-
-    // protected txtEmail = new ElementWrapper(by.xpath("//input[@id='email']"));
-    protected txtPasword = new ElementWrapper(by.xpath("//input[@id='password']"));
-    protected txtConfirmPassword = new ElementWrapper(by.xpath("//input[@id=]"));
-    protected txtPID = new ElementWrapper(by.xpath("//input[@id='pid']"));
-    protected btnRegister = new ElementWrapper(by.xpath("//input[@value='Register']"));
-
     protected RegisterItem (registeritemname: string ): Textbox {
         return new Textbox(by.xpath(`//input[@id='${registeritemname}']`));
 }
@@ -31,9 +23,10 @@ export default class RegisterPage extends GeneralPage {
     }
     public async RegisterAccount(account: Account): Promise<RegisterPage> {
         try {
+            await Logger.write(FunctionType.UI, `Going to enter infomation of new account`)
             await this.RegisterItem(RegisterItem.EMAIL).waitForPresenceOf();
             await this.RegisterItem(RegisterItem.EMAIL).sendKeys(account.Email);
-            await this.txtPasword.sendKeys(account.Password);
+            await this.RegisterItem(RegisterItem.PASSWORD).sendKeys(account.Password);
             await this.RegisterItem(RegisterItem.PID).scrollToElement();
             await this.RegisterItem(RegisterItem.PID).sendKeys(account.RegPID);
             await this.RegisterItem(RegisterItem.CONFIRMPASSWORD).sendKeys(account.Password);

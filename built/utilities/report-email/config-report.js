@@ -12,7 +12,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const project_path_1 = __importDefault(require("@test-data/general/project-path"));
-const jasmine_reporters_1 = require("jasmine-reporters");
 const protractor_1 = require("protractor");
 const utility_1 = require("@utilities/general/utility");
 const report_email_1 = __importDefault(require("./report-email"));
@@ -26,19 +25,38 @@ class ConfigReport {
         }
     }
     static createXMLReport1() {
-        var jasmineReporters = require('jasmine-reporters');
-        jasmine.getEnv().addReporter(new jasmineReporters.JUnitXmlReporter({
-            consolidateAll: true,
-            filePrefix: 'xmlresults',
-            savePath: `${project_path_1.default.conf}/test/reports`,
-        }));
+        return __awaiter(this, void 0, void 0, function* () {
+            var jasmineReporters = require('jasmine-reporters');
+            protractor_1.browser.getCapabilities().then(function (value) {
+                let reportName = 'protractor-report-' + '_' + value.get('browserName') + '_' + Math.floor(Math.random() * 1E16);
+                jasmine.getEnv().addReporter(new jasmineReporters.JUnitXmlReporter({
+                    consolidateAll: true,
+                    filePrefix: `${reportName}`,
+                    savePath: `${project_path_1.default.conf}/test/reports/xml`,
+                }));
+            });
+        });
     }
     static createXMLReport() {
-        jasmine.getEnv().addReporter(new jasmine_reporters_1.jasmineReporters.JUnitXmlReporter({
-            consolidateAll: true,
-            savePath: `${project_path_1.default.conf}/test/reports`,
-            filePrefix: 'xmlresults'
-        }));
+        return __awaiter(this, void 0, void 0, function* () {
+            var jasmineReporters = require('jasmine-reporters');
+            jasmine.getEnv().addReporter(new jasmineReporters.JUnitXmlReporter({
+                consolidateAll: true,
+                savePath: `${project_path_1.default.conf}/test/reports`,
+                filePrefix: 'xmlresults'
+            }));
+        });
+    }
+    static clearOldReport() {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log("Beforeall");
+            const fs = require('fs-extra');
+            fs.emptyDir(`${project_path_1.default.conf}/test/reports/xml`, err => {
+                if (err)
+                    return console.error(err);
+                console.log('success!');
+            });
+        });
     }
     static convertXMLtoPieChart() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -50,7 +68,7 @@ class ConfigReport {
                     browserName = caps.get('browserName');
                     browserVersion = caps.get('version');
                     let testConfig = {
-                        reportTitle: 'Protractor Test Execution Report',
+                        reportTitle: "Protractor Test Execution Report",
                         outputPath: `${project_path_1.default.conf}/test/reports`,
                         outputFilename: 'ProtractorTestReport',
                         screenshotPath: './screenshots',
@@ -61,6 +79,38 @@ class ConfigReport {
                     };
                     new HTMLReport().from(`${project_path_1.default.conf}/test/reports/xmlresults.xml`, testConfig);
                     yield report_email_1.default.generateReportForBuild(`${project_path_1.default.conf}/test/reports/xmlresults.xml`, `${project_path_1.default.conf}/test/reports/emailHtml/`);
+                });
+            });
+        });
+    }
+    static convertXMLtoPieChartMultiBrowser() {
+        return __awaiter(this, void 0, void 0, function* () {
+            var HTMLReport = require('protractor-html-reporter-2');
+            var browserName, browserVersion;
+            var capsPromise = protractor_1.protractor.browser.getCapabilities();
+            console.log("if go here");
+            capsPromise.then(function (caps) {
+                return __awaiter(this, void 0, void 0, function* () {
+                    browserName = caps.get('browserName');
+                    browserVersion = caps.get('version');
+                    let testConfig = {
+                        reportTitle: `xml report`,
+                        outputPath: `${project_path_1.default.conf}/test/reports`,
+                        outputFilename: 'ProtractorTestMultiBrowserReport',
+                        screenshotPath: './screenshots',
+                        testBrowser: browserName,
+                        browserVersion: browserVersion,
+                        modifiedSuiteName: false,
+                        screenshotsOnlyOnFailure: true,
+                    };
+                    console.log("Lien1");
+                    var fs = require('fs-extra');
+                    fs.readdirSync(`${project_path_1.default.conf}/test/reports/xml`).forEach(file => {
+                        console.log("Lien1");
+                        console.log("Filename", file);
+                        new HTMLReport().from(`${project_path_1.default.conf}/test/reports/xml/${file}`, testConfig);
+                    });
+                    yield report_email_1.default.generateReportForBuild(`${project_path_1.default.conf}/test/reports/xml`, `${project_path_1.default.conf}/test/reports/emailHtml/`);
                 });
             });
         });

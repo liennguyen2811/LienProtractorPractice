@@ -15,7 +15,7 @@ import { PageName } from '@data-objects/general/general';
 describe('Login suite TC01', function () {
 
   TestBase.scheduleTestBase();
-  let expectedMsg: string = "aaaWelcome liennguyenlogigear12@gmail.com";
+  let expectedMsg: string = "Welcome " + TestRunInfo.USERNAME;
 
   // Declare page object
   let homePage: HomePage = new HomePage()
@@ -34,7 +34,7 @@ describe('Login suite TC01', function () {
             
             // VP. User is logged into Railway. Welcome user message is displayed.  
             await loginPage.login(TestRunInfo.USERNAME, TestRunInfo.PASSWORD);
-            expect (await homePage.getWelcomeMessage()).toBe(expectedMsg, "Failed by: Could not login")
+            expect (await homePage.getWelcomeMsg()).toBe(expectedMsg, "Failed by: Could not login")
     
   });
 

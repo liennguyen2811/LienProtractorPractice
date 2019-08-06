@@ -9,13 +9,13 @@ import RegisterPage from '@page-objects/register-page';
 
 
  /* Type: RailWay
- * Suite: Login
+ * Suite: Manage account
  * TC ID: TC01
  * Tested browser: Chrome
  * Tested OS: Windows 10
  */
 
-describe('Login suite TC01', function () {
+describe('Manage account TC07', function () {
 
   TestBase.scheduleTestBase();
 
@@ -29,7 +29,7 @@ describe('Login suite TC01', function () {
 
 
   beforeEach(async () => {
-      await Logger.write(FunctionType.API, `TC01- User can login into Raiway with valid username and password`);
+      await Logger.write(FunctionType.API, `TC07- User can not login with an account has not been activated`);
       homePage = HomePage.getHomePageInstance();
       loginPage = await homePage.goToPage(PageName.LOGIN);
       registerPage = await loginPage.goToPage(PageName.REGISTER);
@@ -38,7 +38,7 @@ describe('Login suite TC01', function () {
 
   }, TestRunInfo.conditionTimeout);
 
-  it('TC06- User can create new account', async () => {
+  it('TC07- User can not login with an account has not been activated', async () => {
             // 1. Go to HomePage
             loginPage = await homePage.goToPage(PageName.LOGIN);
 

@@ -47,16 +47,16 @@ class Ticket {
         return this;
     }
     initTicket(departstation, arrivestation, seattype, ticketamount) {
-        this.departstation = utility_1.Utility.TranslateStation(departstation);
-        this.arrivestation = utility_1.Utility.TranslateStation(arrivestation);
-        this.departdate = utility_1.Utility.addDateToCurrentDate(1);
-        this.seattype = utility_1.Utility.TranslateSeatType(seattype);
+        this.departstation = departstation;
+        this.arrivestation = arrivestation;
+        this.departdate = utility_1.Utility.formatDateTime(utility_1.Utility.addDateToCurrentDate(3), "MM DD YYYY", "mM DD YYYY");
+        this.seattype = seattype;
         this.ticketamount = ticketamount;
     }
     Ticket1(departdate, departstation, arrivestation, seattype, ticketamount) {
         this.departstation = utility_1.Utility.TranslateStation(departstation);
         this.arrivestation = utility_1.Utility.TranslateStation(arrivestation);
-        this.departdate = utility_1.Utility.addDateToCurrentDate(1);
+        this.departdate = utility_1.Utility.addDateToCurrentDate(3);
         this.seattype = utility_1.Utility.TranslateSeatType(seattype);
         this.ticketamount = ticketamount;
     }

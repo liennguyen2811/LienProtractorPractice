@@ -1,24 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites disabled="0" errors="0" failures="1" tests="1" time="11.121">
- <testsuite name="Book Ticket TC01" timestamp="2019-07-11T17:08:04" hostname="localhost" time="11.121" errors="0" tests="1" skipped="0" disabled="0" failures="1">
-  <testcase classname="Book Ticket TC01" name="TC01- User can book 1 ticket at a time" time="11.118">
-   <failure type="exception" message="Failed: CustomError - The CustomError - The this._element.waitForControlStable is not a function.."><![CDATA[Error: CustomError - The CustomError - The this._element.waitForControlStable is not a function..
-    at Combobox.<anonymous> (F:\ProtractorPractice\src\utilities\protractor-wappers\control-common-imp\combobox.ts:81:19)
-    at Generator.throw (<anonymous>)
-    at rejected (F:\ProtractorPractice\built\utilities\protractor-wappers\control-common-imp\combobox.js:5:65)
-    at process._tickCallback (internal/process/next_tick.js:68:7)
-From asynchronous test: 
-Error
-    at Suite.<anonymous> (F:\ProtractorPractice\src\testcases\TC-011.ts:34:3)
-    at addSpecsToSuite (C:\Users\lien.nguyen\AppData\Roaming\npm\node_modules\protractor\node_modules\jasmine-core\lib\jasmine-core\jasmine.js:1107:25)
-    at Env.describe (C:\Users\lien.nguyen\AppData\Roaming\npm\node_modules\protractor\node_modules\jasmine-core\lib\jasmine-core\jasmine.js:1074:7)
-    at describe (C:\Users\lien.nguyen\AppData\Roaming\npm\node_modules\protractor\node_modules\jasmine-core\lib\jasmine-core\jasmine.js:4399:18)
-    at Object.<anonymous> (F:\ProtractorPractice\src\testcases\TC-011.ts:17:1)
-    at Module._compile (internal/modules/cjs/loader.js:701:30)
-    at Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)
-    at Module.load (internal/modules/cjs/loader.js:600:32)
-    at tryModuleLoad (internal/modules/cjs/loader.js:539:12)]]>
-   </failure>
-  </testcase>
+<testsuites disabled="0" errors="0" failures="0" tests="1" time="10.984">
+ <testsuite name="Mangage ticket TC15" timestamp="2019-07-19T15:51:04" hostname="localhost" time="10.984" errors="0" tests="1" skipped="0" disabled="0" failures="0">
+  <testcase classname="Mangage ticket TC15" name="TC15- User can cancel a ticket" time="10.981" />
  </testsuite>
 </testsuites>

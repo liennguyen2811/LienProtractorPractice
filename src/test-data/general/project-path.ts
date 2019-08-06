@@ -10,6 +10,7 @@ export default class ProjectPath {
     static dataObjects: string = ProjectPath.getPath("built\\data-objects").replace(/\\/g,"/");
 	static utilities: string = ProjectPath.getPath("built\\utilities").replace(/\\/g, "/");
 	static test_helpers : string = ProjectPath.getPath("built\\test-helpers").replace(/\\/g, "/");
+	static project : string = ProjectPath.getPath().replace(/\\/g, "/");
 
     /**
 	 * Get the current file directory

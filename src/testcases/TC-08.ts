@@ -9,16 +9,16 @@ import ChangePassWordPage from '@page-objects/change-password-page';
 
 /** 
  * Type: RailWay
- * Suite: Login
+ * Suite: Manage account
  * TC ID: TC08
  * Tested browser: Chrome
  * Tested OS: Windows 10
  */
 
-describe('Login suite - TC08', function () {
+describe('Manage account - TC08', function () {
 
   TestBase.scheduleTestBase();
-  let newPass: string = "liennguyen1";
+  let newPass: string = "newPassword1";
   let expectedMsg: string = "Your password has been updated!";
 
   // Declare page object
@@ -45,7 +45,6 @@ describe('Login suite - TC08', function () {
             //4. Enter valid value into all fields.
             //5. Click on "Change Password" button
             await changePasswordPage.changePassword(TestRunInfo.PASSWORD,newPass,newPass);
-            //await changePasswordPage.changePassword("liennguyen","liennguyen1","liennguyen1";)
 
             // VP. User is logged into Railway. Welcome user message is displayed. 
             expect (await changePasswordPage.getPasswordChangeDoneMsg()).toBe(expectedMsg, "Could not change password")

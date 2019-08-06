@@ -41,7 +41,6 @@ function getPath(fileName, dir) {
 }
 class HTMLEmailRepportCustom {
     static generateReportForBuild(reportXml, path) {
-        console.log("Lien 1");
         let testResultXMl = new xmlDocument.XmlDocument(fileSystem.readFileSync(reportXml, 'utf8'));
         let testSuites = testResultXMl.childrenNamed('testsuite');
         allSuiteInfo.childSuite = testSuites.length;

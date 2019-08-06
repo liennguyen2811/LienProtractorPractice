@@ -17,15 +17,16 @@ const test_base_1 = __importDefault(require("@testcases/test-base"));
 const home_page_1 = __importDefault(require("@page-objects/home-page"));
 const general_1 = require("@data-objects/general/general");
 const account_1 = require("@data-objects/railway/account");
-describe('Login suite TC01', function () {
+describe('Manage account TC06', function () {
     test_base_1.default.scheduleTestBase();
     let homePage = new home_page_1.default();
     let loginPage;
     let registerPage;
     let account = new account_1.Account();
     let expectedText = "Thank you for registering your account";
+    let expectedMsg = "Welcome ";
     beforeEach(() => __awaiter(this, void 0, void 0, function* () {
-        yield logger_1.Logger.write(logger_1.FunctionType.API, `TC01- User can login into Raiway with valid username and password`);
+        yield logger_1.Logger.write(logger_1.FunctionType.API, `TC06-User can create new account`);
         homePage = home_page_1.default.getHomePageInstance();
     }), test_run_info_1.default.conditionTimeout);
     it('TC06- User can create new account', () => __awaiter(this, void 0, void 0, function* () {
@@ -34,10 +35,15 @@ describe('Login suite TC01', function () {
         account.initAccount();
         yield registerPage.RegisterAccount(account);
         expect(yield registerPage.getThankMessage()).toBe(expectedText, "Thank message does not appear");
+        yield registerPage.activateAccount(account.Email);
+        yield homePage.goToPage(general_1.PageName.LOGIN);
+        yield loginPage.login(account.Email, account.Password);
+        expect(yield homePage.getWelcomeMsg()).toBe(expectedMsg + account.Email, "Failed by: Could not login");
     }));
     afterEach(() => __awaiter(this, void 0, void 0, function* () {
         yield logger_1.Logger.write(logger_1.FunctionType.NONE, `Final - Cleaning Up\n`);
         try {
+            homePage.goToPage(general_1.PageName.LOGOUT);
         }
         catch (err) { }
     }), test_run_info_1.default.conditionTimeout);

@@ -1,23 +1,20 @@
 import GeneralPage from "@page-objects/general-page";
-import ElementWrapper from "@utilities/protractor-wappers/element-wrapper";
-import SelectElementWrapper from "@utilities/protractor-wappers/select-element-wapper"
 import { by } from "protractor";
 import { Ticket } from "@data-objects/railway/ticket";
 import BrowserWrapper from "@utilities/protractor-wappers/browser-wrapper";
 import Combobox from "@utilities/protractor-wappers/control-common-imp/combobox";
+import Button from "@utilities/protractor-wappers/control-common-imp/button";
 
 export default class BookTicketPage extends GeneralPage{
     private static _bookTicketPage: BookTicketPage;
 
     // element
-    departStation: Combobox= new Combobox(by.xpath("//select[@name='Date']"));
-    protected checkDepartDate = new ElementWrapper(by.xpath("//select[@name='Date']"));
-    protected cmbDepartDate = new SelectElementWrapper(by.xpath("//select[@name='Date']"));
-    protected cmbDepartStation = new SelectElementWrapper(by.xpath("//select[@name='DepartStation']"));
-    protected cmbArriveStation = new SelectElementWrapper(by.xpath("//select[@name='ArriveStation']"));
-    protected cmbSeatType = new SelectElementWrapper(by.xpath("//select[@name='SeatType']"));
-    protected cmbTicketAmount = new SelectElementWrapper(by.xpath("//select[@name='TicketAmount']"));
-    protected btnBookTicket = new ElementWrapper(by.xpath("//input[@value='Book ticket']"));
+    departDate:  Combobox= new Combobox(by.xpath("//select[@name='Date']"));
+    departStation: Combobox= new Combobox(by.xpath("//select[@name='DepartStation']"));
+    arriveStation: Combobox= new Combobox(by.xpath("//select[@name='ArriveStation']"));
+    seatType: Combobox= new Combobox(by.xpath("//select[@name='SeatType']"));
+    ticketAmount: Combobox= new Combobox (by.xpath("//select[@name='TicketAmount']"));
+    bookticket: Button= new Button(by.xpath("//input[@value='Book ticket']"));
 
     public static async getBookTickeInstance(): Promise<BookTicketPage>{
         this._bookTicketPage = new BookTicketPage();
@@ -29,31 +26,43 @@ export default class BookTicketPage extends GeneralPage{
      * @returns {Promise<BookTicketPage>}
      * @memberof GeneralPage
      */
-    // public async gotoGetBookTicket(): Promise<BookTicketPage>
-	// { try{
-    //     await Logger.write(FunctionType.UI, `Going Book Ticket  Page`)
-    //     this.btnBookTicket.click();
-    //     let bookTicketPage = require(`../page-objects/book-ticket-page`).default;
-    //     return await bookTicketPage.getBookTickeInstance();
-    // } catch(err){
-    //     throw new errorwrapper.CustomError(this.gotoGetBookTicket, err.message)
-    // }   
-    // }
-
     public async getBookTicket(ticket: Ticket): Promise<BookTicketPage>
     {
         //Select ticket information
-        await BrowserWrapper.sleepInSecond(5);
-        await this.departStation.selectOptionByText(ticket.DepartStation);
-        BrowserWrapper.sleepInSecond(5);
-        await this.cmbArriveStation.selectOptionByText(ticket.ArriveStation);
-        await this.cmbSeatType.selectOptionByText(ticket.SeatType);
-        //CmbTicketAmount.SelectByValue(ticket.TicketAmount.ToString);
-        await this.cmbTicketAmount.selectOptionByText(ticket.TicketAmount.toString());
+        // await this.departDate.waitForPresenceOf();
+        // await this.departDate.selectOptionByText(ticket.DepartDate);
+        await this.departStation.waitForPresenceOf();
+        await this.departStation.selectOptionByText(ticket.DepartStation,"DepartStation");
+        await this.arriveStation.waitForPresenceOf();
+        await this.arriveStation.selectOptionByText(ticket.ArriveStation, "ArriveStation");
+        await this.seatType.selectOptionByText(ticket.SeatType,"SeatType");
+        await this.seatType.waitForPresenceOf();
+        await this.ticketAmount.selectOptionByText(ticket.TicketAmount.toString(),"TicketAmount");
+        await this.ticketAmount.waitForPresenceOf();
         //Click on Book Ticket button
-        this.btnBookTicket.click();
-
+        await this.ticketAmount.waitForPresenceOf()
+        this.bookticket.click();
         return this;
+    }
+    public async getBookedTicketInfo(): Promise<Ticket>
+        {
+            let ticket: Ticket = new Ticket();
+            let tableName: string = "MyTable WideTable";
+            ticket.DepartStation = await this.getTableCellValue(tableName, 2, "Depart Station");
+            ticket.ArriveStation = await this.getTableCellValue(tableName, 2, "Arrive Station");
+            ticket.SeatType = await this.getTableCellValue(tableName, 2, "Seat Type");
+            ticket.DepartDate = await this.getTableCellValue(tableName, 2, "Depart Date");
+            ticket.TicketAmount = parseInt( await this.getTableCellValue(tableName, 2, "Amount"));
+
+            return ticket;
+        }
+    public async checkBookTicketInfoDisplay(ticketInfo: Ticket): Promise<boolean>
+    {
+        let ticketDisplayTable: Ticket = await this.getBookedTicketInfo();
+        await  BrowserWrapper.sleepInSecond(10);
+        if((ticketInfo.DepartStation != ticketDisplayTable.DepartStation)|| (ticketInfo.ArriveStation != ticketDisplayTable.ArriveStation)|| (ticketInfo.SeatType != ticketDisplayTable.SeatType)||(ticketInfo.TicketAmount != ticketDisplayTable.TicketAmount))
+         return false;
+         else return true
     }
     
 }

@@ -16,7 +16,7 @@ const test_run_info_1 = __importDefault(require("@data-objects/general/test-run-
 const test_base_1 = __importDefault(require("@testcases/test-base"));
 const home_page_1 = __importDefault(require("@page-objects/home-page"));
 const general_1 = require("@data-objects/general/general");
-describe('ChangePassword suite - TC09', function () {
+describe('Manage Account suite - TC09', function () {
     test_base_1.default.scheduleTestBase();
     let newPass = "a123:\"/{}!@$\\";
     let confirmPass = "b456:\"/{}!@$\\";
@@ -38,7 +38,7 @@ describe('ChangePassword suite - TC09', function () {
     afterEach(() => __awaiter(this, void 0, void 0, function* () {
         yield logger_1.Logger.write(logger_1.FunctionType.NONE, `Final - Cleaning Up\n`);
         try {
-            homePage.logout();
+            homePage.goToPage(general_1.PageName.LOGOUT);
         }
         catch (err) { }
     }), test_run_info_1.default.conditionTimeout);

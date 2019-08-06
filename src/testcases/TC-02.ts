@@ -4,6 +4,7 @@ import TestRunInfo from '@data-objects/general/test-run-info';
 import TestBase from '@testcases/test-base';
 import LoginPage from '@page-objects/login-page';
 import HomePage from '@page-objects/home-page';
+import { PageName } from '@data-objects/general/general';
 
 /** 
  * Type: RailWay
@@ -31,11 +32,11 @@ describe('Login suite - TC02', function () {
             // 2. Clickon "Login" tab
             // 3. Enter valid Email and Password
             // 4. Click on "Login" button
-            loginPage = await homePage.goToLoginPage();
+            loginPage = await homePage.goToPage(PageName.LOGIN)
 
             // VP. User is logged into Railway. Welcome user message is displayed.  
             await loginPage.login("", TestRunInfo.PASSWORD);
-            expect (await homePage.getNonpasswordmessage()).toBe(expectedMsg, "Could not login")
+            expect (await homePage.getNonePasswordMsg()).toBe(expectedMsg, "Could not login")
     
   });
 

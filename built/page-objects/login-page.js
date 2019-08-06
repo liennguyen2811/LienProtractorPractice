@@ -34,10 +34,13 @@ class LoginPage extends general_page_1.default {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 yield this.password.scrollToElement();
+                yield this.userName.waitForControlStable();
                 yield this.userName.sendKeys(username);
                 if (password != "") {
                     yield this.password.sendKeys(password);
+                    yield this.password.waitForControlStable();
                 }
+                yield this.logIn.waitForControlStable();
                 yield this.logIn.click();
                 return home_page_1.default.getHomePageInstance();
             }
@@ -68,7 +71,7 @@ class LoginPage extends general_page_1.default {
                     yield this.login("liennguyenlogigear12@gmail.com", "liennguyen1");
                 }
                 let homePage = yield this.login(username, password);
-                return yield homePage.getNonpasswordmessage();
+                return yield homePage.getNonePasswordMsg();
             }
             catch (err) {
                 throw new error_wapper_1.errorwrapper.CustomError(this.checkNonPassWordWithValidInfo, err.message);

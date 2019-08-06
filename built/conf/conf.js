@@ -31,7 +31,7 @@ exports.config = {
                     messages.unshift(new Date().toLocaleString());
                 }
             });
-            yield config_report_1.ConfigReport.createXMLReport1();
+            yield config_report_1.ConfigReport.createXMLReport();
         });
     },
     onComplete: function () {
@@ -48,7 +48,12 @@ exports.config = {
     directConnect: false,
     SELENIUM_PROMISE_MANAGER: false,
     specs: [
-        '../testcases/TC-011.js'
+        '../testcases/TC-10.js',
+        '../testcases/TC-11.js',
+        '../testcases/TC-12.js',
+        '../testcases/TC-13.js',
+        '../testcases/TC-15.js',
+        '../testcases/TC-14.js'
     ]
 };
 //# sourceMappingURL=conf.js.map

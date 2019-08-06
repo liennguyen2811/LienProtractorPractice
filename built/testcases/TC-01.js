@@ -18,7 +18,7 @@ const home_page_1 = __importDefault(require("@page-objects/home-page"));
 const general_1 = require("@data-objects/general/general");
 describe('Login suite TC01', function () {
     test_base_1.default.scheduleTestBase();
-    let expectedMsg = "aaaWelcome liennguyenlogigear12@gmail.com";
+    let expectedMsg = "Welcome " + test_run_info_1.default.USERNAME;
     let homePage = new home_page_1.default();
     let loginPage;
     beforeEach(() => __awaiter(this, void 0, void 0, function* () {
@@ -28,7 +28,7 @@ describe('Login suite TC01', function () {
     it('TC01- User can login into Raiway with valid username and password', () => __awaiter(this, void 0, void 0, function* () {
         loginPage = yield homePage.goToPage(general_1.PageName.LOGIN);
         yield loginPage.login(test_run_info_1.default.USERNAME, test_run_info_1.default.PASSWORD);
-        expect(yield homePage.getWelcomeMessage()).toBe(expectedMsg, "Failed by: Could not login");
+        expect(yield homePage.getWelcomeMsg()).toBe(expectedMsg, "Failed by: Could not login");
     }));
     afterEach(() => __awaiter(this, void 0, void 0, function* () {
         yield logger_1.Logger.write(logger_1.FunctionType.NONE, `Final - Cleaning Up\n`);

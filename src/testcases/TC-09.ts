@@ -9,13 +9,13 @@ import ChangePassWordPage from '@page-objects/change-password-page';
 
 /** 
  * Type: RailWay
- * Suite: Login
+ * Suite: Manage Account
  * TC ID: TC08
  * Tested browser: Chrome
  * Tested OS: Windows 10
  */
 
-describe('ChangePassword suite - TC09', function () {
+describe('Manage Account suite - TC09', function () {
 
   TestBase.scheduleTestBase();
   let newPass: string = "a123:\"/{}!@$\\";
@@ -57,7 +57,7 @@ describe('ChangePassword suite - TC09', function () {
       await Logger.write(FunctionType.NONE, `Final - Cleaning Up\n`);
       try {
           //logout 
-          homePage.logout();
+          homePage.goToPage(PageName.LOGOUT);
       }
       catch (err) { }
   }, TestRunInfo.conditionTimeout);

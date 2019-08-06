@@ -1,196 +1,159 @@
-import ElementWrapper from "@utilities/protractor-wappers/element-wrapper";
-import { by } from "protractor";
-import { errorwrapper } from "@utilities/protractor-wappers/error-wapper";
-import { Logger, FunctionType } from "@utilities/general/logger";
-import RegisterPage from "@page-objects/register-page";
-import ChangePassWordPage from "@page-objects/change-password-page";
-import TimeTablePage from "@page-objects/time-table-page";
-import BookTicketPage from "@page-objects/book-ticket-page";
-import TicketPricePage from "@page-objects/ticket-price-page";
-import MyTicketPage from "@page-objects/myticket-page";
-import BrowserWrapper from "@utilities/protractor-wappers/browser-wrapper";
-import Link from "@utilities/protractor-wappers/control-common-imp/link";
-import LoginPage from "./login-page";
-import Lable from "@utilities/protractor-wappers/control-common-imp/lable";
+import { GmailHelper } from "@apis/email-api";
 import { PageName } from "@data-objects/general/general";
+import BookTicketPage from "@page-objects/book-ticket-page";
+import { FunctionType, Logger } from "@utilities/general/logger";
+import BrowserWrapper from "@utilities/protractor-wappers/browser-wrapper";
+import Element from "@utilities/protractor-wappers/control-common-imp/element";
+import Lable from "@utilities/protractor-wappers/control-common-imp/lable";
+import Link from "@utilities/protractor-wappers/control-common-imp/link";
+import { errorwrapper } from "@utilities/protractor-wappers/error-wapper";
+import { by } from "protractor";
+import LoginPage from "./login-page";
+import RegisterPage from "./register-page";
 
 
 export default class GeneralPage {
 
-    private static _generalPage: GeneralPage ;
+    private static _generalPage: GeneralPage;
     navigationItem1: Link = new Link(by.xpath("//div[@id= 'menu']//a[@href = '/Account/Login.cshtml']"));
-    thankMessage: Lable =  new Lable(by.xpath("//div[@id='content']//h1"));
+    thankMessage: Lable = new Lable(by.xpath("//div[@id='content']//h1"));
     passwordChangeDone: Lable = new Lable(by.xpath("//form[@id='ChangePW']/fieldset/p[@class='message success']"));
     errorMsgChangePass: Lable = new Lable(by.xpath("//form[@id='ChangePW']/fieldset/p[@class='message error']"));
     bookTicketMessage: Lable = new Lable(by.xpath("//div[@id='content']//h1[text()='Ticket booked successfully!']"));
-
+    welcomeMessage: Lable = new Lable(by.xpath("//div[@class= 'account']/strong"));
     errorNoneMessage: Lable = new Lable(by.xpath(".//*[@id='content']/p"));
-    protected tabLogin = new ElementWrapper(by.xpath("//div[@id= 'menu']//a[@href = '/Account/Login.cshtml']"));
-	protected tabLogout = new ElementWrapper(by.xpath("//div[@id= 'menu']//a[@href='/Account/Logout']"));
-	protected tabRegister = new ElementWrapper(by.xpath("//div[@id='menu']//a[@href='/Account/Register.cshtml']"));
-	protected tabChangePassWord = new ElementWrapper(by.xpath("//div[@id='menu']//a[@href='/Account/ChangePassword.cshtml']"));
-	protected tabBookTicket = new ElementWrapper(by.xpath("//a[@href='/Page/BookTicketPage.cshtml']"));
-	protected tabTimeTable = new ElementWrapper(by.xpath("//a[@href='TrainTimeListPage.cshtml']"));
-	protected tabTicketPrice = new ElementWrapper(by.xpath("//a[@href='/Page/TrainPriceListPage.cshtml']"));
-    protected tabMyTicket = new ElementWrapper(by.xpath("//a[@href='/Page/ManageTicket.cshtml']"));
-    protected tabContact = new ElementWrapper(by.xpath("//a[@href='/Page/Contact.cshtml']"));
-	
-	protected lbWelcomeMessage = new ElementWrapper(by.xpath("//div[@class= 'account']/strong"));
-	protected lbNonPassWordInput = new ElementWrapper(by.xpath(".//*[@id='content']/p"));
-	protected lbThankMessage = new ElementWrapper(by.xpath("//div[@id='content']//h1"));
-	protected lbPasswordchangedone = new ElementWrapper(by.xpath("//form[@id='ChangePW']/fieldset/p[@class='message success']"));
-	protected lbErrorRegisterMessage = new ElementWrapper(by.xpath("//div[@id='content']/p[@class='message error']"));
-	protected lbErrorMessageChangePass = new ElementWrapper(by.xpath("//form[@id='ChangePW']/fieldset/p[@class='message error']"));
-	protected lblBookTicketMessage = new ElementWrapper(by.xpath("//div[@id='content']//h1[text()='Ticket booked successfully!']"));
-	protected lbTicketPriceHeaderMessage = new ElementWrapper(by.xpath("//table[@class='MyTable MedTable']//tr[@class='TableSmallHeader']/th"));
+    errorRegisterMessage: Lable = new Lable(by.xpath("//div[@id='content']/p[@class='message error']"));
+    ticketPriceHeaderMessage: Lable = new Lable(by.xpath("//table[@class='MyTable MedTable']//tr[@class='TableSmallHeader']/th"));
 
     // Dynamic control
-    protected navigationItem (tabName: string ): Link {
-            return new Link(by.xpath(`//a[contains(.,'${tabName}')]`));
+    protected navigationItem(tabName: string): Link {
+        return new Link(by.xpath(`//a[contains(.,'${tabName}')]`));
     }
-    protected cellTable(tablename: string,rowindex: number,columnname: string ): ElementWrapper {
-		return new ElementWrapper(by.xpath(`"//table[@class='${tablename}']//tr['${rowindex}']/td[count(//th[.= '${columnname}']//preceding-sibling::th) + 1]`));
+    protected cellTable(tablename: string, rowindex: number, columnname: string): Element {
+        return new Element(by.xpath(`//table[@class='${tablename}']//tr[${rowindex}]/td[count(//th[.= '${columnname}']//preceding-sibling::th) + 1]`));
     }
-    protected cellTableCheckPrice(tablename: string,rowindex: number,columnname: string ): ElementWrapper {
-		return new ElementWrapper(by.xpath(`"//table[@class='${tablename}']//tr[{1}]/td[count(//th[.='${rowindex}']//preceding-sibling::th) + '${columnname}']`));
+    protected cellTableCheckPrice(tablename: string, rowindex: number, colunmindex: number, columnname: string): Element {
+        return new Element(by.xpath(`//table[@class='${tablename}']//tr[${rowindex}]/td[count(//th[.='${columnname}']//preceding-sibling::th) + '${colunmindex}']`));
     }
-    protected rowNumber(table: string): ElementWrapper {
-		return new ElementWrapper(by.xpath(`//table[@class='${table}']//tr`));
+    protected rowNumber(table: string): Element {
+        return new Element(by.xpath(`//table[@class='${table}']//tr`));
     }
-    protected collunmNumber(table: string): ElementWrapper {
-		return new ElementWrapper(by.xpath(`//table[@class='${table}']//td`));
+    protected collunmNumber(table: string): Element {
+        return new Element(by.xpath(`//table[@class='${table}']//td`));
     }
-    protected checkPrice(train: string): ElementWrapper {
-		return new ElementWrapper(by.xpath(`//table[@class='NoBorder']//td[.='${train}']/following-sibling::td[.='Check Price']`));
+    protected checkPrice(train: string): Element {
+        return new Element(by.xpath(`//table[@class='NoBorder']//td[.='${train}']/following-sibling::td[.='Check Price']`));
     }
-    protected bookTicket(seattype: string): ElementWrapper {
-		return new ElementWrapper(by.xpath(`//table[@class='NoBorder']//td[.='${seattype}']/following-sibling::td[.='Book ticket']`));
-	}
+    protected bookTicket(seattype: string): Element {
+        return new Element(by.xpath(`//table[@class='NoBorder']//td[.='${seattype}']/following-sibling::td[.='Book ticket']`));
+    }
     /**
      *GetTextMessage
      *@returns{Promise<boolean>}
      *@memberof GeneralPage
      */
-    public async getWelcomeMessage(): Promise<string>
-	{  try{
-        return <string> await this.lbWelcomeMessage.getText();
-	}catch (err){
-        throw new errorwrapper.CustomError(this.getWelcomeMessage,err.message)
-    }
+    public async getWelcomeMsg(): Promise<string> {
+        try {
+            return <string>await this.welcomeMessage.getText();
+        } catch (err) {
+            throw new errorwrapper.CustomError(this.getWelcomeMsg, err.message)
+        }
     }
     /**
      *Get nonpassword input text
      *@returns{Promise<boolean>}
      *@memberof GeneralPage
      */
-    public async getNonpasswordmessage(): Promise<string>
-	{  try{
-        return await this.errorNoneMessage.getText();
-	}catch (err){
-        throw new errorwrapper.CustomError(this.getNonpasswordmessage,err.message)
+    public async getNonePasswordMsg(): Promise<string> {
+        try {
+            return await this.errorNoneMessage.getText();
+        } catch (err) {
+            throw new errorwrapper.CustomError(this.getNonePasswordMsg, err.message)
+        }
     }
+    /**
+    *Get thank message text
+    *@returns{Promise<boolean>}
+    *@memberof GeneralPage
+    */
+    public async getThankMessage(): Promise<string> {
+        try {
+            return await this.thankMessage.getText();
+        } catch (err) {
+            throw new errorwrapper.CustomError(this.getThankMessage, err.message)
+        }
     }
-     /**
-     *Get thank message text
-     *@returns{Promise<boolean>}
-     *@memberof GeneralPage
-     */
-    public async getThankMessage(): Promise<string>
-	{  try{
-        return await this.thankMessage.getText();
-	}catch (err){
-        throw new errorwrapper.CustomError(this.getThankMessage,err.message)
+    /**
+    *Get password change done text
+    *@returns{Promise<boolean>}
+    *@memberof GeneralPage
+    */
+    public async getPasswordChangeDoneMsg(): Promise<string> {
+        try {
+            return await this.passwordChangeDone.getText();
+        } catch (err) {
+            throw new errorwrapper.CustomError(this.getPasswordChangeDoneMsg, err.message)
+        }
     }
+    /**
+    *Get Error register message text
+    *@returns{Promise<boolean>}
+    *@memberof GeneralPage
+    */
+    public async getErrorRegisterMessage(): Promise<string> {
+        try {
+            return await this.errorRegisterMessage.getText();
+        } catch (err) {
+            throw new errorwrapper.CustomError(this.getErrorRegisterMessage, err.message)
+        }
     }
-     /**
-     *Get password change done text
-     *@returns{Promise<boolean>}
-     *@memberof GeneralPage
-     */
-    public async getPasswordChangeDoneMsg(): Promise<string>
-	{  try{
-        return await this.passwordChangeDone.getText();
-	}catch (err){
-        throw new errorwrapper.CustomError(this.getPasswordChangeDoneMsg,err.message)
-    }
-    }
-     /**
-     *Get Error register message text
-     *@returns{Promise<boolean>}
-     *@memberof GeneralPage
-     */
-    public async getLbErrorRegisterMessage(): Promise<string>
-	{  try{
-        return await this.lbErrorRegisterMessage.getText();
-	}catch (err){
-        throw new errorwrapper.CustomError(this.getLbErrorRegisterMessage,err.message)
-    }
-    }
-     /**
-     *Get Error message change password text
-     *@returns{Promise<boolean>}
-     *@memberof GeneralPage
-     */
-    public async getErrorMessageChangePass(): Promise<string>
-	{  try{
-        return await this.errorMsgChangePass.getText();
-	}catch (err){
-        throw new errorwrapper.CustomError(this.getErrorMessageChangePass,err.message)
-    }
+    /**
+    *Get Error message change password text
+    *@returns{Promise<boolean>}
+    *@memberof GeneralPage
+    */
+    public async getErrorMessageChangePass(): Promise<string> {
+        try {
+            return await this.errorMsgChangePass.getText();
+        } catch (err) {
+            throw new errorwrapper.CustomError(this.getErrorMessageChangePass, err.message)
+        }
     }
     /**
      *Get book ticket message text
      *@returns{Promise<boolean>}
      *@memberof GeneralPage
      */
-    public async getBookTicketMessage(): Promise<string>
-	{  try{
-        return await this.bookTicketMessage.getText();
-	}catch (err){
-        throw new errorwrapper.CustomError(this.getBookTicketMessage,err.message)
-    }
+    public async getBookTicketMessage(): Promise<string> {
+        try {
+            return await this.bookTicketMessage.getText();
+        } catch (err) {
+            throw new errorwrapper.CustomError(this.getBookTicketMessage, err.message)
+        }
     }
     /**
      *Get ticket price message text
      *@returns{Promise<boolean>}
      *@memberof GeneralPage
      */
-    public async getLbTicketPriceHeaderMessage(): Promise<string>
-	{  try{
-        return await this.lbTicketPriceHeaderMessage.getText();
-	}catch (err){
-        throw new errorwrapper.CustomError(this.getLbTicketPriceHeaderMessage,err.message)
+    public async geTicketPriceHeaderMsg(): Promise<string> {
+        try {
+            return await this.ticketPriceHeaderMessage.getText();
+        } catch (err) {
+            throw new errorwrapper.CustomError(this.geTicketPriceHeaderMsg, err.message)
+        }
     }
-    }
-     /**
-     * Go to LoginPage
-     * @returns {Promise<LoginPage>}
-     * @memberof GeneralPage
-     */
-    public async logout(): Promise<LoginPage>
-	{ try{
-        await Logger.write(FunctionType.UI, `Going to log out`)
-        await this.tabLogout.click();
-        let homePage  = require(`../page-objects/home-page`).default;
-        return  await homePage.getHomePageInstance();
-    } catch(err){
-        throw new errorwrapper.CustomError(this.goToLoginPage, err.message)
-    }     
-    }
-    /**
-     * Go to LoginPage
-     * @returns {Promise<LoginPage>}
-     * @memberof GeneralPage
-     */
-    public async goToLoginPage(): Promise<LoginPage>
-	{ try{
-        await Logger.write(FunctionType.UI, `Going to Login Page`)
-        await this.navigationItem("Login").click();
-        let loginPage  = require(`../page-objects/login-page`).default;
-        return  await loginPage.getLoginPageInstance();
-    } catch(err){
-        throw new errorwrapper.CustomError(this.goToLoginPage, err.message)
-    }     
+    /**	
+   * Check if login page is displayed or not
+   * @returns {Promise<boolean>}
+   * @memberof MaxCall
+   */
+    public async isLoginPageDisplayed(timeOut?: number): Promise<boolean> {
+        try {
+            return await this.navigationItem(PageName.LOGIN).isDisplayed(timeOut);
+        } catch (err) {
+            throw new errorwrapper.CustomError(this.isLoginPageDisplayed, err.message);
+        }
     }
 
     /**
@@ -198,204 +161,101 @@ export default class GeneralPage {
      * @returns {Promise<LoginPage>}
      * @memberof GeneralPage
      */
+    public async goToPage(namePage: PageName): Promise<any> {
+        try {
+            await Logger.write(FunctionType.UI, `Going to ${namePage} Page`)
+            await this.navigationItem(namePage).waitForPresenceOf();
+            await this.navigationItem(namePage).click();
+            if (namePage == PageName.LOGIN) {
+                let loginPage = require(`../page-objects/login-page`).default;
+                return await loginPage.getLoginPageInstance();
+            } else if (namePage == PageName.LOGOUT) {
+                let homePage = require(`../page-objects/home-page`).default;
+                return await homePage.getHomePageInstance();
+            } else if (namePage == PageName.REGISTER) {
+                let registerPage = require(`../page-objects/register-page`).default;
+                return await registerPage.getRegisterPageInstance();
+            } else if (namePage == PageName.CHANGEPASSWORD) {
+                let changePasswordPage = require(`../page-objects/change-password-page`).default;
+                return await changePasswordPage.getChangePassWordPageInstance();
+            }
+            else if (namePage == PageName.BOOKTICKET) {
+                let bookTicketPage = require(`../page-objects/book-ticket-page`).default;
+                return await bookTicketPage.getBookTickeInstance();
+            } else if (namePage == PageName.TIMETABLE) {
+                let timeTablePage = require(`../page-objects/time-table-page`).default;
+                return await timeTablePage.getTimeTablePageInstance();
+            } else if (namePage == PageName.MYTICKET) {
+                let myticketPage = require(`../page-objects/myticket-page`).default;
+                return await myticketPage.getMyTicketPageInstance();
+            }
 
-     
-    public async goToPage(namePage: PageName): Promise<any>
-	{ try{
-        await Logger.write(FunctionType.UI, `Going to ${namePage} Page`)
-        await this.navigationItem(namePage).waitForPresenceOf();
-        await this.navigationItem(namePage).click();
-        if (namePage==PageName.LOGIN){
-            let loginPage  = require(`../page-objects/login-page`).default;
-            return  await loginPage.getLoginPageInstance();
-        } else if (namePage==PageName.LOGOUT){
-            let homePage  = require(`../page-objects/home-page`).default;
-            return  await homePage.getHomePageInstance();
-        } else if (namePage==PageName.REGISTER)
-        {
-            let registerPage = require(`../page-objects/register-page`).default;
-            return await registerPage.getRegisterPageInstance();
-        } else if (namePage==PageName.CHANGEPASSWORD)
-        {
-            let changePasswordPage = require(`../page-objects/change-password-page`).default;
-            return await changePasswordPage.getChangePassWordPageInstance();
-        } 
-        else if (namePage==PageName.BOOKTICKET)
-        {
-            let bookTicketPage = require(`../page-objects/book-ticket-page`).default;
-            return await bookTicketPage.getBookTickeInstance();
-        } 
-
-    } catch(err){
-        throw new errorwrapper.CustomError(this.goToLoginPage, err.message)
-    }     
-    }
-    /**
-     * Go to Register Page
-     * @returns {Promise<RegisterPage>}
-     * @memberof GeneralPage
-     */
-    public async goToRegisterPage(): Promise<RegisterPage>
-	{ try{
-        await Logger.write(FunctionType.UI, `Going to Register Page`)
-        await this.tabLogin.click();
-        let registerPage = require(`../page-objects/register-page`).default;
-        return await registerPage.getRegisterPageInstance();
-    } catch(err){
-        throw new errorwrapper.CustomError(this.goToRegisterPage, err.message)
-    }     
-    }
-     /**
-     * Go to Change password Page
-     * @returns {Promise<ChangePassWordPage>}
-     * @memberof GeneralPage
-     */
-    public async goToChangePassword(): Promise<ChangePassWordPage>
-	{ try{
-        await Logger.write(FunctionType.UI, `Going to Change Password Page`)
-        await this.tabLogin.click();
-        let changePasswordPage = require(`../page-objects/change-password-page`).default;
-        return await changePasswordPage.getChangePassWordInstance();
-    } catch(err){
-        throw new errorwrapper.CustomError(this.goToChangePassword, err.message)
-    }     
-    }
-    /**
-     * Go to Time table Page
-     * @returns {Promise<TimeTablePage>}
-     * @memberof GeneralPage
-     */
-    public async goToTabTimeTable(): Promise<TimeTablePage>
-	{ try{
-        await Logger.write(FunctionType.UI, `Going to Time table page`)
-        await this.tabTimeTable.click();
-        let timeTablePage = require(`../page-objects/time-table-page`).default;
-        return await timeTablePage.getTimeTablePageInstance();
-    } catch(err){
-        throw new errorwrapper.CustomError(this.goToTabTimeTable, err.message)
-    }     
-    }
-    /**
-     * Go to book ticket Page
-     * @returns {Promise<BookTicketPage>}
-     * @memberof GeneralPage
-     */
-    public async goToBookTicket(): Promise<BookTicketPage>
-	{ try{
-        await Logger.write(FunctionType.UI, `Going to book ticket page`)
-        await this.tabLogin.click();
-        let bookTicketPage = require(`../page-objects/book-ticket-page`).default;
-        return await bookTicketPage.getBookTickeInstance();
-    } catch(err){
-        throw new errorwrapper.CustomError(this.goToBookTicket, err.message)
-    }     
-    }
-    /**
-     * Go to ticket price Page
-     * @returns {Promise<TicketPricePage>}
-     * @memberof GeneralPage
-     */
-    public async goToTicketPricePage(): Promise<TicketPricePage>
-	{ try{
-        await Logger.write(FunctionType.UI, `Going to ticket price page`)
-        await this.tabLogin.click();
-        let ticketPricePage = require(`../page-objects/ticket-price-page`).default;
-        return await ticketPricePage.getTicketPricePageInstance();
-    } catch(err){
-        throw new errorwrapper.CustomError(this.goToTicketPricePage, err.message)
-    }     
-    }
-     /**
-     * Go to my ticket Page
-     * @returns {Promise<MyTicketPage>}
-     * @memberof GeneralPage
-     */
-    public async goToMyTicketPage(): Promise<MyTicketPage>
-	{ try{
-        await Logger.write(FunctionType.UI, `Going to ticket page`)
-        await this.tabLogin.click();
-        let myTicketPage = require(`../page-objects/my-ticket-page`).default;
-        return await myTicketPage.getMyTicketPageInstance();
-    } catch(err){
-        throw new errorwrapper.CustomError(this.goToMyTicketPage, err.message)
-    }     
-    }
-     /**
-     * Go to ticket page unlogger user Page
-     * @returns {Promise<MyTicketPage>}
-     * @memberof GeneralPage
-     */
-    public async goToBookTicketUnloggedUser(): Promise<LoginPage>
-	{ try{
-        await Logger.write(FunctionType.UI, `Going to book ticket page unlogger user`)
-        await this.tabBookTicket.click();
-        let loginPage = require(`../page-objects/login-page`).default;
-        return await loginPage.getLoginPageInstance();
-    } catch(err){
-        throw new errorwrapper.CustomError(this.goToBookTicketUnloggedUser, err.message)
-    }     
+        } catch (err) {
+            throw new errorwrapper.CustomError(this.goToPage, err.message)
+        }
     }
 
-    public async getTableCellValue(tablename: string, rowindex : number, columnname: string)
-    {
-      try{
-        return this.cellTable(tablename, rowindex, columnname).getText();
-      } catch (err){
-          throw new errorwrapper.CustomError(this.getTableCellValue,message)
-      }                
+    public async getTableCellValue(tablename: string, rowindex: number, columnname: string): Promise<any> {
+        try {
+            return await this.cellTable(tablename, rowindex, columnname).getText();
+        } catch (err) {
+            throw new errorwrapper.CustomError(this.getTableCellValue, err.message)
+        }
     }
-    public async getTableCellValueCheckPrice(tablename: string, rowindex : number, columnname: string)
-    {
-      try{
-        return this.cellTableCheckPrice(tablename, rowindex, columnname).getText();
-      } catch (err){
-          throw new errorwrapper.CustomError(this.getTableCellValueCheckPrice,message)
-      }                
+    public async getTableCellValueCheckPrice(tablename: string, rowindex: number, colunmindex: number, columnname: string) {
+        try {
+            return this.cellTableCheckPrice(tablename, rowindex, colunmindex, columnname).getText();
+        } catch (err) {
+            throw new errorwrapper.CustomError(this.getTableCellValueCheckPrice, message)
+        }
     }
-    public async getRowNumber(table: string)
-    {
-      try{
-        const StringFormat = (str: string, ...args: string[]) =>
-        str.replace(/{(\d+)}/g, (match, index) => args[index] || '')
-        let xpath: string = StringFormat("//table[@class='{0}']//tr", table);
-        return BrowserWrapper.getDriverInstance().FindElements(by.xpath(xpath)).count();
+    public async getRowNumber(table: string) {
+        try {
+            const StringFormat = (str: string, ...args: string[]) =>
+                str.replace(/{(\d+)}/g, (match, index) => args[index] || '')
+            let xpath: string = StringFormat("//table[@class='{0}']//tr", table);
+            return BrowserWrapper.getDriverInstance().FindElements(by.xpath(xpath)).count();
 
-      } catch (err){
-          throw new errorwrapper.CustomError(this.getRowNumber,message)
-      }                
-    }
-    public async getcollunmNumber(table: string)
-    {
-      try{
-        return this.rowNumber(table).getSize()
-      } catch (err){
-          throw new errorwrapper.CustomError(this.getcollunmNumber,message)
-      }                
-    }
-    public async bookTicketFromTicketPrice(departstation: string,arrivestation: string,seattype: string): Promise<BookTicketPage>
-     {
-         try{
-         let train : string = departstation + " to " + arrivestation;
-         await this.checkPrice(train).click();
-         await this.bookTicket(seattype).click();
-         let bookTicketPage = require(`../page-objects/book-ticket-page`).default;
-         return await bookTicketPage.getBookTickeInstance()
-         } catch(err){
-             throw new errorwrapper.CustomError(this.bookTicketFromTicketPrice, err.message)
-         }
-     }
-      /**
-     * Return true if logout, false if log in
-     *@returns{Promise<boolean>}
-     *@memberof GeneralPage
-     */
-    public async isLogOut(): Promise<boolean>
-	{  try{
-        return this.navigationItem(PageName.LOGIN).isDisplayed();
-	}catch (err){
-        throw new errorwrapper.CustomError(this.getWelcomeMessage,err.message)
-    }
+        } catch (err) {
+            throw new errorwrapper.CustomError(this.getRowNumber, message)
+        }
     }
     
+    public async bookTicketFromTicketPrice(departstation: string, arrivestation: string, seattype: string): Promise<BookTicketPage> {
+        try {
+            let train: string = departstation + " to " + arrivestation;
+            await this.checkPrice(train).click();
+            await this.bookTicket(seattype).click();
+            let bookTicketPage = require(`../page-objects/book-ticket-page`).default;
+            return await bookTicketPage.getBookTickeInstance()
+        } catch (err) {
+            throw new errorwrapper.CustomError(this.bookTicketFromTicketPrice, err.message)
+        }
+    }
+    /**
+   * Return true if logout, false if log in
+   *@returns{Promise<boolean>}
+   *@memberof GeneralPage
+   */
+    public async isLogOut(timeOut?: number): Promise<boolean> {
+        try {
+            return this.navigationItem(PageName.LOGOUT).isDisplayed();
+        } catch (err) {
+            throw new errorwrapper.CustomError(this.isLogOut, err.message)
+        }
+    }
 
+    public async activateAccount (username: string) : Promise<RegisterPage>{
+        try
+        {
+            await Logger.write(FunctionType.UI, `Going to active new account`)
+            let findMsg: string = "Please confirm your account " + username;
+            let activeLink: string= await GmailHelper.getLinkActiveByTitle(findMsg)
+            await BrowserWrapper.get(activeLink);
+            let registerPage = require(`../page-objects/register-page`).default;
+            return await registerPage.getRegisterPageInstance();
+    } catch(err){
+        throw new errorwrapper.CustomError(this.activateAccount, err.message)
+    }
+    }
 }

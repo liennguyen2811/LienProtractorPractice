@@ -15,6 +15,7 @@ const v4_1 = __importDefault(require("uuid/v4"));
 const json2typescript_1 = require("json2typescript");
 const filePath = __importStar(require("path"));
 const general_1 = require("@data-objects/general/general");
+const moment_1 = __importDefault(require("moment"));
 class Utility {
     static insert(str, index, value) {
         try {
@@ -70,6 +71,15 @@ class Utility {
         }
         catch (err) {
             throw new error_wapper_1.errorwrapper.CustomError(this.createRandomString, err.message);
+        }
+    }
+    static formatDateTime(dateTime, oldFormat, newFormat) {
+        try {
+            let dateStr = moment_1.default(dateTime, oldFormat).format(newFormat);
+            return dateStr;
+        }
+        catch (err) {
+            throw new error_wapper_1.errorwrapper.CustomError(this.formatDateTime, err.message);
         }
     }
     static addDateToCurrentDate(day = 0, month = 0, year = 0, dayFormat = "", monthFormat = "", yearFormat = "") {

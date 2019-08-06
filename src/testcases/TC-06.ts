@@ -8,13 +8,13 @@ import { Account } from '@data-objects/railway/account';
 import RegisterPage from '@page-objects/register-page';
 
  /* Type: RailWay
- * Suite: Login
+ * Suite: Manage account
  * TC ID: TC01
  * Tested browser: Chrome
  * Tested OS: Windows 10
  */
 
-describe('Login suite TC01', function () {
+describe('Manage account TC06', function () {
 
   TestBase.scheduleTestBase();
 
@@ -25,9 +25,10 @@ describe('Login suite TC01', function () {
   let registerPage: RegisterPage;
   let account: Account = new Account();
   let expectedText: string = "Thank you for registering your account";
+  let expectedMsg: string = "Welcome ";
 
   beforeEach(async () => {
-      await Logger.write(FunctionType.API, `TC01- User can login into Raiway with valid username and password`);
+      await Logger.write(FunctionType.API, `TC06-User can create new account`);
       homePage = HomePage.getHomePageInstance();
   }, TestRunInfo.conditionTimeout);
 
@@ -40,18 +41,25 @@ describe('Login suite TC01', function () {
 
             //3.Enter valid information into all fields
             account.initAccount();
-           await registerPage.RegisterAccount(account);
+            await registerPage.RegisterAccount(account);
 
             // VP. Home page displays."Log out" tab is disappeared.  
             expect (await registerPage.getThankMessage()).toBe(expectedText, "Thank message does not appear");
+
+            //VP User can log in with new account
+            await registerPage.activateAccount(account.Email);
+            await homePage.goToPage(PageName.LOGIN);
+            await loginPage.login(account.Email, account.Password);
+            expect (await homePage.getWelcomeMsg()).toBe(expectedMsg + account.Email, "Failed by: Could not login")
+
     
   });
 
   afterEach(async () => {
       await Logger.write(FunctionType.NONE, `Final - Cleaning Up\n`);
       try {
-          //logout 
-         // homePage.goToPage(PageName.LOGOUT);
+         // logout 
+         homePage.goToPage(PageName.LOGOUT);
       }
       catch (err) { }
   }, TestRunInfo.conditionTimeout);

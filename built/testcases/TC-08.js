@@ -16,9 +16,9 @@ const test_run_info_1 = __importDefault(require("@data-objects/general/test-run-
 const test_base_1 = __importDefault(require("@testcases/test-base"));
 const home_page_1 = __importDefault(require("@page-objects/home-page"));
 const general_1 = require("@data-objects/general/general");
-describe('Login suite - TC08', function () {
+describe('Manage account - TC08', function () {
     test_base_1.default.scheduleTestBase();
-    let newPass = "liennguyen1";
+    let newPass = "newPassword1";
     let expectedMsg = "Your password has been updated!";
     let homePage = new home_page_1.default();
     let loginPage;

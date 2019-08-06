@@ -5,6 +5,7 @@ import BrowserWrapper from "../browser-wrapper";
 import { by, Locator, ElementFinder } from "protractor";
 import StopWatch from "@utilities/general/stop-watch";
 
+
 export default class Combobox extends Clickable implements ICombobox{
     
     constructor(obj: Locator | ElementFinder) {
@@ -22,7 +23,7 @@ export default class Combobox extends Clickable implements ICombobox{
         sw.startClock();
         try{
 
-            await this._element.waitForControlStable();
+            //await this._element.waitForControlStable();
             await this._element.click()
             let e = await this._element.element(by.xpath(`//*[@id = '${id}']`));
             await e.click();
@@ -48,11 +49,13 @@ export default class Combobox extends Clickable implements ICombobox{
         sw.startClock();
 
         try {
-            await this._element.waitForControlStable();
+            //await this._element.waitForControlStable();
+            BrowserWrapper.sleepInSecond(2);
             await this._element.click();
             let optionElement = await this._element.element(by);
             await optionElement.click();
-            await this._element.waitForControlStable();
+            BrowserWrapper.sleepInSecond(2);
+            //await this._element.waitForControlStable();
         } catch (err) {
             if ((<Error>err).message.includes("element not interactable")) {
                 await this.selectOption(by, sw.getTimeLeftInSecond(timeoutInSecond));
@@ -67,13 +70,14 @@ export default class Combobox extends Clickable implements ICombobox{
      * @returns {Promise<void>}
      * @memberof SelectElementWrapper
      */
-    public async selectOptionByText(text: string){
+    public async selectOptionByText(text: string, parent: string){
         try{
+            BrowserWrapper.sleepInSecond(2);
             let tagName= await this._element.getAttribute("tagName");
             let locator: Locator = "";
             let tagNameLowCase = await tagName.toLowerCase();
             if(tagNameLowCase == "select"){
-                locator = by.xpath(`//option[text()='${text}']`);
+                locator = by.xpath(`//select[@name= '${parent}']//option[text()='${text}']`);
             }else if (tagNameLowCase =="div"){
                 locator = by.xpath(`//div[@role='option']//span[contains(text(),'${text}')]`)
             }
@@ -82,6 +86,7 @@ export default class Combobox extends Clickable implements ICombobox{
             throw new errorwrapper.CustomError(this.selectOptionByText, err.message)
         }
     }
+    
     
     /**
     * Select option element by text with index

@@ -28,13 +28,14 @@ describe('Book Ticket TC01', function () {
         yield logger_1.Logger.write(logger_1.FunctionType.TESTCASE, `TC11- User can book 1 ticket at a time`);
         homePage = home_page_1.default.getHomePageInstance();
     }), test_run_info_1.default.conditionTimeout);
-    it('TC01- User can book 1 ticket at a time', () => __awaiter(this, void 0, void 0, function* () {
+    it('TC11- User can book 1 ticket at a time', () => __awaiter(this, void 0, void 0, function* () {
         loginPage = yield homePage.goToPage(general_1.PageName.LOGIN);
         yield loginPage.login(test_run_info_1.default.USERNAME, test_run_info_1.default.PASSWORD);
         bookTickePage = yield homePage.goToPage(general_1.PageName.BOOKTICKET);
-        ticket.initTicket(general_1.Station.DANANG, general_1.Station.NHATRANG, general_1.SeatType.SOFTBEDWITHAIR, 1);
+        ticket.initTicket(general_1.Station.SAIGON, general_1.Station.NHATRANG, general_1.SeatType.SOFTBEDWITHAIR, 1);
         yield bookTickePage.getBookTicket(ticket);
         expect(yield bookTickePage.getBookTicketMessage()).toBe(expectedMsg, "Could not get book ticket");
+        expect(yield bookTickePage.checkBookTicketInfoDisplay(ticket)).toBe(true, "Tiket displays wrong after booking");
     }));
     afterEach(() => __awaiter(this, void 0, void 0, function* () {
         yield logger_1.Logger.write(logger_1.FunctionType.NONE, `Final - Cleaning Up\n`);

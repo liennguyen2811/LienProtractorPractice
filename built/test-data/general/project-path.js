@@ -33,5 +33,6 @@ ProjectPath.pageObjects = ProjectPath.getPath("built\\page-objects").replace(/\\
 ProjectPath.dataObjects = ProjectPath.getPath("built\\data-objects").replace(/\\/g, "/");
 ProjectPath.utilities = ProjectPath.getPath("built\\utilities").replace(/\\/g, "/");
 ProjectPath.test_helpers = ProjectPath.getPath("built\\test-helpers").replace(/\\/g, "/");
+ProjectPath.project = ProjectPath.getPath().replace(/\\/g, "/");
 exports.default = ProjectPath;
 //# sourceMappingURL=project-path.js.map

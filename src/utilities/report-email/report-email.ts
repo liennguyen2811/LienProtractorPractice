@@ -3,6 +3,7 @@ import * as fileSystem from 'fs';
 import * as fs from "fs-extra"
 import * as filePath from "path"
 import { ConfigReport } from "./config-report";
+import ProjectPath from "@test-data/general/project-path";
 
 
 // Variable
@@ -44,7 +45,8 @@ export default class HTMLEmailRepportCustom{
     static generateReportForBuild(reportXml,path){
 
         //Read result report xml
-        console.log("Lien 1");
+//         console.log("Lien 1");
+
         let testResultXMl = new xmlDocument.XmlDocument(fileSystem.readFileSync(reportXml, 'utf8'));
         let testSuites = testResultXMl.childrenNamed('testsuite');
 

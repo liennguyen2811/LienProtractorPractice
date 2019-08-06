@@ -3,6 +3,7 @@ import uuidv4 from 'uuid/v4';
 import { JsonConvert, ValueCheckingMode } from "json2typescript";
 import * as filePath from "path"
 import { SeatType, Station } from "@data-objects/general/general";
+import moment from "moment";
 
 
 export class Utility{
@@ -91,6 +92,23 @@ export class Utility{
 			return randomString;
 		} catch (err) {
 			throw new errorwrapper.CustomError(this.createRandomString, err.message);
+		}
+	}
+	/**
+	 * Convert Date time format
+	 * @static
+	 * @param {string} dateTime
+	 * @param {string} oldFormat
+	 * @param {string} newFormat
+	 * @returns {string} Date time with new format
+	 * @memberof Utility
+	 */
+	public static formatDateTime(dateTime: string, oldFormat: string, newFormat: string): string {
+		try {
+			let dateStr: string = moment(dateTime, oldFormat).format(newFormat);
+			return dateStr;
+		} catch (err) {
+			throw new errorwrapper.CustomError(this.formatDateTime, err.message);
 		}
 	}
 	/**

@@ -16,12 +16,12 @@ const test_run_info_1 = __importDefault(require("@data-objects/general/test-run-
 const test_base_1 = __importDefault(require("@testcases/test-base"));
 const home_page_1 = __importDefault(require("@page-objects/home-page"));
 const general_1 = require("@data-objects/general/general");
-describe('Login suite TC01', function () {
+describe('Login suite TC05', function () {
     test_base_1.default.scheduleTestBase();
     let homePage = new home_page_1.default();
     let loginPage;
     beforeEach(() => __awaiter(this, void 0, void 0, function* () {
-        yield logger_1.Logger.write(logger_1.FunctionType.TESTCASE, `TC01- User can login into Raiway with valid username and password`);
+        yield logger_1.Logger.write(logger_1.FunctionType.TESTCASE, `TC05- User is redirected to Home page after logging out`);
         homePage = home_page_1.default.getHomePageInstance();
     }), test_run_info_1.default.conditionTimeout);
     it('TC05- User is redirected to Home page after logging out', () => __awaiter(this, void 0, void 0, function* () {
@@ -29,7 +29,7 @@ describe('Login suite TC01', function () {
         yield loginPage.login(test_run_info_1.default.USERNAME, test_run_info_1.default.PASSWORD);
         loginPage.goToPage(general_1.PageName.CONTACT);
         loginPage.goToPage(general_1.PageName.LOGOUT);
-        expect(yield homePage.isLogOut()).toBe(true, "It does not log out");
+        expect(yield homePage.isLogOut(test_run_info_1.default.testTimeout)).toBe(true, "It does not log out");
     }));
     afterEach(() => __awaiter(this, void 0, void 0, function* () {
         yield logger_1.Logger.write(logger_1.FunctionType.NONE, `Final - Cleaning Up\n`);

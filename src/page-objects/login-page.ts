@@ -24,10 +24,13 @@ export default class LoginPage extends GeneralPage {
         try{
         // Submit login credetials
         await this.password.scrollToElement();
+        await this.userName.waitForControlStable();
         await this.userName.sendKeys(username);
         if (password != "") {
             await this.password.sendKeys(password);
+            await this.password.waitForControlStable();
         }
+        await this.logIn.waitForControlStable();
         await this.logIn.click();
         // Land on Home page
         return HomePage.getHomePageInstance();
@@ -63,7 +66,7 @@ export default class LoginPage extends GeneralPage {
                 await this.login("liennguyenlogigear12@gmail.com", "liennguyen1");  
             }
             let homePage: HomePage = await this.login(username, password);
-            return  await homePage.getNonpasswordmessage()
+            return  await homePage.getNonePasswordMsg()
            
 
         } catch (err) {

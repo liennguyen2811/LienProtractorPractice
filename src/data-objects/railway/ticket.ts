@@ -47,22 +47,24 @@ export class Ticket{
             this.departstation = Utility.GenerateStation();
             this.seattype = Utility.GenerateStation();
             this.ticketamount = 1;
-           // this.ArriveStation = Constant.stations[this.DepartFrom][new Random().Next(Constant.stations[this.DepartFrom].Count())];
+           // addDateToCurrentDate(3); this.ArriveStation = Constant.stations[this.DepartFrom][new Random().Next(Constant.stations[this.DepartFrom].Count())];
              return this;
         }
         public initTicket(departstation:Station,arrivestation: Station, seattype: SeatType, ticketamount: number)
         {
-            this.departstation = Utility.TranslateStation(departstation);
-            this.arrivestation = Utility.TranslateStation(arrivestation);
-            this.departdate = Utility.addDateToCurrentDate(1);
-            this.seattype = Utility.TranslateSeatType(seattype);
+            this.departstation = departstation;
+            this.arrivestation = arrivestation;
+            //console.log(Utility.addDateToCurrentDate(3));
+            this.departdate = Utility.formatDateTime(Utility.addDateToCurrentDate(3),"MM DD YYYY", "mM DD YYYY")
+            //console.log(this.departdate);
+            this.seattype = seattype;
             this.ticketamount = ticketamount;
         }
         public Ticket1(departdate: string, departstation: Station, arrivestation: Station, seattype: SeatType, ticketamount: number)
         {
             this.departstation = Utility.TranslateStation(departstation);
             this.arrivestation = Utility.TranslateStation(arrivestation);
-            this.departdate = Utility.addDateToCurrentDate(1);
+            this.departdate = Utility.addDateToCurrentDate(3);
             this.seattype = Utility.TranslateSeatType(seattype);
             this.ticketamount = ticketamount;
         }

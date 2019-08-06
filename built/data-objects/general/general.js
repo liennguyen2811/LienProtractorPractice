@@ -41,6 +41,8 @@ var PageName;
     PageName["CHANGEPASSWORD"] = "Change password";
     PageName["CONTACT"] = "Contact";
     PageName["BOOKTICKET"] = "Book ticket";
+    PageName["TIMETABLE"] = "Timetable";
+    PageName["MYTICKET"] = "My ticket";
 })(PageName = exports.PageName || (exports.PageName = {}));
 var RegisterItem;
 (function (RegisterItem) {
@@ -58,20 +60,20 @@ var ChangePasswordItem;
 })(ChangePasswordItem = exports.ChangePasswordItem || (exports.ChangePasswordItem = {}));
 var Station;
 (function (Station) {
-    Station[Station["SAIGON"] = 0] = "SAIGON";
-    Station[Station["PHANTHIET"] = 1] = "PHANTHIET";
-    Station[Station["NHATRANG"] = 2] = "NHATRANG";
-    Station[Station["DANANG"] = 3] = "DANANG";
-    Station[Station["HUE"] = 4] = "HUE";
-    Station[Station["QUANGNGAI"] = 5] = "QUANGNGAI";
+    Station["SAIGON"] = "S\u00E0i G\u00F2n";
+    Station["PHANTHIET"] = "Phan Thi\u1EBFt";
+    Station["NHATRANG"] = "Nha Trang";
+    Station["DANANG"] = "\u0110\u00E0 N\u1EB5ng";
+    Station["HUE"] = "Hu\u1EBF";
+    Station["QUANGNGAI"] = "Qu\u00E3ng Ng\u00E3i";
 })(Station = exports.Station || (exports.Station = {}));
 var SeatType;
 (function (SeatType) {
-    SeatType[SeatType["HARDSEAT"] = 0] = "HARDSEAT";
-    SeatType[SeatType["SOFTSEAT"] = 1] = "SOFTSEAT";
-    SeatType[SeatType["SOFTSEATWITHAIR"] = 2] = "SOFTSEATWITHAIR";
-    SeatType[SeatType["HARDBED"] = 3] = "HARDBED";
-    SeatType[SeatType["SOFTBED"] = 4] = "SOFTBED";
-    SeatType[SeatType["SOFTBEDWITHAIR"] = 5] = "SOFTBEDWITHAIR";
+    SeatType["HARDSEAT"] = "Hard seat";
+    SeatType["SOFTSEAT"] = "Soft seat";
+    SeatType["SOFTSEATWITHAIR"] = "Soft seat with air conditioner";
+    SeatType["HARDBED"] = "Hard bed";
+    SeatType["SOFTBED"] = "Soft bed";
+    SeatType["SOFTBEDWITHAIR"] = "Soft bed with air conditioner";
 })(SeatType = exports.SeatType || (exports.SeatType = {}));
 //# sourceMappingURL=general.js.map

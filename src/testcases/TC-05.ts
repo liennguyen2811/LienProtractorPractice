@@ -12,7 +12,7 @@ import { PageName } from '@data-objects/general/general';
  * Tested OS: Windows 10
  */
 
-describe('Login suite TC01', function () {
+describe('Login suite TC05', function () {
 
   TestBase.scheduleTestBase();
 
@@ -22,7 +22,7 @@ describe('Login suite TC01', function () {
   let loginPage: LoginPage
 
   beforeEach(async () => {
-      await Logger.write(FunctionType.TESTCASE, `TC01- User can login into Raiway with valid username and password`);
+      await Logger.write(FunctionType.TESTCASE, `TC05- User is redirected to Home page after logging out`);
       homePage = HomePage.getHomePageInstance();
   }, TestRunInfo.conditionTimeout);
 
@@ -38,7 +38,7 @@ describe('Login suite TC01', function () {
             loginPage.goToPage(PageName.LOGOUT);
 
             // VP. Home page displays."Log out" tab is disappeared.  
-            expect (await homePage.isLogOut()).toBe(true, "It does not log out");
+            expect (await homePage.isLogOut(TestRunInfo.testTimeout)).toBe(true, "It does not log out");
     
   });
 

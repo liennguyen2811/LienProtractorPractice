@@ -37,7 +37,9 @@ export enum PageName{
   REGISTER = "Register",
   CHANGEPASSWORD = "Change password",
   CONTACT ="Contact",
-  BOOKTICKET = "Book ticket"
+  BOOKTICKET = "Book ticket",
+  TIMETABLE = "Timetable",
+  MYTICKET = "My ticket"
 }
 
 export enum RegisterItem{
@@ -55,19 +57,19 @@ export enum ChangePasswordItem{
 }
 export enum Station
     {
-        SAIGON,
-        PHANTHIET,
-        NHATRANG,
-        DANANG,
-        HUE,
-        QUANGNGAI
+        SAIGON = "Sài Gòn",
+        PHANTHIET = "Phan Thiết",
+        NHATRANG = "Nha Trang",
+        DANANG = "Đà Nẵng",
+        HUE = "Huế",
+        QUANGNGAI = "Quãng Ngãi"
     }
 export enum SeatType
     {
-        HARDSEAT,
-        SOFTSEAT,
-        SOFTSEATWITHAIR,
-        HARDBED,
-        SOFTBED,
-        SOFTBEDWITHAIR
+        HARDSEAT = "Hard seat",
+        SOFTSEAT="Soft seat",
+        SOFTSEATWITHAIR = "Soft seat with air conditioner" ,
+        HARDBED = "Hard bed",
+        SOFTBED = "Soft bed",
+        SOFTBEDWITHAIR ="Soft bed with air conditioner"
     }

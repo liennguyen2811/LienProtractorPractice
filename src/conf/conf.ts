@@ -25,7 +25,7 @@ export let config : Config = {
       }
     });
 
-    await ConfigReport.createXMLReport1();
+    await ConfigReport.createXMLReport();
   },
 
   onComplete: async function(){
@@ -38,32 +38,23 @@ export let config : Config = {
    },
 
 
-  // capabilities: {
-  //   browserName: 'chrome',
-  //   shardTestFiles: true,
-  //   maxInstances: 2
-  // },
-
-//   multiCapabilities: [
-//     {
-//         browserName: 'chrome',        
-//         shardTestFiles: true,
-//         maxInstances: 2,
-//         specs: ['../testcases/TC-01.js']
-//     },
-//     {
-//         browserName: 'firefox',
-//         count: 1,
-//         specs: ['../testcases/TC-02.js']
-//     },
-// ],
-
 seleniumAddress: 'http://192.168.170.195:4444/wd/hub',
 directConnect: false,
 SELENIUM_PROMISE_MANAGER: false,
 //seleniumAddress: 'http://localhost:4444/wd/hub',
-   specs: [//'../testcases/TC-02.js',
-          //'../testcases/TC-01.js',
-         //'../testcases/TC-03.js',
-          '../testcases/TC-011.js']
+   specs: [//'../testcases/TC-04.js',
+        //   '../testcases/TC-01.js',
+        //  '../testcases/TC-03.js',
+        //  '../testcases/TC-01.js',
+        //  '../testcases/TC-05.js',
+        //  '../testcases/TC-06.js',
+        //  '../testcases/TC-07.js',
+        // '../testcases/TC-08.js',
+        //  '../testcases/TC-09.js',
+        '../testcases/TC-10.js',
+         '../testcases/TC-11.js',
+         '../testcases/TC-12.js',
+         '../testcases/TC-13.js',
+        '../testcases/TC-15.js', 
+          '../testcases/TC-14.js']
 }

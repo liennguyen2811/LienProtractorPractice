@@ -15,6 +15,7 @@ const logger_1 = require("@utilities/general/logger");
 const test_run_info_1 = __importDefault(require("@data-objects/general/test-run-info"));
 const test_base_1 = __importDefault(require("@testcases/test-base"));
 const home_page_1 = __importDefault(require("@page-objects/home-page"));
+const general_1 = require("@data-objects/general/general");
 describe('Login suite - TC02', function () {
     test_base_1.default.scheduleTestBase();
     let expectedMsg = "There was a problem with your login and/or errors exist in your form.";
@@ -25,9 +26,9 @@ describe('Login suite - TC02', function () {
         homePage = home_page_1.default.getHomePageInstance();
     }), test_run_info_1.default.conditionTimeout);
     it('TC02- User can not login with blank Username textbox', () => __awaiter(this, void 0, void 0, function* () {
-        loginPage = yield homePage.goToLoginPage();
+        loginPage = yield homePage.goToPage(general_1.PageName.LOGIN);
         yield loginPage.login("", test_run_info_1.default.PASSWORD);
-        expect(yield homePage.getNonpasswordmessage()).toBe(expectedMsg, "Could not login");
+        expect(yield homePage.getNonePasswordMsg()).toBe(expectedMsg, "Could not login");
     }));
     afterEach(() => __awaiter(this, void 0, void 0, function* () {
         yield logger_1.Logger.write(logger_1.FunctionType.NONE, `Final - Cleaning Up\n`);

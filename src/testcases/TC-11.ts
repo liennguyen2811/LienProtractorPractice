@@ -31,7 +31,7 @@ describe('Book Ticket TC01', function () {
       homePage = HomePage.getHomePageInstance();
   }, TestRunInfo.conditionTimeout);
 
-  it('TC01- User can book 1 ticket at a time', async () => {
+  it('TC11- User can book 1 ticket at a time', async () => {
             // 1. Navigate to QA Railway Website
             loginPage = await homePage.goToPage(PageName.LOGIN);
             
@@ -46,9 +46,11 @@ describe('Book Ticket TC01', function () {
             //6. Select "Soft bed with air conditioner" for "Seat type"
             //7. Select "1" for "Ticket amount"
             //8. Click on "Book ticket" button
-            ticket.initTicket(Station.DANANG, Station.NHATRANG, SeatType.SOFTBEDWITHAIR, 1);
+            ticket.initTicket(Station.SAIGON, Station.NHATRANG, SeatType.SOFTBEDWITHAIR, 1);
             await bookTickePage.getBookTicket(ticket);
-            expect (await bookTickePage.getBookTicketMessage()).toBe(expectedMsg, "Could not get book ticket")
+            expect (await bookTickePage.getBookTicketMessage()).toBe(expectedMsg, "Could not get book ticket");
+            expect (await bookTickePage.checkBookTicketInfoDisplay(ticket)).toBe(true, "Tiket displays wrong after booking")
+
 
   });
 
